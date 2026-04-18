@@ -10,6 +10,7 @@ class_name EntityBody
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
 var aiming := false
+var max_movement := 2
 
 @onready var plan_line: Line2D = $PlanLine
 @onready var weapon_area = $WeaponArea
@@ -20,7 +21,7 @@ func _process(delta: float) -> void:
 		weapon_area.rotation = atan2(-dir.x, dir.y)
 
 func execute_turn_async() -> void:
-	while not orders.is_empty() and orders[0].can_perform(self):
+	if not orders.is_empty() and orders[0].can_perform(self):
 		await orders[0].execute_async(self)
 		orders.remove_at(0)
 	

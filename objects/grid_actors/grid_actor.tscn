@@ -11,6 +11,9 @@ metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 texture = ExtResource("2_iix85")
 
 [node name="PlanLine" type="Line2D" parent="." unique_id=1485000665]
+joint_mode = 2
+begin_cap_mode = 1
+end_cap_mode = 2
 
 [node name="WeaponArea" type="Node2D" parent="." unique_id=1856779226]
 
