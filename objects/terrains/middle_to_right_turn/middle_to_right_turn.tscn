@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://bsfead61252wh"]
+[gd_scene format=4 uid="uid://bsfead61252wh"]
+
+[ext_resource type="TileSet" uid="uid://d2uotgw6byuvt" path="res://assets/resources/tilesets/terrain_tileset_placeholder.tres" id="1_j7hle"]
 
 [node name="MiddleToRightTurn" type="Node2D" unique_id=1763125491]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1304315311]
+tile_map_data = PackedByteArray("AAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAAEAAMAAAABAAEAAAAEAAQAAAABAAEAAAAFAAQAAAABAAEAAAAFAAUAAAABAAEAAAAGAAUAAAABAAEAAAAHAAUAAAABAAEAAAAHAAQAAAABAAEAAAAEAAYAAAABAAEAAAAFAAYAAAABAAEAAAA=")
+tile_set = ExtResource("1_j7hle")
