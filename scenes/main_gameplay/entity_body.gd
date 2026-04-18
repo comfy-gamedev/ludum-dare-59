@@ -9,8 +9,15 @@ class_name EntityBody
 
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
+var aiming := false
 
 @onready var plan_line: Line2D = $PlanLine
+@onready var weapon_area = $WeaponArea
+
+func _process(delta: float) -> void:
+	if aiming:
+		var dir = get_global_mouse_position() - position
+		weapon_area.rotation = atan2(-dir.x, dir.y)
 
 func execute_turn_async() -> void:
 	while not orders.is_empty() and orders[0].can_perform(self):
@@ -37,3 +44,9 @@ func _update_plan_visuals() -> void:
 	for order in orders:
 		if order.type == EntityOrder.OrderType.MOVEMENT:
 			plan_line.add_point(battle_grid.get_cell_center(order.target_pos) - position)
+
+func on_selected():
+	aiming = true
+
+func on_deselected():
+	aiming = false

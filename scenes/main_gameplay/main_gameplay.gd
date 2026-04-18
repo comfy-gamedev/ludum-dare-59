@@ -47,6 +47,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 		if left:
 			_selected_actor = occupant
+			_selected_actor.on_selected()
 			selection_box.position = _selected_actor.position
 			selection_box.show()
 		else:
@@ -54,6 +55,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	elif _selected_actor:
 		if left:
 			_selected_actor.plan_move(grid_pos, _selected_actor.facing_vector)
+		_selected_actor.on_deselected()
 		_selected_actor = null
 		selection_box.hide()
 
