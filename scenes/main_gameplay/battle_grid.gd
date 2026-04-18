@@ -12,6 +12,7 @@ enum Team {
 }
 
 var _grid_bodies: Array[GridBody]
+var _grid_terrain: Array[GridTerrain]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -34,6 +35,14 @@ func remove_body(body: GridBody) -> void:
 	assert(body in _grid_bodies)
 	_grid_bodies.erase(body)
 
+func add_terrain(terrain: GridTerrain) -> void:
+	assert(terrain not in _grid_terrain)
+	_grid_terrain.append(terrain)
+
+func remove_terrain(terrain: GridTerrain) -> void:
+	assert(terrain in _grid_terrain)
+	_grid_terrain.erase(terrain)
+
 func get_bodies() -> Array[GridBody]:
 	return _grid_bodies.duplicate()
 
@@ -45,6 +54,12 @@ func get_cell_rect(pos: Vector2i) -> Rect2:
 
 func get_occupant(pos: Vector2i) -> GridBody:
 	for b in _grid_bodies:
+		if b.grid_position == pos:
+			return b
+	return null
+
+func get_terrain(pos: Vector2i) -> GridTerrain:
+	for b in _grid_terrain:
 		if b.grid_position == pos:
 			return b
 	return null

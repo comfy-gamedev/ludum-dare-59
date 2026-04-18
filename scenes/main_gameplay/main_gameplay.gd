@@ -27,7 +27,8 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 		return
 	
 	var occupant = battle_grid.get_occupant(grid_pos)
-	if occupant:
+	var tile_terrain = battle_grid.get_terrain(grid_pos)
+	if occupant && (!tile_terrain || !tile_terrain.signal_blocking):
 		if left:
 			_selected_actor = occupant
 			selection_box.position = _selected_actor.position

@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://scenes/main_gameplay/grid_actor.tscn" id="3_lot3w"]
 [ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/car/car.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
+[ext_resource type="Material" uid="uid://dnyj3tyg2oc7o" path="res://assets/materials/shadow_material.tres" id="6_xudop"]
+[ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://scenes/main_gameplay/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
@@ -19,6 +21,10 @@ script = ExtResource("7_2ufyh")
 
 [node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
 grid_position = Vector2i(5, 5)
+
+[node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
+position = Vector2(224, 352)
+grid_position = Vector2i(3, 3)
 
 [node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
 unique_name_in_owner = true
@@ -41,6 +47,14 @@ offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "START TURN"
+
+[node name="ShadowTile" type="ColorRect" parent="." unique_id=1934189540]
+visible = false
+material = ExtResource("6_xudop")
+offset_left = 256.0
+offset_top = 352.0
+offset_right = 288.0
+offset_bottom = 384.0
 
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]
