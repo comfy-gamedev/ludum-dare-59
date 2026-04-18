@@ -2,7 +2,7 @@ extends Node2D
 class_name GridBody
 
 @export var grid_position: Vector2i: set = set_grid_position
-@export var facing_vector: Vector2i = Vector2.ZERO
+@export var facing_vector: Vector2i = Vector2i.ZERO
 
 var battle_grid: BattleGrid
 
