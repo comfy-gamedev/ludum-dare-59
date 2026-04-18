@@ -26,9 +26,9 @@ func _process(_delta):
 	if current_scroll_offset_y < prev_scroll_offset_y:
 		segment_reset.emit()
 	
-	#if current_scroll_offset_y > prev_scroll_offset_y:
-		#if self.get_child(0).position.y < 0:
-			#print("reset??")
+	if current_scroll_offset_y > prev_scroll_offset_y:
+		if self.get_child(0).position.y < 0:
+			print("reset??")
 			#self.get_child(0).position.y += 480
 
 func middle_straight_segment():
@@ -42,9 +42,14 @@ func middle_right_segment():
 
 func _on_segment_reset():
 	if self.get_children().size() > 0:
-		if self.get_child(0).position.y < 0:
+		for n in self.get_children():
+			if n.position.y < 0:
+				n.position.y = 0
+				print("reset??")
+		
+		#if self.get_child(0).position.y < 0:
 			#print("reset??")
-			self.get_child(0).position.y += 480
+			#self.get_child(0).position.y += 480
 		
 		if segment_transition_queue.size() > 0:
 			#free_current_segment()
