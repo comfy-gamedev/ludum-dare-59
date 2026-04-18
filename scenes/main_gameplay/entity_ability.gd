@@ -1,5 +1,5 @@
 extends RefCounted
-class_name EntityAction
+class_name EntityAbility
 
 func execute(entity: EntityBody) -> void:
 	pass

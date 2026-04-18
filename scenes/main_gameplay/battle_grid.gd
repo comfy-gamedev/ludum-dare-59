@@ -46,6 +46,13 @@ func remove_terrain(terrain: GridTerrain) -> void:
 func get_bodies() -> Array[GridBody]:
 	return _grid_bodies.duplicate()
 
+func get_entities() -> Array[EntityBody]:
+	var a: Array[EntityBody]
+	for body in _grid_bodies:
+		if body is EntityBody:
+			a.append(body)
+	return a
+
 func get_terrains() -> Array[GridTerrain]:
 	return _grid_terrain.duplicate()
 

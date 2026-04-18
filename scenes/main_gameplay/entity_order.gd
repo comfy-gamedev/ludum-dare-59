@@ -3,14 +3,19 @@ class_name EntityOrder
 
 enum OrderType {
 	MOVEMENT,
-	ACTION
+	ABILITY,
 }
 
-signal order_done
-
 @export var type: OrderType
-@export var done := false
+@export var target_pos: Vector2i
+@export var target_dir: Vector2i
 
-func execute(entity: EntityBody) -> void:
-	done = true
-	order_done.emit()
+func can_perform(_entity: EntityBody) -> bool:
+	return true
+
+func execute_async(entity: EntityBody) -> void:
+	match type:
+		OrderType.MOVEMENT:
+			await entity.set_grid_position(target_pos)
+		OrderType.ABILITY:
+			print("idk")
