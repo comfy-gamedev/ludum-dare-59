@@ -52,5 +52,7 @@ text = "START TURN"
 
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
+[connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
+[connection signal="initiate_middle_to_right_transition" from="." to="Car" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]

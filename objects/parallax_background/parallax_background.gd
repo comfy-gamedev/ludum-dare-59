@@ -16,7 +16,6 @@ var segment_transition_queue = []
 func _ready():
 	var middle_straight = terrain_segments["MiddleStraight"].instantiate() #middle_straight_scene.instantiate()
 	self.add_child(middle_straight)
-	queue_middle_to_right_segment_transition()
 
 func _process(_delta):
 	prev_scroll_offset_y = current_scroll_offset_y
@@ -56,3 +55,7 @@ func free_other_segments(child_to_not_free):
 	for child in self.get_children():
 		if child_to_not_free != child:
 			child.queue_free()
+
+
+func _on_main_gameplay_initiate_middle_to_right_transition():
+	queue_middle_to_right_segment_transition()
