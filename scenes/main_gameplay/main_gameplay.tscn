@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
+[ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -24,6 +25,9 @@ grid_position = Vector2i(5, 5)
 [node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
 position = Vector2(224, 352)
 grid_position = Vector2i(3, 3)
+
+[node name="Warning" parent="BattleGrid" unique_id=1372385912 instance=ExtResource("7_vsax7")]
+grid_position = Vector2i(2, 2)
 
 [node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
 unique_name_in_owner = true
