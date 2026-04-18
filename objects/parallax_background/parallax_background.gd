@@ -25,6 +25,11 @@ func _process(_delta):
 	
 	if current_scroll_offset_y < prev_scroll_offset_y:
 		segment_reset.emit()
+	
+	#if current_scroll_offset_y > prev_scroll_offset_y:
+		#if self.get_child(0).position.y < 0:
+			#print("reset??")
+			#self.get_child(0).position.y += 480
 
 func middle_straight_segment():
 	segment_transition_queue.append("MiddleStraight")
@@ -37,9 +42,17 @@ func middle_right_segment():
 
 func _on_segment_reset():
 	if self.get_children().size() > 0:
+		if self.get_child(0).position.y < 0:
+			#print("reset??")
+			self.get_child(0).position.y += 480
+		
 		if segment_transition_queue.size() > 0:
-			free_current_segment()
-			var new_terrain_segment = terrain_segments[segment_transition_queue[0]].instantiate() #middle_straight_scene.instantiate()
+			#free_current_segment()
+			var new_terrain_segment = terrain_segments[segment_transition_queue[0]].instantiate()
+			print(new_terrain_segment.position.y)
+			new_terrain_segment.position.y -= 480
+			#self.repeat_size.y = 960.0
+			#self.screen_offset.y += 480
 			self.add_child(new_terrain_segment)
 			segment_transition_queue.pop_front()
 		
@@ -48,5 +61,5 @@ func _on_segment_reset():
 
 func free_current_segment():
 	for n in self.get_children():
-		self.remove_child(n)
+		#self.remove_child(n)
 		n.queue_free()
