@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dlm41j3s4eedk"]
+
+[ext_resource type="Script" uid="uid://bf5tkuve4flq1" path="res://objects/train/caboose.gd" id="1_3u86x"]
+[ext_resource type="Texture2D" uid="uid://ce0alk2pwqvlr" path="res://assets/textures/objects/caboose1.png" id="1_23tvs"]
+
+[node name="Caboose" type="Node2D" unique_id=2023632522]
+script = ExtResource("1_3u86x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057995835]
+texture = ExtResource("1_23tvs")
