@@ -22,6 +22,14 @@ Globals="*uid://ceofjepgwrwdk"
 SceneGirl="*uid://c6dqp4kex16cl"
 MusicMan="*uid://cpf3ikq4svnj4"
 
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/size/window_width_override=1280
+window/size/window_height_override=960
+window/stretch/mode="canvas_items"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

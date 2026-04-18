@@ -1,77 +1,17 @@
 [gd_scene format=3 uid="uid://c3rvm3rw6opg"]
 
-[ext_resource type="Script" uid="uid://654itoswefaq" path="res://node_types/camera_shake.gd" id="1_lrklj"]
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
-[ext_resource type="Script" uid="uid://vefngtlhtmr0" path="res://scenes/main_gameplay/character.gd" id="3_ksi3j"]
-[ext_resource type="Texture2D" uid="uid://diy6lxlnbux18" path="res://icon.svg" id="4_kqmhi"]
-[ext_resource type="Script" uid="uid://bn1mn3426bv5" path="res://scenes/main_gameplay/character_crazy_state.gd" id="5_nbr0a"]
-[ext_resource type="Script" uid="uid://garforeuutfr" path="res://scenes/main_gameplay/character_normal_state.gd" id="5_xudop"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fenso"]
-normal = Vector2(1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vywn0"]
-normal = Vector2(-1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6mfka"]
-normal = Vector2(0, 1)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4kntg"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5boca"]
-radius = 33.9559
+[ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://scenes/main_gameplay/grid_actor.tscn" id="3_lot3w"]
+[ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
 
-[node name="Walls" type="StaticBody2D" parent="." unique_id=2002945032]
+[node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
+script = ExtResource("7_2ufyh")
+metadata/_custom_type_script = "uid://by0ftck60x6kp"
 
-[node name="LeftWall" type="CollisionShape2D" parent="Walls" unique_id=1826278116]
-position = Vector2(0, 322)
-shape = SubResource("WorldBoundaryShape2D_fenso")
+[node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
+grid_position = Vector2i(5, 5)
 
-[node name="RightWall" type="CollisionShape2D" parent="Walls" unique_id=1972155685]
-position = Vector2(959, 322)
-shape = SubResource("WorldBoundaryShape2D_vywn0")
-
-[node name="TopWall" type="CollisionShape2D" parent="Walls" unique_id=430854500]
-position = Vector2(485, -2)
-shape = SubResource("WorldBoundaryShape2D_6mfka")
-
-[node name="BottomWall" type="CollisionShape2D" parent="Walls" unique_id=988143617]
-position = Vector2(486, 719)
-shape = SubResource("WorldBoundaryShape2D_4kntg")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2109315429]
-position = Vector2(480, 360)
-
-[node name="CameraShake" type="Node" parent="Camera2D" unique_id=498423804]
-script = ExtResource("1_lrklj")
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1482648710]
-position = Vector2(478, 356)
-texture = ExtResource("4_kqmhi")
-
-[node name="BouncingCharacterBody2D" type="CharacterBody2D" parent="." unique_id=1857344138]
-z_index = 1
-position = Vector2(478, 360)
-script = ExtResource("3_ksi3j")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BouncingCharacterBody2D" unique_id=1608520128]
-shape = SubResource("CircleShape2D_5boca")
-
-[node name="Sprite" type="Sprite2D" parent="BouncingCharacterBody2D" unique_id=1061182420]
-z_index = -1
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_kqmhi")
-
-[node name="LimboHSM" type="LimboHSM" parent="BouncingCharacterBody2D" unique_id=290452552]
-
-[node name="NormalState" type="LimboState" parent="BouncingCharacterBody2D/LimboHSM" unique_id=1308264122]
-script = ExtResource("5_xudop")
-
-[node name="CrazyState" type="LimboState" parent="BouncingCharacterBody2D/LimboHSM" unique_id=1477666284]
-script = ExtResource("5_nbr0a")
-
-[connection signal="bounce" from="BouncingCharacterBody2D" to="." method="_on_bouncing_character_body_2d_bounce"]
-[connection signal="active_state_changed" from="BouncingCharacterBody2D/LimboHSM" to="BouncingCharacterBody2D" method="_on_limbo_hsm_active_state_changed"]
+[connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
