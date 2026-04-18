@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bf40163gvlnxp"]
+
+[ext_resource type="PackedScene" uid="uid://bbqu2qv04sd7o" path="res://objects/terrains/open_road_middle/open_road_middle.tscn" id="1_jr3va"]
+
+[node name="ParallaxBackground" type="Parallax2D" unique_id=1703892121]
+repeat_size = Vector2(640, 448)
+autoscroll = Vector2(0, 750)
+repeat_times = 3
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="OpenRoadMiddle" parent="." unique_id=1518259673 instance=ExtResource("1_jr3va")]
