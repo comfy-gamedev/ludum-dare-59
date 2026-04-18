@@ -16,7 +16,6 @@ position = Vector2(320, 391)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 script = ExtResource("7_2ufyh")
-metadata/_custom_type_script = "uid://by0ftck60x6kp"
 
 [node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
 grid_position = Vector2i(5, 5)

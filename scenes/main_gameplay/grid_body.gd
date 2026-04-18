@@ -36,6 +36,10 @@ func plan_move(to_pos: Vector2i) -> void:
 	_planned_moves.append(to_pos)
 	_update_plan_line()
 
+func clear_moves() -> void:
+	_planned_moves = []
+	_update_plan_line()
+
 func set_grid_position(new_pos: Vector2i) -> void:
 	grid_position = new_pos
 	if is_inside_tree():

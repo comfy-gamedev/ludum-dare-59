@@ -1,7 +1,7 @@
 extends Node2D
 class_name BattleGrid
 
-signal cell_clicked(grid_pos: Vector2i)
+signal cell_clicked(grid_pos: Vector2i, left: bool)
 
 const GRID_DIM = Vector2i(20, 15)
 const CELL_SIZE = Vector2(32, 32)
@@ -16,7 +16,9 @@ var _grid_bodies: Array[GridBody]
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			cell_clicked.emit(Vector2i(event.global_position / CELL_SIZE))
+			cell_clicked.emit(Vector2i(event.global_position / CELL_SIZE), true)
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			cell_clicked.emit(Vector2i(event.global_position / CELL_SIZE), false)
 
 func _draw() -> void:
 	for x in GRID_DIM.x:
