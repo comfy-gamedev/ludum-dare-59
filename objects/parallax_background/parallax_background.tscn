@@ -5,7 +5,8 @@
 [node name="ParallaxBackground" type="Parallax2D" unique_id=1703892121]
 repeat_size = Vector2(640, 480)
 autoscroll = Vector2(0, 750)
-repeat_times = 2
 follow_viewport = false
 ignore_camera_scroll = true
 script = ExtResource("1_djc3o")
+
+[connection signal="segment_reset" from="." to="." method="_on_segment_reset"]
