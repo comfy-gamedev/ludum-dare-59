@@ -12,7 +12,7 @@ var order_que: Array[EntityOrder]
 
 func turn_logic() -> void:
 	for order in order_que:
-		order.run(self)
+		order.execute(self)
 		if not order.done: await order.order_done
 
 func execute_turn() -> void:

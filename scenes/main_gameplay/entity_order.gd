@@ -11,5 +11,6 @@ signal order_done
 @export var type: OrderType
 @export var done := false
 
-func run(entity: EntityBody) -> void:
+func execute(entity: EntityBody) -> void:
+	done = true
 	order_done.emit()
