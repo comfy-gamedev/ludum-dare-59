@@ -58,8 +58,9 @@ func get_occupant(pos: Vector2i) -> GridBody:
 			return b
 	return null
 
-func get_terrain(pos: Vector2i) -> GridTerrain:
+func get_terrain(pos: Vector2i) -> Array[GridTerrain]:
+	var tiles : Array[GridTerrain] = []
 	for b in _grid_terrain:
 		if b.grid_position == pos:
-			return b
-	return null
+			tiles.append(b)
+	return tiles
