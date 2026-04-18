@@ -2,3 +2,9 @@
 .godot/
 /android/
 /addons/limboai/bin
+.DS_Store
+.DS_Store?
+._*
+**/.DS_Store
+**/._*
+export/
