@@ -3,8 +3,13 @@ class_name BattleGrid
 
 signal cell_clicked(grid_pos: Vector2i)
 
-const GRID_DIM = Vector2i(20, 15)
+const GRID_DIM = Vector2i(20, 14)
 const CELL_SIZE = Vector2(32, 32)
+
+enum Team {
+	PLAYER,
+	ENEMY,
+}
 
 var _grid_bodies: Array[GridBody]
 
@@ -27,8 +32,14 @@ func remove_body(body: GridBody) -> void:
 	assert(body in _grid_bodies)
 	_grid_bodies.erase(body)
 
+func get_bodies() -> Array[GridBody]:
+	return _grid_bodies.duplicate()
+
 func get_cell_center(pos: Vector2i) -> Vector2:
 	return (Vector2(pos) + Vector2(0.5, 0.5)) * CELL_SIZE
+
+func get_cell_rect(pos: Vector2i) -> Rect2:
+	return Rect2(Vector2(pos) * CELL_SIZE, CELL_SIZE)
 
 func get_occupant(pos: Vector2i) -> GridBody:
 	for b in _grid_bodies:

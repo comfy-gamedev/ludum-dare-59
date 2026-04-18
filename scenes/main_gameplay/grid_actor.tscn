@@ -8,3 +8,5 @@ script = ExtResource("1_oneqw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1569867512]
 texture = ExtResource("2_iix85")
+
+[node name="PlanLine" type="Line2D" parent="." unique_id=1485000665]

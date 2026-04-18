@@ -14,4 +14,27 @@ metadata/_custom_type_script = "uid://by0ftck60x6kp"
 [node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
 grid_position = Vector2i(5, 5)
 
+[node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
+unique_name_in_owner = true
+points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+closed = true
+width = 2.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1295181322]
+
+[node name="TurnButton" type="Button" parent="CanvasLayer" unique_id=1863349209]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "START TURN"
+
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
+[connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]
