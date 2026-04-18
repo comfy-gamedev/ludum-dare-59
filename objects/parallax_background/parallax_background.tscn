@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://bf40163gvlnxp"]
 
-[ext_resource type="PackedScene" uid="uid://bbqu2qv04sd7o" path="res://objects/terrains/open_road_middle/open_road_middle.tscn" id="1_jr3va"]
+[ext_resource type="Script" uid="uid://8bi1q0siopts" path="res://objects/parallax_background/parallax_background.gd" id="1_djc3o"]
 
 [node name="ParallaxBackground" type="Parallax2D" unique_id=1703892121]
 repeat_size = Vector2(640, 480)
 autoscroll = Vector2(0, 750)
-repeat_times = 3
+repeat_times = 2
 follow_viewport = false
 ignore_camera_scroll = true
+script = ExtResource("1_djc3o")
 
-[node name="OpenRoadMiddle" parent="." unique_id=1518259673 instance=ExtResource("1_jr3va")]
+[connection signal="segment_reset" from="." to="." method="_on_segment_reset"]

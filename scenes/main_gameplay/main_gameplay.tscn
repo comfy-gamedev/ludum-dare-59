@@ -20,7 +20,6 @@ position = Vector2(320, 391)
 script = ExtResource("7_2ufyh")
 
 [node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
-grid_position = Vector2i(5, 5)
 
 [node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
 position = Vector2(224, 352)

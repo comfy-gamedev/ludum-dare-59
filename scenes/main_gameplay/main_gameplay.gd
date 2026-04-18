@@ -4,7 +4,7 @@ extends Node2D
 @onready var turn_button: Button = %TurnButton
 @onready var selection_box: Line2D = %SelectionBox
 
-var _selected_actor: GridBody
+var _selected_actor: EntityBody
 var _player_input_enabled: bool = true
 
 func _ready() -> void:
@@ -13,11 +13,11 @@ func _ready() -> void:
 func perform_turn() -> void:
 	turn_button.disabled = true
 	_player_input_enabled = false
-	var actors = battle_grid.get_bodies()
+	var entities = battle_grid.get_entities()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
-		for actor in actors:
-			if actor.team == team:
-				await actor.perform_turn()
+		for ent in entities:
+			if ent.team == team:
+				await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
 	for terr in terrain_tiles:
@@ -32,7 +32,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	
 	var occupant = battle_grid.get_occupant(grid_pos)
 	var tile_terrains = battle_grid.get_terrain(grid_pos)
-	if occupant && !tile_terrains.any(func(x): return x.signal_blocking):
+	if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 		if left:
 			_selected_actor = occupant
 			selection_box.position = _selected_actor.position
@@ -41,7 +41,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 			occupant.clear_moves()
 	elif _selected_actor:
 		if left:
-			_selected_actor.plan_move(grid_pos)
+			_selected_actor.plan_move(grid_pos, _selected_actor.facing_vector)
 		_selected_actor = null
 		selection_box.hide()
 
