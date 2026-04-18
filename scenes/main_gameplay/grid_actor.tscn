@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b0lage4fmi3co"]
+
+[ext_resource type="Script" uid="uid://ddqasa1qyuqjd" path="res://scenes/main_gameplay/grid_body.gd" id="1_oneqw"]
+[ext_resource type="Texture2D" uid="uid://brri8w73h0lug" path="res://assets/textures/unit_placeholder.png" id="2_iix85"]
+
+[node name="GridActor" type="Node2D" unique_id=1038994791]
+script = ExtResource("1_oneqw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1569867512]
+texture = ExtResource("2_iix85")
