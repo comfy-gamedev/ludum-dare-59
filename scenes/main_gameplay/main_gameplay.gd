@@ -3,12 +3,24 @@ extends Node2D
 @onready var battle_grid: BattleGrid = $BattleGrid
 @onready var turn_button: Button = %TurnButton
 @onready var selection_box: Line2D = %SelectionBox
+@onready var box_parent = $IndicatorBoxesParent
 
 var _selected_actor: EntityBody
 var _player_input_enabled: bool = true
+var _box_scene = preload("res://objects/ui/indicator.tscn")
 
 func _ready() -> void:
 	selection_box.hide()
+	
+	var current_box : Node2D
+	for i in battle_grid.GRID_DIM.x:
+		for j in battle_grid.GRID_DIM.y:
+			current_box = _box_scene.instantiate()
+			current_box.position = Vector2(16 + (i * 32), 16 + (j * 32))
+			box_parent.add_child(current_box)
+
+func _process(delta: float) -> void:
+	pass
 
 func perform_turn() -> void:
 	turn_button.disabled = true

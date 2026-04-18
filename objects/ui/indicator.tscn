@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c3e3hgqr6nucl"]
+
+[ext_resource type="Script" uid="uid://cclpfk7mef7yy" path="res://objects/ui/indicator.gd" id="1_kho6k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpnb5"]
+size = Vector2(32, 32)
+
+[node name="Indicator" type="Node2D" unique_id=78546866]
+script = ExtResource("1_kho6k")
+
+[node name="SelectionBox" type="Line2D" parent="." unique_id=1772620705]
+visible = false
+points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+closed = true
+width = 2.0
+default_color = Color(1, 1, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=865013723]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1756118780]
+shape = SubResource("RectangleShape2D_kpnb5")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
