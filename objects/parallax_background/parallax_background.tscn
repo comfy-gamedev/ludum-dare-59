@@ -5,8 +5,10 @@
 [node name="ParallaxBackground" type="Parallax2D" unique_id=1703892121]
 repeat_size = Vector2(640, 480)
 autoscroll = Vector2(0, 750)
-repeat_times = 3
+repeat_times = 2
 follow_viewport = false
 ignore_camera_scroll = true
 
-[node name="OpenRoadMiddle" parent="." unique_id=1518259673 instance=ExtResource("1_jr3va")]
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=1415678986]
+
+[node name="OpenRoadMiddle" parent="CanvasGroup" unique_id=1518259673 instance=ExtResource("1_jr3va")]
