@@ -9,3 +9,5 @@ repeat_times = 2
 follow_viewport = false
 ignore_camera_scroll = true
 script = ExtResource("1_djc3o")
+
+[connection signal="segment_reset" from="." to="." method="_on_segment_reset"]
