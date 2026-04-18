@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 const X_SPEED = 100
 var moving_right = false

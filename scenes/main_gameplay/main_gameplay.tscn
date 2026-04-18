@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c3rvm3rw6opg"]
 
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
-[ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/train/train.tscn" id="3_nbr0a"]
+[ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/train/engine.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
@@ -13,7 +13,7 @@ script = ExtResource("1_wt4mr")
 
 [node name="ParallaxBackground" parent="." unique_id=1703892121 instance=ExtResource("4_sms7d")]
 
-[node name="Train" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
+[node name="Engine" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
 position = Vector2(320, 391)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
@@ -53,7 +53,7 @@ text = "START TURN"
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
-[connection signal="initiate_middle_to_right_transition" from="." to="Train" method="_on_main_gameplay_initiate_middle_to_right_transition"]
+[connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]

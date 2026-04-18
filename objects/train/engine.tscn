@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://pfgyth2tcuys"]
+
+[ext_resource type="Texture2D" uid="uid://bt7ix4clewesy" path="res://assets/textures/objects/train1.png" id="1_av20d"]
+[ext_resource type="Script" uid="uid://bun4l77jky634" path="res://objects/train/engine.gd" id="2_hqc7p"]
+
+[node name="Engine" type="Node2D" unique_id=917591001]
+script = ExtResource("2_hqc7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2063497101]
+unique_name_in_owner = true
+texture = ExtResource("1_av20d")
