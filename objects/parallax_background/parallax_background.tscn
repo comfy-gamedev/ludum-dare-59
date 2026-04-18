@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bf40163gvlnxp"]
 
-[ext_resource type="PackedScene" uid="uid://bbqu2qv04sd7o" path="res://objects/terrains/open_road_middle/open_road_middle.tscn" id="1_jr3va"]
+[ext_resource type="PackedScene" uid="uid://bbqu2qv04sd7o" path="res://objects/terrains/middle_straight/middle_straight.tscn" id="1_jr3va"]
 
 [node name="ParallaxBackground" type="Parallax2D" unique_id=1703892121]
 repeat_size = Vector2(640, 480)
@@ -11,4 +11,4 @@ ignore_camera_scroll = true
 
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=1415678986]
 
-[node name="OpenRoadMiddle" parent="CanvasGroup" unique_id=1518259673 instance=ExtResource("1_jr3va")]
+[node name="MiddleStraight" parent="CanvasGroup" unique_id=1518259673 instance=ExtResource("1_jr3va")]
