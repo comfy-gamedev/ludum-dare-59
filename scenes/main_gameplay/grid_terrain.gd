@@ -1,14 +1,13 @@
 extends Node2D
-class_name GridBody
+class_name GridTerrain
 
 @export var grid_position: Vector2i: set = set_grid_position
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
+@export var signal_blocking = false
+@export var lifetime = 1
+@export var transformation_target : PackedScene = null
 
 var battle_grid: BattleGrid
-
-var _planned_moves: Array[Vector2i]
-
-@onready var plan_line: Line2D = $PlanLine
 
 func _enter_tree() -> void:
 	var p = get_parent()
@@ -18,27 +17,21 @@ func _enter_tree() -> void:
 			break
 		p = p.get_parent()
 	assert(battle_grid)
-	battle_grid.add_body(self)
+	battle_grid.add_terrain(self)
 	position = battle_grid.get_cell_center(grid_position)
 
 func _exit_tree() -> void:
 	assert(battle_grid)
-	battle_grid.remove_body(self)
+	battle_grid.remove_terrain(self)
 
 func perform_turn() -> void:
-	var pm = _planned_moves
-	_planned_moves = []
-	_update_plan_line()
-	for p in pm:
-		await set_grid_position(p)
-
-func plan_move(to_pos: Vector2i) -> void:
-	_planned_moves.append(to_pos)
-	_update_plan_line()
-
-func clear_moves() -> void:
-	_planned_moves = []
-	_update_plan_line()
+	lifetime -= 1
+	if lifetime < 1:
+		queue_free()
+		if transformation_target:
+			var new_node = transformation_target.instantiate()
+			new_node.grid_position = grid_position
+			get_parent().add_child(new_node)
 
 func set_grid_position(new_pos: Vector2i) -> void:
 	grid_position = new_pos
@@ -46,9 +39,3 @@ func set_grid_position(new_pos: Vector2i) -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "position", battle_grid.get_cell_center(grid_position), 0.2)
 		await tween.finished
-
-func _update_plan_line() -> void:
-	plan_line.clear_points()
-	plan_line.add_point(Vector2.ZERO)
-	for p: Vector2i in _planned_moves:
-		plan_line.add_point(battle_grid.get_cell_center(p) - position)

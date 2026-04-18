@@ -18,21 +18,30 @@ func perform_turn() -> void:
 		for actor in actors:
 			if actor.team == team:
 				await actor.perform_turn()
+	
+	var terrain_tiles = battle_grid.get_terrains()
+	for terr in terrain_tiles:
+		await terr.perform_turn()
 	turn_button.disabled = false
 	_player_input_enabled = true
 
 
-func _on_battle_grid_cell_clicked(grid_pos: Vector2i) -> void:
+func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	if not _player_input_enabled:
 		return
 	
 	var occupant = battle_grid.get_occupant(grid_pos)
-	if occupant:
-		_selected_actor = occupant
-		selection_box.position = _selected_actor.position
-		selection_box.show()
+	var tile_terrains = battle_grid.get_terrain(grid_pos)
+	if occupant && !tile_terrains.any(func(x): return x.signal_blocking):
+		if left:
+			_selected_actor = occupant
+			selection_box.position = _selected_actor.position
+			selection_box.show()
+		else:
+			occupant.clear_moves()
 	elif _selected_actor:
-		_selected_actor.plan_move(grid_pos)
+		if left:
+			_selected_actor.plan_move(grid_pos)
 		_selected_actor = null
 		selection_box.hide()
 
