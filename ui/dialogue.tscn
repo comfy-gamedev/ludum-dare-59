@@ -3,49 +3,10 @@
 [ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="1_fm7tp"]
 [ext_resource type="Script" uid="uid://cw42mf8mae266" path="res://ui/dialogue.gd" id="1_uo1k0"]
 [ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/betty.png" id="1_xl33q"]
+[ext_resource type="Material" uid="uid://b86w6sr8fasot" path="res://ui/color_modulator.tres" id="2_tqx3j"]
 [ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_xyniw"]
 
 [sub_resource type="Theme" id="Theme_xl33q"]
-
-[sub_resource type="Shader" id="Shader_xyniw"]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.6.2.stable's CanvasItemMaterial.
-
-shader_type canvas_item;
-render_mode blend_mix;
-
-uniform float lightness = 1.0;
-
-void fragment(){
-  COLOR = texture(TEXTURE, UV); // Read from texture
-  COLOR.r *= lightness;
-  COLOR.g *= lightness;
-  COLOR.b *= lightness;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo1k0"]
-shader = SubResource("Shader_xyniw")
-shader_parameter/lightness = 0.5
-
-[sub_resource type="Shader" id="Shader_tqx3j"]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.6.2.stable's CanvasItemMaterial.
-
-shader_type canvas_item;
-render_mode blend_mix;
-
-uniform float lightness = 1.0;
-
-void fragment(){
-  COLOR = texture(TEXTURE, UV); // Read from texture
-  COLOR.r *= lightness;
-  COLOR.g *= lightness;
-  COLOR.b *= lightness;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qwm1w"]
-shader = SubResource("Shader_tqx3j")
-shader_parameter/lightness = 0.5
 
 [node name="Dialogue" type="Control" unique_id=341286864]
 layout_mode = 3
@@ -72,7 +33,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PortraitLeft" type="TextureRect" parent="VBoxContainer/Container" unique_id=917662155]
-material = SubResource("ShaderMaterial_uo1k0")
+material = ExtResource("2_tqx3j")
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 1
 anchors_preset = 2
@@ -88,7 +49,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="PortraitRight" type="TextureRect" parent="VBoxContainer/Container" unique_id=671544639]
-material = SubResource("ShaderMaterial_qwm1w")
+material = ExtResource("2_tqx3j")
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 1
 anchors_preset = 3
