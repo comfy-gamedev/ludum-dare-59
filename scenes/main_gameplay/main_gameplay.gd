@@ -18,6 +18,10 @@ func perform_turn() -> void:
 		for actor in actors:
 			if actor.team == team:
 				await actor.perform_turn()
+	
+	var terrain_tiles = battle_grid.get_terrains()
+	for terr in terrain_tiles:
+		await terr.perform_turn()
 	turn_button.disabled = false
 	_player_input_enabled = true
 

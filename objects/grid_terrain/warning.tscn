@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dqx4kbvbxuil5" path="res://scenes/main_gameplay/grid_terrain.gd" id="1_fjmb3"]
 [ext_resource type="Texture2D" uid="uid://gpvb4k5ekfe2" path="res://assets/textures/terrains/warning_tile.png" id="2_5njhl"]
+[ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="2_45x6w"]
 
 [node name="Warning" type="Node2D" unique_id=1372385912]
 script = ExtResource("1_fjmb3")
+transformation_target = ExtResource("2_45x6w")
 metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1575489262]

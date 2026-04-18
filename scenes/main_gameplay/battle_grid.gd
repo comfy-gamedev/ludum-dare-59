@@ -46,6 +46,9 @@ func remove_terrain(terrain: GridTerrain) -> void:
 func get_bodies() -> Array[GridBody]:
 	return _grid_bodies.duplicate()
 
+func get_terrains() -> Array[GridTerrain]:
+	return _grid_terrain.duplicate()
+
 func get_cell_center(pos: Vector2i) -> Vector2:
 	return (Vector2(pos) + Vector2(0.5, 0.5)) * CELL_SIZE
 

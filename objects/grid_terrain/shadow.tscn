@@ -6,6 +6,7 @@
 [node name="Shadow" type="Node2D" unique_id=165163691]
 script = ExtResource("1_8ursh")
 signal_blocking = true
+lifetime = 2
 metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2024432123]

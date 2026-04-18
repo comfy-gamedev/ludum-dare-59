@@ -4,6 +4,8 @@ class_name GridTerrain
 @export var grid_position: Vector2i: set = set_grid_position
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
 @export var signal_blocking = false
+@export var lifetime = 1
+@export var transformation_target : PackedScene = null
 
 var battle_grid: BattleGrid
 
@@ -23,7 +25,13 @@ func _exit_tree() -> void:
 	battle_grid.remove_terrain(self)
 
 func perform_turn() -> void:
-	pass
+	lifetime -= 1
+	if lifetime < 1:
+		queue_free()
+		if transformation_target:
+			var new_node = transformation_target.instantiate()
+			new_node.grid_position = grid_position
+			get_parent().add_child(new_node)
 
 func set_grid_position(new_pos: Vector2i) -> void:
 	grid_position = new_pos
