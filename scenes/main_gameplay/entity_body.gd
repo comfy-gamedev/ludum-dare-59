@@ -5,9 +5,11 @@ class_name EntityBody
 @export var health: int = 3
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
-@export_file("*.tres") var ability_path: String = "res://scenes/main_gameplay/entity_abilities/basic_attack.tres"
+@export_file("*.tres") var auto_attack_path: String = "res://scenes/main_gameplay/entity_abilities/basic_attack.tres"
+@export_file("*tres") var abilities_paths: Array[String]
 
-var ability: EntityAbility
+var auto_attack: EntityAbility
+var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
 var aiming := false
 var max_movement := 2
@@ -17,7 +19,9 @@ var max_movement := 2
 @onready var weapon_collision = $WeaponArea/Area2D
 
 func _ready() -> void:
-	ability = load(ability_path)
+	auto_attack = load(auto_attack_path)
+	for path in abilities_paths:
+		abilities.append(load(path))
 
 func _process(delta: float) -> void:
 	if aiming:
