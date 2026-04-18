@@ -4,10 +4,10 @@ signal segment_reset
 #@onready var middle_straight_scene = preload("res://objects/terrains/middle_straight/middle_straight.tscn")
 
 @onready var terrain_segments = {
-	"MiddleStraight": preload("res://objects/terrains/middle_straight/middle_straight.tscn"),
-	"MiddleToRightTurn1": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_turn1.tscn"),
-	"MiddleToRightTurn2": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_turn2.tscn"),
-	"MiddleToRightTurn3": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_turn3.tscn"),
+	"MiddleStraight": preload("res://objects/terrains/middle_straight/straightaway_middle_straight.tscn"),
+	"MiddleToRightTurn1": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_4.tscn"),
+	"MiddleToRightTurn2": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_5.tscn"),
+	"MiddleToRightTurn3": preload("res://objects/terrains/middle_to_right_turn/middle_to_right_6.tscn"),
 }
 
 var prev_scroll_offset_y = 0
