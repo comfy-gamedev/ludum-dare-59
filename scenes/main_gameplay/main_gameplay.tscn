@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
 [ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://scenes/main_gameplay/grid_actor.tscn" id="3_lot3w"]
+[ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/car/car.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 
@@ -9,6 +10,9 @@
 script = ExtResource("1_wt4mr")
 
 [node name="ParallaxBackground" parent="." unique_id=1703892121 instance=ExtResource("4_sms7d")]
+
+[node name="Car" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
+position = Vector2(320, 391)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 script = ExtResource("7_2ufyh")
