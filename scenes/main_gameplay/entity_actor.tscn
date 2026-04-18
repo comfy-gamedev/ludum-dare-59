@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://6cfrdnmj32qn"]
+
+[ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://scenes/main_gameplay/grid_actor.tscn" id="1_vuf4i"]
+[ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="2_s2j6j"]
+
+[node name="EntityActor" unique_id=1038994791 instance=ExtResource("1_vuf4i")]
+script = ExtResource("2_s2j6j")
+max_health = 3
+health = 3
+move_speed = 3

@@ -3,9 +3,9 @@ class_name GridBody
 
 @export var grid_position: Vector2i: set = set_grid_position
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
+@export var facing_vector: Vector2 = Vector2.ZERO
 
 var battle_grid: BattleGrid
-
 var _planned_moves: Array[Vector2i]
 
 @onready var plan_line: Line2D = $PlanLine
