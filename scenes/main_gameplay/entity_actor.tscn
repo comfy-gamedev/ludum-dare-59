@@ -2,4 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://objects/grid_actors/grid_actor.tscn" id="1_vuf4i"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgpuk"]
+size = Vector2(10, 10)
+
 [node name="EntityActor" unique_id=1038994791 instance=ExtResource("1_vuf4i")]
+
+[node name="SelfArea2D" type="Area2D" parent="." index="2" unique_id=1621842412]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" index="0" unique_id=1772352252]
+shape = SubResource("RectangleShape2D_dgpuk")

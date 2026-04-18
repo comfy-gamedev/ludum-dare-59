@@ -1,18 +1,22 @@
 extends GridBody
 class_name EntityBody
 
-
 @export var max_health: int = 3
 @export var health: int = 3
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
+@export_file("*.tres") var ability_path: String = "res://scenes/main_gameplay/entity_abilities/basic_attack.tres"
 
-var abilities: Array[EntityAbility]
+var ability: EntityAbility
 var orders: Array[EntityOrder]
 var aiming := false
 
 @onready var plan_line: Line2D = $PlanLine
 @onready var weapon_area = $WeaponArea
+@onready var weapon_collision = $WeaponArea/Area2D
+
+func _ready() -> void:
+	ability = load(ability_path)
 
 func _process(delta: float) -> void:
 	if aiming:
@@ -37,6 +41,22 @@ func plan_move(to_pos: Vector2i, to_dir: Vector2i) -> void:
 func clear_moves() -> void:
 	orders = []
 	_update_plan_visuals()
+
+func get_entities_in_range() -> Array[EntityBody]:
+	var a: Array[EntityBody]
+	for area in weapon_collision.get_overlapping_areas():
+		var p = area.get_parent()
+		if p is EntityBody:
+			a.append(p)
+	return a
+
+func take_damage(amount: int) -> void:
+	health = clampi(health - amount, 0, max_health)
+	if health <= 0:
+		_on_death()
+
+func _on_death() -> void:
+	print("Mr. Stark, I don't feel so good.")
 
 func _update_plan_visuals() -> void:
 	plan_line.clear_points()

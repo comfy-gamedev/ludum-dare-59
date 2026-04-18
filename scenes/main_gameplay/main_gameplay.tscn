@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c3rvm3rw6opg"]
 
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
-[ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://objects/grid_actors/grid_actor.tscn" id="3_lot3w"]
 [ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/car/car.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
+[ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
@@ -19,7 +19,7 @@ position = Vector2(320, 391)
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 script = ExtResource("7_2ufyh")
 
-[node name="actor" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("3_lot3w")]
+[node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
 
 [node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
 position = Vector2(224, 352)
