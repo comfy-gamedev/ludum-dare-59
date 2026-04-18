@@ -1,5 +1,6 @@
 extends Parallax2D
 signal segment_reset
+signal segment_transition_complete
 
 @onready var terrain_segments = {
 	"MiddleStraight": preload("res://objects/terrains/middle_straight/middle_straight.tscn"),
@@ -50,6 +51,9 @@ func initiate_segment_transition():
 		new_terrain_segment.position.y -= 480
 		self.add_child(new_terrain_segment)
 		segment_transition_queue.pop_front()
+		
+		if segment_transition_queue.size() == 0:
+			segment_transition_complete.emit()
 
 func free_other_segments(child_to_not_free):
 	for child in self.get_children():

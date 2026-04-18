@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://6cfrdnmj32qn"]
 
-[ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://scenes/main_gameplay/grid_actor.tscn" id="1_vuf4i"]
-[ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="2_s2j6j"]
+[ext_resource type="PackedScene" uid="uid://b0lage4fmi3co" path="res://objects/grid_actors/grid_actor.tscn" id="1_vuf4i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgpuk"]
+size = Vector2(10, 10)
 
 [node name="EntityActor" unique_id=1038994791 instance=ExtResource("1_vuf4i")]
-script = ExtResource("2_s2j6j")
-max_health = 3
-health = 3
-move_speed = 3
+
+[node name="SelfArea2D" type="Area2D" parent="." index="2" unique_id=1621842412]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" index="0" unique_id=1772352252]
+shape = SubResource("RectangleShape2D_dgpuk")

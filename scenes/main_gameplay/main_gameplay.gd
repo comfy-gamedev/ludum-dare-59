@@ -67,3 +67,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 func _on_turn_button_pressed() -> void:
 	perform_turn()
 	selection_box.hide()
+
+
+func _on_parallax_background_segment_transition_complete():
+	print("Terrain segment transition complete!")
