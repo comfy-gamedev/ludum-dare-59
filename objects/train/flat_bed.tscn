@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cjm2oej6u87ud"]
+
+[ext_resource type="Script" uid="uid://b641ydwx1j7rm" path="res://objects/train/flat_bed.gd" id="1_cu7ok"]
+[ext_resource type="Texture2D" uid="uid://dm78rlysnjjjs" path="res://assets/textures/objects/flat_bed_car.png" id="2_dib5s"]
+
+[node name="FlatBed" type="Node2D" unique_id=212317123]
+script = ExtResource("1_cu7ok")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2037805622]
+unique_name_in_owner = true
+texture = ExtResource("2_dib5s")
+
+[node name="ShimmyTimer" type="Timer" parent="." unique_id=1064859520]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]

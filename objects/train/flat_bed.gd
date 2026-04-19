@@ -1,6 +1,9 @@
 extends Node2D
+signal update_flatbed_position(target_pos: Vector2)
 
-@onready var caboose_sprite = %Sprite2D
+@onready var flatbed_sprite = %Sprite2D
+
+var update_flatbed_pos = false
 
 const X_SPEED = 100
 var new_pos = null
@@ -17,6 +20,12 @@ func _process(delta):
 
 func process_follow_movement(delta):
 	if new_pos != null:
+		if update_flatbed_pos:
+			update_flatbed_position.emit(new_pos)
+			update_flatbed_pos = false
+		
+		#update_train_position.emit(new_pos)
+		
 		if moving_direction == "RIGHT":
 			if new_pos.x > position.x:
 				position.x += X_SPEED * delta
@@ -40,31 +49,14 @@ func process_shimmy(delta):
 			randf_range(-shimmy_intensity, shimmy_intensity),
 			randf_range(-shimmy_intensity, shimmy_intensity)
 		)
-		caboose_sprite.position += offset
+		flatbed_sprite.position += offset
 	else:
-		caboose_sprite.position = original_sprite_pos
+		flatbed_sprite.position = original_sprite_pos
 
-#func _on_engine_update_train_position(target_pos: Vector2):
-	#await get_tree().create_timer(0.1).timeout
-	#
-	#if target_pos.x > position.x:
-		#moving_direction = "RIGHT"
-		#rotation_degrees += 10
-	#else:
-		#moving_direction = "LEFT"
-		#rotation_degrees -= 10
-	#
-	#new_pos = target_pos
-
-func initiate_shimmy():
-	_shimmy_timer = shimmy_duration
-
-func _on_shimmy_timer_timeout():
-	initiate_shimmy()
-
-
-func _on_flat_bed_update_flatbed_position(target_pos):
+func _on_engine_update_train_position(target_pos: Vector2):
 	await get_tree().create_timer(0.1).timeout
+	#update_flatbed_position.emit()
+	update_flatbed_pos = true
 	
 	if target_pos.x > position.x:
 		moving_direction = "RIGHT"
@@ -74,3 +66,9 @@ func _on_flat_bed_update_flatbed_position(target_pos):
 		rotation_degrees -= 10
 	
 	new_pos = target_pos
+
+func initiate_shimmy():
+	_shimmy_timer = shimmy_duration
+
+func _on_shimmy_timer_timeout():
+	initiate_shimmy()
