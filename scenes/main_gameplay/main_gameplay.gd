@@ -23,7 +23,7 @@ func _ready() -> void:
 			current_box.position = Vector2(16 + (i * 32), 16 + (j * 32))
 			box_parent.add_child(current_box)
 	
-	#initiate_middle_to_right_transition.emit()
+	initiate_middle_to_right_transition.emit()
 	
 	reset_turn_state()
 
