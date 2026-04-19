@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c3sq0lmjkkwls" path="res://ui/sf_dialogue.gd" id="1_5vkbq"]
 [ext_resource type="Texture2D" uid="uid://diy6lxlnbux18" path="res://icon.svg" id="1_ohw5o"]
-[ext_resource type="Resource" uid="uid://yl487iisve8m" path="res://ui/test_conversation.tres" id="2_2j2rc"]
 [ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="2_5vkbq"]
+[ext_resource type="Resource" uid="uid://cfvl7emt0nmcj" path="res://ui/test_small_conversation.tres" id="3_2j2rc"]
 
 [node name="SfDialogue" type="Control" unique_id=1134654972]
 layout_mode = 3
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_5vkbq")
 script = ExtResource("1_5vkbq")
-conversation = ExtResource("2_2j2rc")
+conversation = ExtResource("3_2j2rc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=739363955]
 layout_mode = 1
@@ -32,6 +32,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="RectLeft" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=286034345]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
@@ -42,6 +43,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="RectCenter" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1687925721]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -61,6 +63,7 @@ asdf"
 fit_content = true
 
 [node name="RectRight" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1067265168]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
@@ -69,3 +72,4 @@ layout_mode = 2
 texture = ExtResource("1_ohw5o")
 expand_mode = 2
 stretch_mode = 4
+flip_h = true

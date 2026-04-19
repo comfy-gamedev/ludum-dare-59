@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://cfvl7emt0nmcj"]
+
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_p3otn"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_yqmhf"]
+[ext_resource type="Texture2D" uid="uid://dou5wsibhq6x1" path="res://assets/textures/characters/constance_small.png" id="3_gin32"]
+[ext_resource type="Texture2D" uid="uid://cq07ivmsiavys" path="res://assets/textures/characters/charlie_small.png" id="4_w20iw"]
+[ext_resource type="Texture2D" uid="uid://c8fiadpcf1vcd" path="res://assets/textures/characters/piper_small.png" id="5_g3kob"]
+[ext_resource type="Texture2D" uid="uid://cxorggv065jy0" path="res://assets/textures/characters/sloane_small.png" id="6_iuwac"]
+[ext_resource type="Texture2D" uid="uid://cp6g64hjycs6t" path="res://assets/textures/characters/demi_small.png" id="7_a7fvn"]
+
+[sub_resource type="Resource" id="Resource_ywpgd"]
+script = ExtResource("2_yqmhf")
+texture = ExtResource("3_gin32")
+message = "Wassup!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_fjakc"]
+script = ExtResource("2_yqmhf")
+side = 1
+texture = ExtResource("4_w20iw")
+message = "Wassup!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_jfx46"]
+script = ExtResource("2_yqmhf")
+texture = ExtResource("5_g3kob")
+message = "Wassup!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_7u4fq"]
+script = ExtResource("2_yqmhf")
+side = 1
+texture = ExtResource("6_iuwac")
+message = "Wassup!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_lvdd3"]
+script = ExtResource("2_yqmhf")
+texture = ExtResource("7_a7fvn")
+message = "Wassup!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[resource]
+script = ExtResource("1_p3otn")
+steps = Array[ExtResource("2_yqmhf")]([SubResource("Resource_ywpgd"), SubResource("Resource_fjakc"), SubResource("Resource_jfx46"), SubResource("Resource_7u4fq"), SubResource("Resource_lvdd3")])
+metadata/_custom_type_script = "uid://bprhkt5tix3qd"
