@@ -40,7 +40,7 @@ func _ready() -> void:
 	
 	#initiate_middle_to_right_transition.emit()
 	initiate_middle_to_left_transition.emit()
-	initiate_left_to_middle_transition.emit()
+	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
 	
