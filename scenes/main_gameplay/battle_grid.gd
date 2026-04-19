@@ -13,6 +13,9 @@ enum Team {
 
 var _grid_bodies: Array[GridBody]
 var _grid_terrain: Array[GridTerrain]
+var showing_movement_range := false
+var movement_center_point: Vector2i
+var movement_radius: int
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -26,6 +29,8 @@ func _draw() -> void:
 		for y in GRID_DIM.y:
 			var p = Vector2(x, y)
 			draw_rect(Rect2(p * CELL_SIZE, CELL_SIZE), Color.RED, false, 2.0)
+			if showing_movement_range and movement_center_point.distance_to(p) <= movement_radius:
+				draw_rect(Rect2(p * CELL_SIZE, CELL_SIZE), Color8(0, 255, 0, 100), true)
 
 func add_body(body: GridBody) -> void:
 	assert(body not in _grid_bodies)
@@ -42,6 +47,16 @@ func add_terrain(terrain: GridTerrain) -> void:
 func remove_terrain(terrain: GridTerrain) -> void:
 	assert(terrain in _grid_terrain)
 	_grid_terrain.erase(terrain)
+
+func show_movement_range(center: Vector2i, radius: int) -> void:
+	movement_center_point = center
+	movement_radius = radius
+	showing_movement_range = true
+	queue_redraw()
+
+func hide_movement_range() -> void:
+	showing_movement_range = false
+	queue_redraw()
 
 func get_bodies() -> Array[GridBody]:
 	return _grid_bodies.duplicate()

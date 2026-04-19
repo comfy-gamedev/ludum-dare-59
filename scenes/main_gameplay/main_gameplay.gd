@@ -59,7 +59,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	
 	if _selected_actor:
 		if left:
-			if _selected_actor.state == EntityBody.EntityState.PLANNING_MOVE:
+			if _selected_actor.state == EntityBody.EntityState.PLANNING_MOVE and _selected_actor.cell_in_range(grid_pos):
 				_selected_actor.plan_move(grid_pos, _selected_actor.facing_vector)
 				_selected_actor.plan_attack(grid_pos, _selected_actor.facing_vector)
 				_selected_actor.state = EntityBody.EntityState.PLANNING_AIM

@@ -3,6 +3,7 @@ class_name EntityBody
 
 enum EntityState {
 	DESELECTED,
+	PLANNING_MENU,
 	PLANNING_MOVE,
 	PLANNING_AIM
 }
@@ -17,7 +18,7 @@ enum EntityState {
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
-var state: EntityState = EntityState.DESELECTED
+var state: EntityState = EntityState.DESELECTED: set = _set_state
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
 var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
@@ -42,14 +43,16 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		if state == EntityState.PLANNING_MOVE:
-			var local_mouse_pos := get_global_mouse_position() - position + battle_grid.CELL_SIZE/2
+		var local_mouse_pos := get_global_mouse_position() - position + battle_grid.CELL_SIZE/2
+		var local_mouse_grid_pos := Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32))
+		if state == EntityState.PLANNING_MOVE and cell_in_range(local_mouse_grid_pos + Vector2(grid_position)):
 			if not preview_line:
 				preview_line = Line2D.new()
+				preview_line.z_index = 1
 				add_child(preview_line)
 			preview_line.clear_points()
 			preview_line.add_point(Vector2.ZERO)
-			preview_line.add_point(Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32)) * battle_grid.CELL_SIZE)
+			preview_line.add_point(local_mouse_grid_pos * battle_grid.CELL_SIZE)
 		elif preview_line:
 			preview_line.clear_points()
 
@@ -89,6 +92,9 @@ func get_entities_in_range() -> Array[EntityBody]:
 			a.append(p)
 	return a
 
+func cell_in_range(cell_pos: Vector2i) -> bool:
+	return grid_position.distance_to(cell_pos) <= max_movement
+
 func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
@@ -117,6 +123,14 @@ func clear_plan_visuals() -> void:
 		var back_preview = turn_end_previews.pop_back()
 		back_preview.queue_free()
 
+func _set_state(value: EntityState) -> void:
+	state = value
+	match value:
+		EntityState.PLANNING_MOVE:
+			battle_grid.show_movement_range(grid_position, max_movement)
+		_:
+			battle_grid.hide_movement_range()
+
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
 
@@ -132,7 +146,7 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
-	state = EntityState.PLANNING_MOVE
+	_set_state(EntityState.PLANNING_MOVE)
 
 func on_deselected():
-	state = EntityState.DESELECTED
+	_set_state(EntityState.DESELECTED)
