@@ -8,6 +8,7 @@ signal initiate_left_to_middle_transition()
 signal player_signal_points_changed()
 
 signal _ui_input(what: int, params: Dictionary)
+signal turn_end
 
 const UI_GRID_CLICKED = 0
 const UI_START_TURN_CLICKED = 1
@@ -39,7 +40,7 @@ func _ready() -> void:
 			box_parent.add_child(current_box)
 	
 	#initiate_middle_to_right_transition.emit()
-	initiate_middle_to_left_transition.emit()
+	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
@@ -145,7 +146,7 @@ func perform_turn() -> void:
 	
 	reset_turn_state()
 	spawn_clouds()
-
+	turn_end.emit()
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
@@ -183,3 +184,10 @@ func spawn_clouds(num = 2, radii = 4):
 					current_coord += dir
 					if current_coord.x == center_coord.x || current_coord.y == center_coord.y:
 						break
+
+func initiate_terrain_segment_transition():
+	# do logic to determine where we should go
+	initiate_middle_to_left_transition.emit()
+
+func _on_turn_end():
+	initiate_terrain_segment_transition()
