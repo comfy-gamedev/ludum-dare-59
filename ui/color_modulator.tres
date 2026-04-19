@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b86w6sr8fasot"]
+
+[sub_resource type="Shader" id="Shader_23ees"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.2.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+instance uniform float lightness = 1.0;
+
+void fragment(){
+  COLOR = texture(TEXTURE, UV); // Read from texture
+  COLOR.r *= lightness;
+  COLOR.g *= lightness;
+  COLOR.b *= lightness;
+}
+"
+
+[resource]
+shader = SubResource("Shader_23ees")
