@@ -95,8 +95,9 @@ func create_turn_end_preview(location: Vector2, aim_dir: Vector2) -> void:
 	turn_end_previews.append(preview)
 
 func clear_plan_visuals() -> void:
-	plan_line.clear_points()
-	plan_line.add_point(Vector2.ZERO)
+	if plan_line:
+		plan_line.clear_points()
+		plan_line.add_point(Vector2.ZERO)
 	while not turn_end_previews.is_empty():
 		var back_preview = turn_end_previews.pop_back()
 		back_preview.queue_free()
