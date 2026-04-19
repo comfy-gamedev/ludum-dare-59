@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://yl487iisve8m"]
+
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_tr27l"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_40k8f"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_e13ur"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/betty.png" id="3_40k8f"]
+[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="5_cb1yq"]
+
+[sub_resource type="Resource" id="Resource_e13ur"]
+script = ExtResource("2_40k8f")
+message = "Hi i'm Betty!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_cb1yq"]
+script = ExtResource("2_40k8f")
+side = 1
+message = "Hello, I'm Charlie."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_f3ifw"]
+script = ExtResource("2_40k8f")
+side = 1
+texture = ExtResource("5_cb1yq")
+message = "And I'm Piper!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[resource]
+script = ExtResource("1_tr27l")
+left_texture = ExtResource("3_40k8f")
+right_texture = ExtResource("2_e13ur")
+steps = Array[ExtResource("2_40k8f")]([SubResource("Resource_e13ur"), SubResource("Resource_cb1yq"), SubResource("Resource_f3ifw")])
+metadata/_custom_type_script = "uid://bprhkt5tix3qd"
