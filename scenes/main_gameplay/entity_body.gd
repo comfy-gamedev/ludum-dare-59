@@ -2,9 +2,9 @@ extends GridBody
 class_name EntityBody
 
 enum EntityState {
+	DESELECTED,
 	PLANNING_MOVE,
-	PLANNING_AIM,
-	DESELECTED
+	PLANNING_AIM
 }
 
 @export var max_health: int = 3
@@ -17,7 +17,7 @@ enum EntityState {
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
-var state: EntityState
+var state: EntityState = EntityState.DESELECTED
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
 
