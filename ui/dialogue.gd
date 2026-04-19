@@ -7,70 +7,78 @@ const FOCUSED_LIGHTNESS = 1.0
 const FOCUS_DURATION = 0.25
 const SLIDE_DURATION = 0.5
 
-func tween_shader_uniform(textureRect: TextureRect, new_value: float):
-	create_tween().tween_method(
+func tween_shader_uniform(tween: Tween, textureRect: TextureRect, new_value: float):
+	tween.tween_method(
 		func(value): textureRect.set_instance_shader_parameter("lightness", value),
 		textureRect.get_instance_shader_parameter("lightness"), new_value, FOCUS_DURATION)
 
 func unfocus_left() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitLeft,
 		"custom_minimum_size:x", UNFOCUSED_WIDTH, FOCUS_DURATION)
-	tween_shader_uniform(
+	tween_shader_uniform(tween,
 		$VBoxContainer/Container/PortraitLeft,
 		UNFOCUSED_LIGHTNESS)
-	return get_tree().create_timer(FOCUS_DURATION).timeout
+	return tween.finished
 
 func focus_left() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitLeft,
 		"custom_minimum_size:x", FOCUSED_WIDTH, FOCUS_DURATION)
-	tween_shader_uniform(
+	tween_shader_uniform(tween,
 		$VBoxContainer/Container/PortraitLeft,
 		FOCUSED_LIGHTNESS)
-	return get_tree().create_timer(FOCUS_DURATION).timeout
+	return tween.finished
 
 func unfocus_right() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitRight,
 		"custom_minimum_size:x", UNFOCUSED_WIDTH, FOCUS_DURATION)
-	tween_shader_uniform(
+	tween_shader_uniform(tween,
 		$VBoxContainer/Container/PortraitRight,
 		UNFOCUSED_LIGHTNESS)
-	return get_tree().create_timer(FOCUS_DURATION).timeout
+	return tween.finished
 
 func focus_right() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitRight,
 		"custom_minimum_size:x", FOCUSED_WIDTH, FOCUS_DURATION)
-	tween_shader_uniform(
+	tween_shader_uniform(tween,
 		$VBoxContainer/Container/PortraitRight,
 		FOCUSED_LIGHTNESS)
-	return get_tree().create_timer(FOCUS_DURATION).timeout
+	return tween.finished
 
 func slide_left_in() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitLeft,
 		"position:x", 0.0, SLIDE_DURATION)
-	return get_tree().create_timer(SLIDE_DURATION).timeout
+	return tween.finished
 
 func slide_left_out() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitLeft,
 		"position:x", -300.0, SLIDE_DURATION)
-	return get_tree().create_timer(SLIDE_DURATION).timeout
+	return tween.finished
 
 func slide_right_in() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitRight,
 		"position:x", 340.0, SLIDE_DURATION)
-	return get_tree().create_timer(SLIDE_DURATION).timeout
+	return tween.finished
 
 func slide_right_out() -> Signal:
-	create_tween().tween_property(
+	var tween = create_tween()
+	tween.tween_property(
 		$VBoxContainer/Container/PortraitRight,
 		"position:x", 640.0, SLIDE_DURATION)
-	return get_tree().create_timer(SLIDE_DURATION).timeout
+	return tween.finished
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
