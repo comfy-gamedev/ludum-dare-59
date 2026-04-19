@@ -7,7 +7,18 @@ size = Vector2(10, 10)
 
 [node name="EntityActor" unique_id=1038994791 instance=ExtResource("1_vuf4i")]
 
+[node name="PlanLine" parent="." index="1" unique_id=1485000665]
+joint_mode = 0
+begin_cap_mode = 0
+end_cap_mode = 0
+
 [node name="SelfArea2D" type="Area2D" parent="." index="2" unique_id=1621842412]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" index="0" unique_id=1772352252]
 shape = SubResource("RectangleShape2D_dgpuk")
+
+[node name="Area2D" parent="WeaponArea" parent_id_path=PackedInt32Array(1856779226) index="1" unique_id=989688549]
+collision_mask = 8
