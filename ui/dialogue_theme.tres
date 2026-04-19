@@ -3,6 +3,48 @@
 [ext_resource type="Texture2D" uid="uid://daya86vrf55mb" path="res://assets/textures/interface.png" id="1_mnnka"]
 [ext_resource type="FontFile" uid="uid://ba2sqadr7at8k" path="res://assets/fonts/Beholden-Regular.ttf" id="1_r8dcj"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mnnka"]
+load_path = "res://.godot/imported/interface.png-6d20faf485a4a15402edc3162c467958.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vg8fw"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+texture = SubResource("CompressedTexture2D_mnnka")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 18.0
+region_rect = Rect2(128, 32, 64, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6wtbp"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+texture = ExtResource("1_mnnka")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 18.0
+region_rect = Rect2(128, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5p8ex"]
+load_path = "res://.godot/imported/interface.png-6d20faf485a4a15402edc3162c467958.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ghi2"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+texture = SubResource("CompressedTexture2D_5p8ex")
+texture_margin_left = 28.0
+texture_margin_top = 14.0
+texture_margin_right = 28.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(128, 64, 64, 32)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aaui5"]
 content_margin_left = 16.0
 content_margin_top = 16.0
@@ -18,4 +60,7 @@ region_rect = Rect2(32, -0.281824, 96.01076, 96.28182)
 [resource]
 default_font = ExtResource("1_r8dcj")
 default_font_size = 40
+Button/styles/hover = SubResource("StyleBoxTexture_vg8fw")
+Button/styles/normal = SubResource("StyleBoxTexture_6wtbp")
+Button/styles/pressed = SubResource("StyleBoxTexture_5ghi2")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_aaui5")
