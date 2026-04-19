@@ -3,23 +3,29 @@
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
 [ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/train/engine.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://dlm41j3s4eedk" path="res://objects/train/caboose.tscn" id="4_1svbp"]
+[ext_resource type="PackedScene" uid="uid://cjm2oej6u87ud" path="res://objects/train/flat_bed.tscn" id="4_ieocc"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
+[ext_resource type="Texture2D" uid="uid://bbecl65o8oslo" path="res://assets/textures/particles/circle.png" id="10_w3spe"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
 
 [node name="ParallaxBackground" parent="." unique_id=1703892121 instance=ExtResource("4_sms7d")]
+z_index = -1
 
 [node name="Engine" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
-position = Vector2(320, 391)
+position = Vector2(320, 243)
+
+[node name="FlatBed" parent="." unique_id=212317123 instance=ExtResource("4_ieocc")]
+position = Vector2(320, 304)
 
 [node name="Caboose" parent="." unique_id=2023632522 instance=ExtResource("4_1svbp")]
-position = Vector2(320, 452)
+position = Vector2(320, 365)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 unique_name_in_owner = true
@@ -60,12 +66,23 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "START TURN"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1178605826]
+offset_left = 594.0
+offset_top = 257.0
+offset_right = 634.0
+offset_bottom = 418.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer" unique_id=1949746867]
+layout_mode = 2
+texture = ExtResource("10_w3spe")
+
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
-[connection signal="update_train_position" from="Engine" to="Caboose" method="_on_engine_update_train_position"]
+[connection signal="update_train_position" from="Engine" to="FlatBed" method="_on_engine_update_train_position"]
+[connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]

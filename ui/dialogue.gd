@@ -1,5 +1,7 @@
 extends Control
 
+@export var conversation: Conversation
+
 const UNFOCUSED_WIDTH = 300
 const FOCUSED_WIDTH = 310
 const UNFOCUSED_LIGHTNESS = 0.5
@@ -82,21 +84,22 @@ func slide_right_out() -> Signal:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().create_timer(1.0).timeout
-	while true:
-		slide_left_in()
-		await slide_right_in()
-		for i in range(2):
-			await focus_left()
-			await get_tree().create_timer(1.0).timeout
-			unfocus_left()
-			await focus_right()
-			await get_tree().create_timer(1.0).timeout
-			unfocus_right()
-		await get_tree().create_timer(0.5).timeout
-		slide_left_out()
-		await slide_right_out()
-		await get_tree().create_timer(2.0).timeout
+	if is_instance_valid(conversation):
+		var left_signal: Signal
+		var right_signal: Signal
+		var right_done = [false]
+		if conversation.left_texture != null:
+			$VBoxContainer/Container/PortraitLeft.texture = conversation.left_texture
+			left_signal = slide_left_in()
+		if conversation.right_texture != null:
+			$VBoxContainer/Container/PortraitRight.texture = conversation.right_texture
+			right_signal = slide_right_in()
+			right_signal.connect(func (): right_done[0] = true)
+		if is_instance_valid(left_signal):
+			await left_signal
+		if is_instance_valid(right_signal) and not right_done[0]:
+			await right_signal
+		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
