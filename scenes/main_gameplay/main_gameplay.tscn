@@ -59,6 +59,7 @@ text = "START TURN"
 [connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
+[connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
 [connection signal="update_train_position" from="Engine" to="Caboose" method="_on_engine_update_train_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]

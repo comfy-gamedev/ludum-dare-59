@@ -21,5 +21,10 @@ func _process(delta):
 
 func _on_main_gameplay_initiate_middle_to_right_transition():
 	await get_tree().create_timer(1.75).timeout
+	rotation_degrees += 10
 	moving_right = true
 	update_train_pos = true
+
+
+func _on_parallax_background_segment_transition_complete():
+	rotation_degrees = 0
