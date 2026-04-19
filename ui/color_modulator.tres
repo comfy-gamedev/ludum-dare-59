@@ -6,7 +6,7 @@ code = "// NOTE: Shader automatically converted from Godot Engine 4.6.2.stable's
 shader_type canvas_item;
 render_mode blend_mix;
 
-uniform float lightness = 1.0;
+instance uniform float lightness = 1.0;
 
 void fragment(){
   COLOR = texture(TEXTURE, UV); // Read from texture
@@ -18,4 +18,3 @@ void fragment(){
 
 [resource]
 shader = SubResource("Shader_23ees")
-shader_parameter/lightness = 0.5
