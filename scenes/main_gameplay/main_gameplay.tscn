@@ -32,6 +32,7 @@ position = Vector2(256, 365)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 unique_name_in_owner = true
+visible = false
 script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
