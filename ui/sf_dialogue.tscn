@@ -48,14 +48,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/RectCenter" unique_id=1296679833]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/RectCenter/MarginContainer" unique_id=22316379]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/RectCenter" unique_id=22316379]
 layout_mode = 2
 theme = ExtResource("2_5vkbq")
 text = "Honk Blargasdf

@@ -72,19 +72,11 @@ stretch_mode = 4
 flip_h = true
 
 [node name="ColorRect" type="PanelContainer" parent="VBoxContainer" unique_id=1297954432]
-visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme = ExtResource("1_fm7tp")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect" unique_id=2061035322]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ColorRect/MarginContainer" unique_id=2058041723]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ColorRect" unique_id=2058041723]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_fm7tp")
@@ -94,6 +86,7 @@ fit_content = true
 scroll_following = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer/ColorRect" unique_id=1286152528]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 text = "Next"

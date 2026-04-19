@@ -8,7 +8,7 @@ func show_step(step: ConversationStep) -> void:
 	var center_rect = $VBoxContainer/HBoxContainer/RectCenter
 	var right_rect = $VBoxContainer/HBoxContainer/RectRight
 	var right_tex = $VBoxContainer/HBoxContainer/RectRight/PortraitRight
-	var label = $VBoxContainer/HBoxContainer/RectCenter/MarginContainer/RichTextLabel
+	var label = $VBoxContainer/HBoxContainer/RectCenter/RichTextLabel
 	
 	label.text = ""
 	label.visible_ratio = 0.0
