@@ -5,7 +5,6 @@ signal update_flatbed_position(target_pos: Vector2)
 
 var update_flatbed_pos = false
 
-const X_SPEED = 95
 var new_pos = null
 var moving_direction = "NONE" # | "RIGHT" | "LEFT" | "DOWN" ? | "UP" ?
 
@@ -28,12 +27,12 @@ func process_follow_movement(delta):
 		
 		if moving_direction == "RIGHT":
 			if new_pos.x > position.x:
-				position.x += X_SPEED * delta
+				position.x += Globals.TRAIN_X_SPEED * delta
 			else:
 				reset_angle()
 		elif moving_direction == "LEFT":
 			if new_pos.x < position.y:
-				position.x += X_SPEED * delta
+				position.x -= Globals.TRAIN_X_SPEED * delta
 			else:
 				reset_angle()
 
@@ -54,16 +53,16 @@ func process_shimmy(delta):
 		flatbed_sprite.position = original_sprite_pos
 
 func _on_engine_update_train_position(target_pos: Vector2):
-	await get_tree().create_timer(0.08).timeout
+	await get_tree().create_timer(Globals.TRAIN_CAR_DELAY).timeout
 	#update_flatbed_position.emit()
 	update_flatbed_pos = true
 	
 	if target_pos.x > position.x:
 		moving_direction = "RIGHT"
-		rotation_degrees += 8
+		rotation_degrees += Globals.TRAIN_ROTATION
 	else:
 		moving_direction = "LEFT"
-		rotation_degrees -= 8
+		rotation_degrees -= Globals.TRAIN_ROTATION
 	
 	new_pos = target_pos
 

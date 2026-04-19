@@ -10,6 +10,11 @@ extends Node
 ## Emitted when any variable changes.
 signal changed(prop_name: StringName)
 
+## Train constants.
+const TRAIN_X_SPEED = 95
+const TRAIN_ROTATION = 8.0
+const TRAIN_CAR_DELAY = 0.08
+
 ## Example variable.
 var player_health: int = 0:
 	set(v):

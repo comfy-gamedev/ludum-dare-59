@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var caboose_sprite = %Sprite2D
 
-const X_SPEED = 95
 var new_pos = null
 var moving_direction = "NONE" # | "RIGHT" | "LEFT" | "DOWN" ? | "UP" ?
 
@@ -19,12 +18,12 @@ func process_follow_movement(delta):
 	if new_pos != null:
 		if moving_direction == "RIGHT":
 			if new_pos.x > position.x:
-				position.x += X_SPEED * delta
+				position.x += Globals.TRAIN_X_SPEED * delta
 			else:
 				reset_angle()
 		elif moving_direction == "LEFT":
 			if new_pos.x < position.y:
-				position.x += X_SPEED * delta
+				position.x -= Globals.TRAIN_X_SPEED * delta
 			else:
 				reset_angle()
 
@@ -64,13 +63,13 @@ func _on_shimmy_timer_timeout():
 
 
 func _on_flat_bed_update_flatbed_position(target_pos):
-	await get_tree().create_timer(0.08).timeout
+	await get_tree().create_timer(Globals.TRAIN_CAR_DELAY).timeout
 	
 	if target_pos.x > position.x:
 		moving_direction = "RIGHT"
-		rotation_degrees += 8
+		rotation_degrees += Globals.TRAIN_ROTATION
 	else:
 		moving_direction = "LEFT"
-		rotation_degrees -= 8
+		rotation_degrees -= Globals.TRAIN_ROTATION
 	
 	new_pos = target_pos
