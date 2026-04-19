@@ -20,6 +20,8 @@ var orders: Array[EntityOrder]
 var state: EntityState = EntityState.DESELECTED
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
+var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
+var preview_line: Line2D
 
 @onready var plan_line: Line2D = $PlanLine
 @onready var weapon_area = $WeaponArea
@@ -37,6 +39,19 @@ func _process(delta: float) -> void:
 		var preview_area = preview.get_node("WeaponArea")
 		var dir = get_global_mouse_position() - preview.position
 		preview_area.rotation = atan2(-dir.x, dir.y)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		if state == EntityState.PLANNING_MOVE:
+			var local_mouse_pos := get_global_mouse_position() - position + battle_grid.CELL_SIZE/2
+			if not preview_line:
+				preview_line = Line2D.new()
+				add_child(preview_line)
+			preview_line.clear_points()
+			preview_line.add_point(Vector2.ZERO)
+			preview_line.add_point(Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32)) * battle_grid.CELL_SIZE)
+		elif preview_line:
+			preview_line.clear_points()
 
 func execute_turn_async() -> void:
 	while not orders.is_empty() and orders[0].can_perform(self):
