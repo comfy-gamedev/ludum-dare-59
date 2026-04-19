@@ -6,6 +6,6 @@ class_name AttackAbility
 func execute_async(entity: EntityBody) -> void:
 	var attacked: Array[EntityBody]
 	for ent in entity.get_entities_in_range():
-		if ent.team != entity.team and not ent in attacked:
+		if not ent in attacked:
 			ent.take_damage(damage)
 			attacked.append(ent)

@@ -29,10 +29,11 @@ func _process(delta: float) -> void:
 func perform_turn() -> void:
 	turn_button.disabled = true
 	_player_input_enabled = false
-	var entities = battle_grid.get_entities()
+	var entities: Array[EntityBody] = battle_grid.get_entities()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
 			if ent.team == team:
+				ent.clear_plan_visuals()
 				await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
@@ -46,22 +47,30 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:
 	if not _player_input_enabled:
 		return
 	
-	var occupant = battle_grid.get_occupant(grid_pos)
-	var tile_terrains = battle_grid.get_terrain(grid_pos)
-	if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
+	if _selected_actor:
 		if left:
-			_selected_actor = occupant
-			_selected_actor.on_selected()
-			selection_box.position = _selected_actor.position
-			selection_box.show()
-		else:
-			occupant.clear_moves()
-	elif _selected_actor:
-		if left:
-			_selected_actor.plan_move(grid_pos, _selected_actor.facing_vector)
-		_selected_actor.on_deselected()
-		_selected_actor = null
-		selection_box.hide()
+			if _selected_actor.state == EntityBody.EntityState.PLANNING_MOVE:
+				_selected_actor.plan_move(grid_pos, _selected_actor.facing_vector)
+				_selected_actor.plan_attack(grid_pos, _selected_actor.facing_vector)
+				_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
+			elif _selected_actor.state == EntityBody.EntityState.PLANNING_AIM:
+				var last_order = _selected_actor.orders.back()
+				if last_order:
+					last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
+				_selected_actor.on_deselected()
+				_selected_actor = null
+				selection_box.hide()
+	else:
+		var occupant = battle_grid.get_occupant(grid_pos)
+		var tile_terrains = battle_grid.get_terrain(grid_pos)
+		if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
+			if left:
+				_selected_actor = occupant
+				_selected_actor.on_selected()
+				selection_box.position = _selected_actor.position
+				selection_box.show()
+			else:
+				occupant.clear_moves()
 
 
 func _on_turn_button_pressed() -> void:

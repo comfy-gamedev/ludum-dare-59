@@ -14,6 +14,7 @@
 script = ExtResource("1_wt4mr")
 
 [node name="ParallaxBackground" parent="." unique_id=1703892121 instance=ExtResource("4_sms7d")]
+z_index = -1
 
 [node name="Engine" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
 position = Vector2(320, 391)
