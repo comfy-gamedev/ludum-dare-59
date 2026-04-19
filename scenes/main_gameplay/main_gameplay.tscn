@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
+[ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -21,6 +22,7 @@ position = Vector2(320, 391)
 position = Vector2(320, 452)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
+unique_name_in_owner = true
 script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
@@ -31,6 +33,10 @@ grid_position = Vector2i(3, 3)
 
 [node name="Warning" parent="BattleGrid" unique_id=1372385912 instance=ExtResource("7_vsax7")]
 grid_position = Vector2i(2, 2)
+
+[node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
+position = Vector2(151.08636, 129.7958)
+grid_position = Vector2i(13, 4)
 
 [node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
 unique_name_in_owner = true
@@ -59,6 +65,7 @@ text = "START TURN"
 [connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
+[connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
 [connection signal="update_train_position" from="Engine" to="Caboose" method="_on_engine_update_train_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="pressed" from="CanvasLayer/TurnButton" to="." method="_on_turn_button_pressed"]
