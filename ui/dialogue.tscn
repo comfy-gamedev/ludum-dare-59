@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="1_fm7tp"]
 [ext_resource type="Script" uid="uid://cw42mf8mae266" path="res://ui/dialogue.gd" id="1_uo1k0"]
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/betty.png" id="1_xl33q"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_xl33q"]
 [ext_resource type="Resource" uid="uid://yl487iisve8m" path="res://ui/test_conversation.tres" id="2_qwm1w"]
 [ext_resource type="Material" uid="uid://b86w6sr8fasot" path="res://ui/color_modulator.tres" id="2_tqx3j"]
 [ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_xyniw"]
@@ -73,6 +73,7 @@ stretch_mode = 4
 flip_h = true
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer" unique_id=60035583]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 color = Color(0, 0, 0, 0.24705882)
@@ -94,5 +95,19 @@ clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_fm7tp")
 bbcode_enabled = true
-text = "Hello"
+text = "Honk Blarg!"
 scroll_following = true
+
+[node name="NextButton" type="Button" parent="VBoxContainer/ColorRect" unique_id=1286152528]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next"
