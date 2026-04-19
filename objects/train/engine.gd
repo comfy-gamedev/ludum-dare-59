@@ -12,6 +12,9 @@ var shimmy_intensity: float = 0.25
 var _shimmy_timer: float = 0.0
 var original_sprite_pos: Vector2
 
+const TARGET_RIGHT_X_POS = 384.0
+const TARGET_LEFT_X_POS = 128.0
+
 func _ready() -> void:
 	original_sprite_pos = engine_sprite.position
 
@@ -21,7 +24,7 @@ func _process(delta):
 
 func process_movement(delta):
 	if moving_right:
-		var target_pos = Vector2(384.0, position.y)
+		var target_pos = Vector2(TARGET_RIGHT_X_POS, position.y)
 		
 		if update_train_pos:
 			update_train_position.emit(target_pos)
@@ -33,6 +36,20 @@ func process_movement(delta):
 		else:
 			rotation_degrees = 0
 			moving_right = false
+	
+	if moving_left:
+		var target_pos = Vector2(TARGET_LEFT_X_POS, position.y)
+		
+		if update_train_pos:
+			update_train_position.emit(target_pos)
+			update_train_pos = false
+		
+		if position.x >= target_pos.x:
+			position.x -= Globals.TRAIN_X_SPEED * delta
+			#current_pos = position
+		else:
+			rotation_degrees = 0
+			moving_left = false
 
 func process_shimmy(delta):
 	if _shimmy_timer > 0.0:
@@ -60,3 +77,10 @@ func _on_parallax_background_segment_transition_complete():
 
 func _on_shimmy_timer_timeout():
 	initiate_shimmy()
+
+
+func _on_main_gameplay_initiate_middle_to_left_transition():
+	await get_tree().create_timer(1.5).timeout
+	rotation_degrees -= Globals.TRAIN_ROTATION
+	moving_left = true
+	update_train_pos = true

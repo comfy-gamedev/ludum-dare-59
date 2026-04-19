@@ -119,6 +119,7 @@ battle_grid = NodePath("../../BattleGrid")
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [connection signal="initiate_middle_to_left_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_left_transition"]
+[connection signal="initiate_middle_to_left_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_left_transition"]
 [connection signal="initiate_middle_to_right_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="player_signal_points_changed" from="." to="CanvasLayer/Panel/SignalPointsContainer" method="_on_main_gameplay_player_signal_points_changed"]
