@@ -90,7 +90,7 @@ func slide_right_out() -> Signal:
 func show_step(step: ConversationStep) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
-	var label = $VBoxContainer/ColorRect/MarginContainer/RichTextLabel
+	var label = $VBoxContainer/ColorRect/RichTextLabel
 	var next = $VBoxContainer/ColorRect/NextButton
 	
 	label.text = ""
@@ -132,7 +132,7 @@ func show_step(step: ConversationStep) -> void:
 func show_conversation(conv: Conversation) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
-	var label = $VBoxContainer/ColorRect/MarginContainer/RichTextLabel
+	var label = $VBoxContainer/ColorRect/RichTextLabel
 	var rect = $VBoxContainer/ColorRect
 	
 	left.position.x = LEFT_OFFSCREEN_X

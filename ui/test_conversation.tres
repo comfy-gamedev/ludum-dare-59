@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_40k8f"]
 [ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_e13ur"]
 [ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="5_cb1yq"]
+[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="6_aq8ex"]
+[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="7_ebeu6"]
 
 [sub_resource type="Resource" id="Resource_e13ur"]
 script = ExtResource("2_40k8f")
@@ -24,9 +26,22 @@ texture = ExtResource("5_cb1yq")
 message = "And I'm Piper!"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
+[sub_resource type="Resource" id="Resource_qgdci"]
+script = ExtResource("2_40k8f")
+texture = ExtResource("6_aq8ex")
+message = "I place my sword in attack mode! "
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_ky55o"]
+script = ExtResource("2_40k8f")
+side = 1
+texture = ExtResource("7_ebeu6")
+message = "Shield"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
 [resource]
 script = ExtResource("1_tr27l")
 left_texture = ExtResource("1_cb1yq")
 right_texture = ExtResource("2_e13ur")
-steps = Array[ExtResource("2_40k8f")]([SubResource("Resource_e13ur"), SubResource("Resource_cb1yq"), SubResource("Resource_f3ifw")])
+steps = Array[ExtResource("2_40k8f")]([SubResource("Resource_e13ur"), SubResource("Resource_cb1yq"), SubResource("Resource_f3ifw"), SubResource("Resource_qgdci"), SubResource("Resource_ky55o")])
 metadata/_custom_type_script = "uid://bprhkt5tix3qd"

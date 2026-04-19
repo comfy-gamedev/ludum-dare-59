@@ -8,6 +8,7 @@ signal initiate_left_to_middle_transition()
 signal player_signal_points_changed()
 
 signal _ui_input(what: int, params: Dictionary)
+signal turn_end
 
 const UI_GRID_CLICKED = 0
 const UI_START_TURN_CLICKED = 1
@@ -39,7 +40,7 @@ func _ready() -> void:
 			box_parent.add_child(current_box)
 	
 	#initiate_middle_to_right_transition.emit()
-	initiate_middle_to_left_transition.emit()
+	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
@@ -68,6 +69,8 @@ func turn_input() -> void:
 			if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
+					if _selected_actor.turn_done:
+						player_signal_points += 1 + _selected_actor.future_orders.size()
 					_selected_actor.on_selected()
 					
 					selection_box.position = _selected_actor.position
@@ -90,8 +93,8 @@ func turn_input() -> void:
 								turn_input()
 								return
 							
-							_selected_actor.plan_move(move_grid_pos, _selected_actor.facing_vector)
-							_selected_actor.plan_attack(move_grid_pos, _selected_actor.facing_vector)
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT)
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY)
 							_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
 							
 							move_clicked = await battle_grid.cell_clicked
@@ -102,6 +105,7 @@ func turn_input() -> void:
 							if last_order:
 								last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
 							
+							_selected_actor.turn_done = true
 							_selected_actor.on_deselected()
 							_selected_actor = null
 							
@@ -142,7 +146,7 @@ func perform_turn() -> void:
 	
 	reset_turn_state()
 	spawn_clouds()
-
+	turn_end.emit()
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
@@ -180,3 +184,10 @@ func spawn_clouds(num = 2, radii = 4):
 					current_coord += dir
 					if current_coord.x == center_coord.x || current_coord.y == center_coord.y:
 						break
+
+func initiate_terrain_segment_transition():
+	# do logic to determine where we should go
+	initiate_middle_to_left_transition.emit()
+
+func _on_turn_end():
+	initiate_terrain_segment_transition()

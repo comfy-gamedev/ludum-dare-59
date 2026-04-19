@@ -13,11 +13,13 @@ enum EntityState {
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
 @export_file("*.tres") var auto_attack_path: String = "res://scenes/main_gameplay/entity_abilities/basic_attack.tres"
-@export_file("*tres") var abilities_paths: Array[String]
+@export_file("*.tres") var abilities_paths: Array[String]
 
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
+var future_orders: Array[Array]
+var turn_done := false
 var state: EntityState = EntityState.DESELECTED: set = _set_state
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
@@ -36,7 +38,7 @@ func _ready() -> void:
 		abilities.append(load(path))
 	float_anim_player.play(&"float")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if state == EntityState.PLANNING_AIM and not turn_end_previews.is_empty():
 		var preview = turn_end_previews.back()
 		var preview_area = preview.get_node("WeaponArea")
@@ -49,8 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var local_mouse_grid_pos := Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32))
 		if state == EntityState.PLANNING_MOVE and cell_in_range(local_mouse_grid_pos + Vector2(grid_position)):
 			if not preview_line:
-				preview_line = Line2D.new()
-				preview_line.z_index = 1
+				preview_line = plan_line.duplicate()
 				add_child(preview_line)
 			preview_line.clear_points()
 			preview_line.add_point(Vector2.ZERO)
@@ -63,23 +64,28 @@ func execute_turn_async() -> void:
 		await orders[0].execute_async(self)
 		orders.remove_at(0)
 	
+	if not future_orders.is_empty():
+		orders = future_orders.pop_front()
+		turn_done = true
+	else:
+		turn_done = false
+	
 	_update_plan_visuals()
 
-func plan_move(to_pos: Vector2i, to_dir: Vector2i) -> void:
+func plan_order(to_pos: Vector2i, to_dir: Vector2, order_type: EntityOrder.OrderType, turn_index: int = 0) -> void:
 	var order = EntityOrder.new()
-	order.type = EntityOrder.OrderType.MOVEMENT
-	order.target_pos = to_pos
-	order.target_dir = to_dir
-	orders.append(order)
-	_update_plan_visuals()
-
-func plan_attack(to_pos: Vector2i, to_dir: Vector2) -> void:
-	var order = EntityOrder.new()
-	order.type = EntityOrder.OrderType.ABILITY
+	order.type = order_type
 	order.ability = auto_attack
 	order.target_pos = to_pos
 	order.target_dir = to_dir
-	orders.append(order)
+	if turn_index == 0:
+		orders.append(order)
+	else:
+		var indexed_turn_orders = future_orders.get(turn_index - 1)
+		if not indexed_turn_orders:
+			future_orders.push_back([])
+			indexed_turn_orders = future_orders.back()
+		indexed_turn_orders.append(order)
 	_update_plan_visuals()
 
 func clear_moves() -> void:
@@ -102,6 +108,11 @@ func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
 		_on_death()
+
+func reset_planning() -> void:
+	orders.clear()
+	future_orders.clear()
+	_update_plan_visuals()
 
 func create_turn_end_preview(location: Vector2, aim_dir: Vector2) -> void:
 	var preview = Node2D.new()
@@ -139,7 +150,9 @@ func _on_death() -> void:
 
 func _update_plan_visuals() -> void:
 	clear_plan_visuals()
-	for order in orders:
+	var all_orders = orders.duplicate()
+	for order_arr in future_orders: all_orders.append_array(order_arr)
+	for order in all_orders:
 		var target_position = battle_grid.get_cell_center(order.target_pos)
 		match order.type:
 			EntityOrder.OrderType.MOVEMENT:
@@ -149,6 +162,7 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
+	if turn_done: reset_planning()
 	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():

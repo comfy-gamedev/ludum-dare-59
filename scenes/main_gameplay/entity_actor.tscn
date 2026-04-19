@@ -44,9 +44,9 @@ _data = {
 [node name="EntityActor" unique_id=1038994791 instance=ExtResource("1_vuf4i")]
 
 [node name="PlanLine" parent="." index="1" unique_id=1485000665]
+z_index = 1
 joint_mode = 0
-begin_cap_mode = 0
-end_cap_mode = 0
+begin_cap_mode = 2
 
 [node name="SelfArea2D" type="Area2D" parent="." index="2" unique_id=1621842412]
 collision_layer = 8
