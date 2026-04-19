@@ -3,6 +3,7 @@ class_name MainGameplay
 
 signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
+signal initiate_left_to_middle_transition()
 
 signal player_signal_points_changed()
 
@@ -39,6 +40,7 @@ func _ready() -> void:
 	
 	#initiate_middle_to_right_transition.emit()
 	initiate_middle_to_left_transition.emit()
+	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
 	

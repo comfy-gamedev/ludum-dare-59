@@ -12,6 +12,7 @@ signal segment_transition_complete
 	"MiddleToLeftTurn2": preload("res://objects/terrains/middle_to_left/middle_to_left_2.tscn"),
 	"MiddleToLeftTurn3": preload("res://objects/terrains/middle_to_left/middle_to_left_3.tscn"),
 	"LeftStraight": preload("res://objects/terrains/left_straight/straightaway_left_straight.tscn"),
+	"LeftToMiddleTurn1": preload("res://objects/terrains/left_to_middle/left_to_middle_1.tscn"),
 }
 
 var prev_scroll_offset_y = 0
@@ -34,6 +35,9 @@ func queue_middle_to_right_segment_transition():
 	
 func queue_middle_to_left_segment_transition():
 	segment_transition_queue.append_array(["MiddleToLeftTurn1", "MiddleToLeftTurn2", "MiddleToLeftTurn3", "LeftStraight"])
+
+func queue_left_to_middle_segment_transition():
+	segment_transition_queue.append_array(["LeftToMiddleTurn1"])
 	
 #func middle_straight_segment():
 	#segment_transition_queue.append("MiddleStraight")
@@ -74,3 +78,6 @@ func _on_main_gameplay_initiate_middle_to_right_transition():
 
 func _on_main_gameplay_initiate_middle_to_left_transition():
 	queue_middle_to_left_segment_transition()
+
+func _on_main_gameplay_initiate_left_to_middle_transition():
+	queue_left_to_middle_segment_transition()
