@@ -28,11 +28,13 @@ var preview_line: Line2D
 @onready var weapon_area = $WeaponArea
 @onready var weapon_collision = $WeaponArea/Area2D
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var float_anim_player: AnimationPlayer = $FloatAnimationPlayer
 
 func _ready() -> void:
 	auto_attack = load(auto_attack_path)
 	for path in abilities_paths:
 		abilities.append(load(path))
+	float_anim_player.play(&"float")
 
 func _process(delta: float) -> void:
 	if state == EntityState.PLANNING_AIM and not turn_end_previews.is_empty():
