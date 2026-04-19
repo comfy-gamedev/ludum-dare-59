@@ -126,7 +126,8 @@ func _update_plan_visuals() -> void:
 		var target_position = battle_grid.get_cell_center(order.target_pos)
 		match order.type:
 			EntityOrder.OrderType.MOVEMENT:
-				plan_line.add_point(target_position - position)
+				if plan_line != null:
+					plan_line.add_point(target_position - position)
 			EntityOrder.OrderType.ABILITY:
 				create_turn_end_preview(target_position, order.target_dir)
 
