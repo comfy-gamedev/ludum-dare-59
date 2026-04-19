@@ -38,6 +38,12 @@ project/assembly_name="Ludum Dare 59"
 
 common/snap_controls_to_pixels=false
 
+[layer_names]
+
+2d_physics/layer_2="attacks"
+2d_physics/layer_3="grid_tile"
+2d_physics/layer_4="bodies"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
