@@ -7,4 +7,11 @@
 script = ExtResource("1_3u86x")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057995835]
+unique_name_in_owner = true
 texture = ExtResource("1_23tvs")
+
+[node name="ShimmyTimer" type="Timer" parent="." unique_id=1081903085]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]
