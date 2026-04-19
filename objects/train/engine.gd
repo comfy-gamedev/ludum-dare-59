@@ -50,7 +50,7 @@ func initiate_shimmy():
 	_shimmy_timer = shimmy_duration
 
 func _on_main_gameplay_initiate_middle_to_right_transition():
-	await get_tree().create_timer(1.6).timeout
+	await get_tree().create_timer(1.5).timeout
 	rotation_degrees += 10
 	moving_right = true
 	update_train_pos = true
