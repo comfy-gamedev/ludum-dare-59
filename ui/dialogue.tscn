@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://vtwovuplg2ld"]
+
+[ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="1_fm7tp"]
+[ext_resource type="Script" uid="uid://cw42mf8mae266" path="res://ui/dialogue.gd" id="1_uo1k0"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/betty.png" id="1_xl33q"]
+[ext_resource type="Material" uid="uid://b86w6sr8fasot" path="res://ui/color_modulator.tres" id="2_tqx3j"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_xyniw"]
+
+[sub_resource type="Theme" id="Theme_xl33q"]
+
+[node name="Dialogue" type="Control" unique_id=341286864]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xl33q")
+script = ExtResource("1_uo1k0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1202121370]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Container" type="Control" parent="VBoxContainer" unique_id=1386894417]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PortraitLeft" type="TextureRect" parent="VBoxContainer/Container" unique_id=917662155]
+material = ExtResource("2_tqx3j")
+instance_shader_parameters/lightness = 0.5
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -300.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("1_xl33q")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="PortraitRight" type="TextureRect" parent="VBoxContainer/Container" unique_id=671544639]
+material = ExtResource("2_tqx3j")
+instance_shader_parameters/lightness = 0.5
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 300.00122
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 10
+size_flags_vertical = 8
+texture = ExtResource("2_xyniw")
+expand_mode = 4
+stretch_mode = 4
+flip_h = true
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer" unique_id=60035583]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+color = Color(0, 0, 0, 0.24705882)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect" unique_id=2061035322]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ColorRect/MarginContainer" unique_id=2058041723]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("1_fm7tp")
+bbcode_enabled = true
+text = "Hello"
+scroll_following = true

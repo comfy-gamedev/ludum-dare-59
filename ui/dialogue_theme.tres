@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://dsk3cajibanyf"]
+
+[ext_resource type="FontFile" uid="uid://ba2sqadr7at8k" path="res://assets/fonts/Beholden-Regular.ttf" id="1_r8dcj"]
+
+[resource]
+default_font = ExtResource("1_r8dcj")
+default_font_size = 40
