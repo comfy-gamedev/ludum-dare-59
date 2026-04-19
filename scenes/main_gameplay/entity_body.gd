@@ -36,7 +36,7 @@ func _ready() -> void:
 		abilities.append(load(path))
 	float_anim_player.play(&"float")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if state == EntityState.PLANNING_AIM and not turn_end_previews.is_empty():
 		var preview = turn_end_previews.back()
 		var preview_area = preview.get_node("WeaponArea")
@@ -49,8 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var local_mouse_grid_pos := Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32))
 		if state == EntityState.PLANNING_MOVE and cell_in_range(local_mouse_grid_pos + Vector2(grid_position)):
 			if not preview_line:
-				preview_line = Line2D.new()
-				preview_line.z_index = 1
+				preview_line = plan_line.duplicate()
 				add_child(preview_line)
 			preview_line.clear_points()
 			preview_line.add_point(Vector2.ZERO)
