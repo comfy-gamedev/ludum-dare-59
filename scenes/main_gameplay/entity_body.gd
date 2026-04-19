@@ -127,7 +127,7 @@ func clear_plan_visuals() -> void:
 func _set_state(value: EntityState) -> void:
 	state = value
 	match value:
-		EntityState.PLANNING_MOVE:
+		EntityState.PLANNING_MOVE, EntityState.PLANNING_MENU:
 			battle_grid.show_movement_range(grid_position, max_movement)
 		_:
 			battle_grid.hide_movement_range()
@@ -147,7 +147,7 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
-	_set_state(EntityState.PLANNING_MOVE)
+	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():
 	_set_state(EntityState.DESELECTED)

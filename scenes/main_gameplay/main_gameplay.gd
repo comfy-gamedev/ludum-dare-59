@@ -79,6 +79,8 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.MOVE:
+							_selected_actor.state = EntityBody.EntityState.PLANNING_MOVE
+							
 							var move_clicked = await battle_grid.cell_clicked
 							var move_grid_pos = move_clicked[0]
 							var move_click_button = move_clicked[1]
