@@ -52,7 +52,7 @@ func _ready() -> void:
 func turn_input() -> void:
 	await get_tree().process_frame
 	
-	turn_button.disabled = false
+	#turn_button.disabled = false
 	
 	var ui_input = await _ui_input
 	var ui_event: int = ui_input[0]
@@ -63,7 +63,7 @@ func turn_input() -> void:
 			var grid_pos: Vector2i = ui_params.grid_pos
 			var click_button: int = ui_params.click_button
 			
-			turn_button.disabled = true
+			#turn_button.disabled = true
 			
 			var occupant = battle_grid.get_occupant(grid_pos)
 			var tile_terrains = battle_grid.get_terrain(grid_pos)
@@ -162,6 +162,7 @@ func _on_turn_button_pressed() -> void:
 
 
 func _on_parallax_background_segment_transition_complete():
+	turn_button.disabled = false
 	print("Terrain segment transition complete!")
 
 func spawn_clouds(num = 2, radii = 4):
@@ -195,10 +196,12 @@ func initiate_terrain_segment_transition():
 			
 			if random_transition == Globals.TerrainSegmentStates.LEFT:
 				initiate_middle_to_left_transition.emit()
-				current_terrain_segment_state = Globals.TerrainSegmentStates.LEFT
+				set_current_terrain_segment(Globals.TerrainSegmentStates.LEFT)
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.LEFT
 			elif random_transition == Globals.TerrainSegmentStates.RIGHT:
 				initiate_middle_to_right_transition.emit()
-				current_terrain_segment_state = Globals.TerrainSegmentStates.RIGHT
+				set_current_terrain_segment(Globals.TerrainSegmentStates.RIGHT)
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.RIGHT
 		
 		Globals.TerrainSegmentStates.LEFT:
 			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.MIDDLE]
@@ -206,7 +209,13 @@ func initiate_terrain_segment_transition():
 			
 			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
 				initiate_left_to_middle_transition.emit()
-				current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
+				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+
+func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
+	current_terrain_segment_state = new_terrain_segment_state
+	turn_button.disabled = true
+	print("Init new terrain segment transition")
 
 func _on_turn_end():
 	initiate_terrain_segment_transition()
