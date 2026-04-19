@@ -68,6 +68,8 @@ func turn_input() -> void:
 			if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
+					if _selected_actor.turn_done:
+						player_signal_points += 1 + _selected_actor.future_orders.size()
 					_selected_actor.on_selected()
 					
 					selection_box.position = _selected_actor.position

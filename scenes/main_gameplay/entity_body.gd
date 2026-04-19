@@ -13,7 +13,7 @@ enum EntityState {
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
 @export_file("*.tres") var auto_attack_path: String = "res://scenes/main_gameplay/entity_abilities/basic_attack.tres"
-@export_file("*tres") var abilities_paths: Array[String]
+@export_file("*.tres") var abilities_paths: Array[String]
 
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
@@ -109,6 +109,11 @@ func take_damage(amount: int) -> void:
 	if health <= 0:
 		_on_death()
 
+func reset_planning() -> void:
+	orders.clear()
+	future_orders.clear()
+	_update_plan_visuals()
+
 func create_turn_end_preview(location: Vector2, aim_dir: Vector2) -> void:
 	var preview = Node2D.new()
 	var preview_sprite: Sprite2D = sprite.duplicate()
@@ -157,9 +162,7 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
-	if turn_done:
-		orders.clear()
-		_update_plan_visuals()
+	if turn_done: reset_planning()
 	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():
