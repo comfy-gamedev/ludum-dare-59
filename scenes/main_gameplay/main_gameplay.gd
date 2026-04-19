@@ -19,6 +19,8 @@ const UI_START_TURN_CLICKED = 1
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
 
+var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
+
 var player_signal_points: int:
 	set(v):
 		player_signal_points = v
@@ -186,8 +188,25 @@ func spawn_clouds(num = 2, radii = 4):
 						break
 
 func initiate_terrain_segment_transition():
-	# do logic to determine where we should go
-	initiate_middle_to_left_transition.emit()
+	match current_terrain_segment_state:
+		Globals.TerrainSegmentStates.MIDDLE:
+			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE] # and tunnel eventually
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.LEFT:
+				initiate_middle_to_left_transition.emit()
+				current_terrain_segment_state = Globals.TerrainSegmentStates.LEFT
+			elif random_transition == Globals.TerrainSegmentStates.RIGHT:
+				initiate_middle_to_right_transition.emit()
+				current_terrain_segment_state = Globals.TerrainSegmentStates.RIGHT
+		
+		Globals.TerrainSegmentStates.LEFT:
+			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.MIDDLE]
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
+				initiate_left_to_middle_transition.emit()
+				current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 func _on_turn_end():
 	initiate_terrain_segment_transition()
