@@ -33,6 +33,7 @@ func _ready() -> void:
 		for j in battle_grid.GRID_DIM.y:
 			current_box = _box_scene.instantiate()
 			current_box.position = Vector2(16 + (i * 32), 16 + (j * 32))
+			current_box.grid_pos = Vector2i(i, j)
 			box_parent.add_child(current_box)
 	
 	initiate_middle_to_right_transition.emit()

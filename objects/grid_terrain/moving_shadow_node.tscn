@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bljoff2vhc7kh"]
+
+[ext_resource type="Script" uid="uid://4iep42jsdt5s" path="res://objects/grid_terrain/moving_shadow_node.gd" id="1_wl4wh"]
+[ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="2_nhpqx"]
+[ext_resource type="Texture2D" uid="uid://gpvb4k5ekfe2" path="res://assets/textures/terrains/warning_tile.png" id="2_wl4wh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wl4wh"]
+size = Vector2(95, 95)
+
+[node name="MovingShadowNode" type="Node2D" unique_id=1346576297]
+script = ExtResource("1_wl4wh")
+team = 1
+lifetime = 10
+transformation_target = ExtResource("2_nhpqx")
+metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1917585030]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_wl4wh")
+flip_v = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1716419510]
+collision_layer = 128
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1545856179]
+shape = SubResource("RectangleShape2D_wl4wh")
