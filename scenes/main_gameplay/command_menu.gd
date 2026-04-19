@@ -28,8 +28,8 @@ func _input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 
-func popup(entity: EntityBody) -> void:
-	position = battle_grid.get_cell_center(entity.grid_position)
+func popup(entity: EntityBody, grid_pos: Vector2i) -> void:
+	position = battle_grid.get_cell_center(grid_pos)
 	burst_button.disabled = entity.orders.is_empty()
 	show()
 

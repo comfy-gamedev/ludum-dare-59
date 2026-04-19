@@ -17,9 +17,10 @@ enum EntityState {
 
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
-var orders: Array[EntityOrder]
+var orders: Array
 var future_orders: Array[Array]
 var turn_done := false
+var turn_end_grid_pos: Vector2i
 var state: EntityState = EntityState.DESELECTED: set = _set_state
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
@@ -86,10 +87,16 @@ func plan_order(to_pos: Vector2i, to_dir: Vector2, order_type: EntityOrder.Order
 			future_orders.push_back([])
 			indexed_turn_orders = future_orders.back()
 		indexed_turn_orders.append(order)
+	
+	# If very last order, update turn_end_grid_pos
+	if turn_index >= future_orders.size():
+		turn_end_grid_pos = to_pos
+	
 	_update_plan_visuals()
 
-func clear_moves() -> void:
-	orders = []
+func clear_orders() -> void:
+	orders.clear()
+	future_orders.clear()
 	_update_plan_visuals()
 
 #switched to tile attacks
@@ -108,11 +115,6 @@ func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
 		_on_death()
-
-func reset_planning() -> void:
-	orders.clear()
-	future_orders.clear()
-	_update_plan_visuals()
 
 func create_turn_end_preview(location: Vector2, aim_dir: Vector2) -> void:
 	var preview = Node2D.new()
@@ -141,7 +143,10 @@ func _set_state(value: EntityState) -> void:
 	state = value
 	match value:
 		EntityState.PLANNING_MOVE, EntityState.PLANNING_MENU:
-			battle_grid.show_movement_range(grid_position, max_movement)
+			if turn_done:
+				battle_grid.show_movement_range(turn_end_grid_pos, max_movement)
+			else:
+				battle_grid.show_movement_range(grid_position, max_movement)
 		_:
 			battle_grid.hide_movement_range()
 
@@ -162,7 +167,6 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
-	if turn_done: reset_planning()
 	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():

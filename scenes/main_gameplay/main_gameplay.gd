@@ -67,18 +67,27 @@ func turn_input() -> void:
 			
 			var occupant = battle_grid.get_occupant(grid_pos)
 			var tile_terrains = battle_grid.get_terrain(grid_pos)
+			var is_future_order = false
+			
+			# If no occupant found, check for planning previews
+			if not occupant:
+				for ent in battle_grid.get_entities():
+					if ent.turn_done and ent.turn_end_grid_pos == grid_pos:
+						is_future_order = true
+						occupant = ent
 			
 			if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
-					if _selected_actor.turn_done:
+					if _selected_actor.turn_done and not is_future_order:
 						player_signal_points += 1 + _selected_actor.future_orders.size()
+						_selected_actor.clear_orders()
 					_selected_actor.on_selected()
 					
-					selection_box.position = _selected_actor.position
+					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
 					
-					command_menu.popup(_selected_actor)
+					command_menu.popup(_selected_actor, grid_pos)
 					
 					var cmd = await command_menu.command_chosen
 					match cmd:
@@ -95,8 +104,10 @@ func turn_input() -> void:
 								turn_input()
 								return
 							
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT)
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY)
+							var turn_index = 0
+							if is_future_order: turn_index = _selected_actor.future_orders.size() + 1
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT, turn_index)
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY, turn_index)
 							_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
 							
 							move_clicked = await battle_grid.cell_clicked
