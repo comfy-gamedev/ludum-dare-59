@@ -2,6 +2,7 @@ extends Node2D
 class_name MainGameplay
 
 signal initiate_middle_to_right_transition()
+signal initiate_middle_to_left_transition()
 
 signal player_signal_points_changed()
 
@@ -36,7 +37,8 @@ func _ready() -> void:
 			current_box.grid_pos = Vector2i(i, j)
 			box_parent.add_child(current_box)
 	
-	initiate_middle_to_right_transition.emit()
+	#initiate_middle_to_right_transition.emit()
+	initiate_middle_to_left_transition.emit()
 	
 	reset_turn_state()
 	
