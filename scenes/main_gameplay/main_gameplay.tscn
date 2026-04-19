@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
-[ext_resource type="Script" path="res://scenes/main_gameplay/signal_points_container.gd" id="10_ieocc"]
+[ext_resource type="Script" uid="uid://il6hjqsfqal7" path="res://scenes/main_gameplay/signal_points_container.gd" id="10_ieocc"]
 [ext_resource type="Texture2D" uid="uid://bbecl65o8oslo" path="res://assets/textures/particles/circle.png" id="10_w3spe"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
@@ -46,7 +46,6 @@ grid_position = Vector2i(2, 2)
 
 [node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
 position = Vector2(151.08636, 129.7958)
-health = 1
 grid_position = Vector2i(13, 4)
 
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]

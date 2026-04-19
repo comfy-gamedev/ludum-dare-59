@@ -8,10 +8,6 @@ size = Vector2(10, 10)
 
 [node name="BasicDrone" type="Node2D" unique_id=1386753269]
 script = ExtResource("1_418kl")
-max_health = 2
-health = 2
-move_speed = 2
-team = 1
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1893496436]
