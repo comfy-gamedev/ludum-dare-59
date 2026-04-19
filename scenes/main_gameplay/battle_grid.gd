@@ -3,7 +3,7 @@ class_name BattleGrid
 
 signal cell_clicked(grid_pos: Vector2i, left: bool)
 
-const GRID_DIM = Vector2i(20, 15)
+const GRID_DIM = Vector2i(16, 13)
 const CELL_SIZE = Vector2(32, 32)
 
 enum Team {

@@ -7,6 +7,8 @@ signal initiate_middle_to_right_transition
 @onready var selection_box: Line2D = %SelectionBox
 @onready var box_parent = $IndicatorBoxesParent
 
+var player_mana: int
+
 var _selected_actor: EntityBody
 var _player_input_enabled: bool = true
 var _box_scene = preload("res://objects/ui/indicator.tscn")
@@ -23,6 +25,8 @@ func _ready() -> void:
 	
 	initiate_middle_to_right_transition.emit()
 	
+	reset_turn_state()
+
 func _process(delta: float) -> void:
 	pass
 
@@ -41,6 +45,12 @@ func perform_turn() -> void:
 		await terr.perform_turn()
 	turn_button.disabled = false
 	_player_input_enabled = true
+	
+	reset_turn_state()
+
+
+func reset_turn_state() -> void:
+	player_mana = 3
 
 
 func _on_battle_grid_cell_clicked(grid_pos: Vector2i, left: bool) -> void:

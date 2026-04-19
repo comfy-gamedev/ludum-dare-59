@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
+[ext_resource type="Texture2D" uid="uid://bbecl65o8oslo" path="res://assets/textures/particles/circle.png" id="10_w3spe"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -60,6 +61,16 @@ offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "START TURN"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1178605826]
+offset_left = 594.0
+offset_top = 257.0
+offset_right = 634.0
+offset_bottom = 418.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer" unique_id=1949746867]
+layout_mode = 2
+texture = ExtResource("10_w3spe")
 
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
