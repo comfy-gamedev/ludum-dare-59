@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var caboose_sprite = %Sprite2D
 
-const X_SPEED = 100
+const X_SPEED = 95
 var new_pos = null
 var moving_direction = "NONE" # | "RIGHT" | "LEFT" | "DOWN" ? | "UP" ?
 
@@ -64,13 +64,13 @@ func _on_shimmy_timer_timeout():
 
 
 func _on_flat_bed_update_flatbed_position(target_pos):
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.08).timeout
 	
 	if target_pos.x > position.x:
 		moving_direction = "RIGHT"
-		rotation_degrees += 10
+		rotation_degrees += 8
 	else:
 		moving_direction = "LEFT"
-		rotation_degrees -= 10
+		rotation_degrees -= 8
 	
 	new_pos = target_pos

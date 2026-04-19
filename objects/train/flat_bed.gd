@@ -5,7 +5,7 @@ signal update_flatbed_position(target_pos: Vector2)
 
 var update_flatbed_pos = false
 
-const X_SPEED = 100
+const X_SPEED = 95
 var new_pos = null
 var moving_direction = "NONE" # | "RIGHT" | "LEFT" | "DOWN" ? | "UP" ?
 
@@ -54,16 +54,16 @@ func process_shimmy(delta):
 		flatbed_sprite.position = original_sprite_pos
 
 func _on_engine_update_train_position(target_pos: Vector2):
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.08).timeout
 	#update_flatbed_position.emit()
 	update_flatbed_pos = true
 	
 	if target_pos.x > position.x:
 		moving_direction = "RIGHT"
-		rotation_degrees += 10
+		rotation_degrees += 8
 	else:
 		moving_direction = "LEFT"
-		rotation_degrees -= 10
+		rotation_degrees -= 8
 	
 	new_pos = target_pos
 

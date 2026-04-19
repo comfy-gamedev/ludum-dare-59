@@ -3,7 +3,7 @@ signal update_train_position(target_pos: Vector2)
 
 @onready var engine_sprite = %Sprite2D
 
-const X_SPEED = 100
+const X_SPEED = 95
 var moving_right = false
 var moving_left = false
 var update_train_pos = false
@@ -22,7 +22,7 @@ func _process(delta):
 
 func process_movement(delta):
 	if moving_right:
-		var target_pos = Vector2(383.0, position.y)
+		var target_pos = Vector2(384.0, position.y)
 		
 		if update_train_pos:
 			update_train_position.emit(target_pos)
@@ -51,7 +51,7 @@ func initiate_shimmy():
 
 func _on_main_gameplay_initiate_middle_to_right_transition():
 	await get_tree().create_timer(1.5).timeout
-	rotation_degrees += 10
+	rotation_degrees += 8
 	moving_right = true
 	update_train_pos = true
 
