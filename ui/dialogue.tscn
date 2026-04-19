@@ -21,10 +21,9 @@ script = ExtResource("1_uo1k0")
 conversation = ExtResource("2_qwm1w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1202121370]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -72,19 +71,13 @@ expand_mode = 4
 stretch_mode = 4
 flip_h = true
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer" unique_id=60035583]
-visible = false
+[node name="ColorRect" type="PanelContainer" parent="VBoxContainer" unique_id=1297954432]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-color = Color(0, 0, 0, 0.24705882)
+theme = ExtResource("1_fm7tp")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect" unique_id=2061035322]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -96,18 +89,10 @@ layout_mode = 2
 theme = ExtResource("1_fm7tp")
 bbcode_enabled = true
 text = "Honk Blarg!"
+fit_content = true
 scroll_following = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer/ColorRect" unique_id=1286152528]
 visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -45.0
-offset_top = -31.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 2
 text = "Next"
