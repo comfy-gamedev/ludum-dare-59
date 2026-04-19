@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_5vkbq")
 script = ExtResource("1_5vkbq")
 conversation = ExtResource("2_2j2rc")
 
@@ -30,37 +31,23 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="RectLeft" type="ColorRect" parent="VBoxContainer/HBoxContainer" unique_id=65692692]
-visible = false
+[node name="RectLeft" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=286034345]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-color = Color(0, 0, 0, 0.24705882)
 
 [node name="PortraitLeft" type="TextureRect" parent="VBoxContainer/HBoxContainer/RectLeft" unique_id=2027211610]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 texture = ExtResource("1_ohw5o")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="RectCenter" type="ColorRect" parent="VBoxContainer/HBoxContainer" unique_id=347216012]
-visible = false
+[node name="RectCenter" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1687925721]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0, 0, 0, 0.24705882)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/RectCenter" unique_id=1296679833]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -69,21 +56,16 @@ theme_override_constants/margin_bottom = 5
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/RectCenter/MarginContainer" unique_id=22316379]
 layout_mode = 2
 theme = ExtResource("2_5vkbq")
-text = "Honk Blarg"
+text = "Honk Blargasdf
+asdf"
+fit_content = true
 
-[node name="RectRight" type="ColorRect" parent="VBoxContainer/HBoxContainer" unique_id=1436007177]
-visible = false
+[node name="RectRight" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1067265168]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-color = Color(0, 0, 0, 0.24705882)
 
 [node name="PortraitRight" type="TextureRect" parent="VBoxContainer/HBoxContainer/RectRight" unique_id=1655113455]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 texture = ExtResource("1_ohw5o")
 expand_mode = 2
 stretch_mode = 4
