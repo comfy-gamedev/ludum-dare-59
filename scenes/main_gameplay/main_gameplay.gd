@@ -12,6 +12,7 @@ var player_mana: int
 var _selected_actor: EntityBody
 var _player_input_enabled: bool = true
 var _box_scene = preload("res://objects/ui/indicator.tscn")
+var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
 
 func _ready() -> void:
 	selection_box.hide()
@@ -47,6 +48,7 @@ func perform_turn() -> void:
 	_player_input_enabled = true
 	
 	reset_turn_state()
+	spawn_clouds()
 
 
 func reset_turn_state() -> void:
@@ -90,3 +92,26 @@ func _on_turn_button_pressed() -> void:
 
 func _on_parallax_background_segment_transition_complete():
 	print("Terrain segment transition complete!")
+
+func spawn_clouds(num = 2, radii = 4):
+	for i in num:
+		var center = randi_range(0, (battle_grid.GRID_DIM.x - 2) * (battle_grid.GRID_DIM.y - 2))
+		var center_coord := Vector2i(1 + (center / (battle_grid.GRID_DIM.x - 2)), 1 + (center % (battle_grid.GRID_DIM.x - 2)))
+		var current_coord := center_coord
+		var dirs = [Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, 1)]
+		
+		var warning_node : GridTerrain
+		warning_node = _warning_scene.instantiate()
+		warning_node.set_grid_position(current_coord)
+		battle_grid.add_child(warning_node)
+		for radius in range(1, radii):
+			current_coord = center_coord + Vector2i(0, radius)
+			for dir in dirs:
+				while true:
+					if battle_grid.is_in_bounds(current_coord) && (radius < radii - 1 || randi() % 2):
+						warning_node = _warning_scene.instantiate()
+						warning_node.set_grid_position(current_coord)
+						battle_grid.add_child(warning_node)
+					current_coord += dir
+					if current_coord.x == center_coord.x || current_coord.y == center_coord.y:
+						break

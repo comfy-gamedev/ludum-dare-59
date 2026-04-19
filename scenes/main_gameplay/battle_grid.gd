@@ -89,3 +89,8 @@ func get_terrain(pos: Vector2i) -> Array[GridTerrain]:
 		if b.grid_position == pos:
 			tiles.append(b)
 	return tiles
+
+func is_in_bounds(coord: Vector2i) -> bool:
+	if coord.x >= 0 && coord.x <= GRID_DIM.x && coord.y >= 0 && coord.x <= GRID_DIM.y:
+		return true
+	return false
