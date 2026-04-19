@@ -100,6 +100,10 @@ func turn_input() -> void:
 							var move_clicked = await battle_grid.cell_clicked
 							var move_grid_pos = move_clicked[0]
 							var move_click_button = move_clicked[1]
+							while not _selected_actor.cell_in_range(move_grid_pos):
+								move_clicked = await battle_grid.cell_clicked
+								move_grid_pos = move_clicked[0]
+								move_click_button = move_clicked[1]
 							if move_click_button == BattleGrid.CLICK_SECONDARY:
 								turn_input()
 								return
@@ -114,7 +118,11 @@ func turn_input() -> void:
 							move_grid_pos = move_clicked[0]
 							move_click_button = move_clicked[1]
 							
-							var last_order = _selected_actor.orders.back()
+							var last_order: EntityOrder
+							if is_future_order:
+								last_order = _selected_actor.future_orders.back().back()
+							else:
+								last_order = _selected_actor.orders.back()
 							if last_order:
 								last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
 							

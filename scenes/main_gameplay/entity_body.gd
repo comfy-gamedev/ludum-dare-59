@@ -55,7 +55,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				preview_line = plan_line.duplicate()
 				add_child(preview_line)
 			preview_line.clear_points()
-			preview_line.add_point(Vector2.ZERO)
+			if turn_done:
+				preview_line.add_point(Vector2(turn_end_grid_pos - grid_position) * battle_grid.CELL_SIZE)
+			else:
+				preview_line.add_point(Vector2.ZERO)
 			preview_line.add_point(local_mouse_grid_pos * battle_grid.CELL_SIZE)
 		elif preview_line:
 			preview_line.clear_points()
@@ -109,7 +112,9 @@ func get_entities_in_range() -> Array[EntityBody]:
 	return entities
 
 func cell_in_range(cell_pos: Vector2i) -> bool:
-	return grid_position.distance_to(cell_pos) <= max_movement
+	var of_cell := grid_position
+	if turn_done: of_cell = turn_end_grid_pos
+	return of_cell.distance_to(cell_pos) <= max_movement
 
 func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
