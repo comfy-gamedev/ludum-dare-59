@@ -8,7 +8,6 @@ var update_train_pos = false
 
 func _process(delta):
 	if moving_right:
-		await get_tree().create_timer(1.15).timeout
 		var target_pos = Vector2(448.0, position.y)
 		
 		if update_train_pos:
@@ -21,5 +20,6 @@ func _process(delta):
 			moving_right = false
 
 func _on_main_gameplay_initiate_middle_to_right_transition():
+	await get_tree().create_timer(1.75).timeout
 	moving_right = true
 	update_train_pos = true
