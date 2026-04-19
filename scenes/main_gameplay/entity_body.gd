@@ -18,6 +18,8 @@ enum EntityState {
 var auto_attack: EntityAbility
 var abilities: Array[EntityAbility]
 var orders: Array[EntityOrder]
+var future_orders: Array[Array]
+var turn_done := false
 var state: EntityState = EntityState.DESELECTED: set = _set_state
 var max_movement := 2
 var turn_end_previews: Array[Node2D]
@@ -62,23 +64,28 @@ func execute_turn_async() -> void:
 		await orders[0].execute_async(self)
 		orders.remove_at(0)
 	
+	if not future_orders.is_empty():
+		orders = future_orders.pop_front()
+		turn_done = true
+	else:
+		turn_done = false
+	
 	_update_plan_visuals()
 
-func plan_move(to_pos: Vector2i, to_dir: Vector2i) -> void:
+func plan_order(to_pos: Vector2i, to_dir: Vector2, order_type: EntityOrder.OrderType, turn_index: int = 0) -> void:
 	var order = EntityOrder.new()
-	order.type = EntityOrder.OrderType.MOVEMENT
-	order.target_pos = to_pos
-	order.target_dir = to_dir
-	orders.append(order)
-	_update_plan_visuals()
-
-func plan_attack(to_pos: Vector2i, to_dir: Vector2) -> void:
-	var order = EntityOrder.new()
-	order.type = EntityOrder.OrderType.ABILITY
+	order.type = order_type
 	order.ability = auto_attack
 	order.target_pos = to_pos
 	order.target_dir = to_dir
-	orders.append(order)
+	if turn_index == 0:
+		orders.append(order)
+	else:
+		var indexed_turn_orders = future_orders.get(turn_index - 1)
+		if not indexed_turn_orders:
+			future_orders.push_back([])
+			indexed_turn_orders = future_orders.back()
+		indexed_turn_orders.append(order)
 	_update_plan_visuals()
 
 func clear_moves() -> void:
@@ -138,7 +145,9 @@ func _on_death() -> void:
 
 func _update_plan_visuals() -> void:
 	clear_plan_visuals()
-	for order in orders:
+	var all_orders = orders.duplicate()
+	for order_arr in future_orders: all_orders.append_array(order_arr)
+	for order in all_orders:
 		var target_position = battle_grid.get_cell_center(order.target_pos)
 		match order.type:
 			EntityOrder.OrderType.MOVEMENT:
@@ -148,6 +157,9 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
+	if turn_done:
+		orders.clear()
+		_update_plan_visuals()
 	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():

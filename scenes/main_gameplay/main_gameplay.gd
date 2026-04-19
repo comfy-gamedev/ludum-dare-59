@@ -90,8 +90,8 @@ func turn_input() -> void:
 								turn_input()
 								return
 							
-							_selected_actor.plan_move(move_grid_pos, _selected_actor.facing_vector)
-							_selected_actor.plan_attack(move_grid_pos, _selected_actor.facing_vector)
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT)
+							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY)
 							_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
 							
 							move_clicked = await battle_grid.cell_clicked
@@ -102,6 +102,7 @@ func turn_input() -> void:
 							if last_order:
 								last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
 							
+							_selected_actor.turn_done = true
 							_selected_actor.on_deselected()
 							_selected_actor = null
 							
