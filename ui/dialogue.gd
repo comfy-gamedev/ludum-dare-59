@@ -87,15 +87,17 @@ func _ready() -> void:
 	if is_instance_valid(conversation):
 		var left_signal: Signal
 		var right_signal: Signal
+		var right_done = [false]
 		if conversation.left_texture != null:
 			$VBoxContainer/Container/PortraitLeft.texture = conversation.left_texture
 			left_signal = slide_left_in()
 		if conversation.right_texture != null:
 			$VBoxContainer/Container/PortraitRight.texture = conversation.right_texture
 			right_signal = slide_right_in()
+			right_signal.connect(func (): right_done[0] = true)
 		if is_instance_valid(left_signal):
 			await left_signal
-		if is_instance_valid(right_signal):
+		if is_instance_valid(right_signal) and not right_done[0]:
 			await right_signal
 		
 
