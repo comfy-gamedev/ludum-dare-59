@@ -22,7 +22,7 @@ func _process(delta):
 
 func process_movement(delta):
 	if moving_right:
-		var target_pos = Vector2(448.0, position.y)
+		var target_pos = Vector2(383.0, position.y)
 		
 		if update_train_pos:
 			update_train_position.emit(target_pos)

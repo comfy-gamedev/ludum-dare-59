@@ -19,16 +19,17 @@ script = ExtResource("1_wt4mr")
 z_index = -1
 
 [node name="Engine" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
-position = Vector2(320, 243)
+position = Vector2(256, 243)
 
 [node name="FlatBed" parent="." unique_id=212317123 instance=ExtResource("4_ieocc")]
-position = Vector2(320, 304)
+position = Vector2(256, 304)
 
 [node name="Caboose" parent="." unique_id=2023632522 instance=ExtResource("4_1svbp")]
-position = Vector2(320, 365)
+position = Vector2(256, 365)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 unique_name_in_owner = true
+visible = false
 script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
