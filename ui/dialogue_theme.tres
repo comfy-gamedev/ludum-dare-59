@@ -59,7 +59,7 @@ region_rect = Rect2(32, -0.281824, 96.01076, 96.28182)
 
 [resource]
 default_font = ExtResource("1_r8dcj")
-default_font_size = 40
+default_font_size = 28
 Button/styles/hover = SubResource("StyleBoxTexture_vg8fw")
 Button/styles/normal = SubResource("StyleBoxTexture_6wtbp")
 Button/styles/pressed = SubResource("StyleBoxTexture_5ghi2")

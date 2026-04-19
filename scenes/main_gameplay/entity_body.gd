@@ -28,11 +28,13 @@ var preview_line: Line2D
 @onready var weapon_area = $WeaponArea
 @onready var weapon_collision = $WeaponArea/Area2D
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var float_anim_player: AnimationPlayer = $FloatAnimationPlayer
 
 func _ready() -> void:
 	auto_attack = load(auto_attack_path)
 	for path in abilities_paths:
 		abilities.append(load(path))
+	float_anim_player.play(&"float")
 
 func _process(delta: float) -> void:
 	if state == EntityState.PLANNING_AIM and not turn_end_previews.is_empty():
@@ -84,13 +86,14 @@ func clear_moves() -> void:
 	orders = []
 	_update_plan_visuals()
 
+#switched to tile attacks
 func get_entities_in_range() -> Array[EntityBody]:
-	var a: Array[EntityBody]
+	var entities: Array[EntityBody]
 	for area in weapon_collision.get_overlapping_areas():
-		var p = area.get_parent()
-		if p is EntityBody:
-			a.append(p)
-	return a
+		var coord = area.get_parent().grid_pos
+		if battle_grid.get_occupant(coord):
+			entities.append(battle_grid.get_occupant(coord))
+	return entities
 
 func cell_in_range(cell_pos: Vector2i) -> bool:
 	return grid_position.distance_to(cell_pos) <= max_movement
@@ -126,7 +129,7 @@ func clear_plan_visuals() -> void:
 func _set_state(value: EntityState) -> void:
 	state = value
 	match value:
-		EntityState.PLANNING_MOVE:
+		EntityState.PLANNING_MOVE, EntityState.PLANNING_MENU:
 			battle_grid.show_movement_range(grid_position, max_movement)
 		_:
 			battle_grid.hide_movement_range()
@@ -146,7 +149,7 @@ func _update_plan_visuals() -> void:
 				create_turn_end_preview(target_position, order.target_dir)
 
 func on_selected():
-	_set_state(EntityState.PLANNING_MOVE)
+	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():
 	_set_state(EntityState.DESELECTED)

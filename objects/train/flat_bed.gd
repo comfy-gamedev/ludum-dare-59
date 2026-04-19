@@ -31,7 +31,7 @@ func process_follow_movement(delta):
 			else:
 				reset_angle()
 		elif moving_direction == "LEFT":
-			if new_pos.x < position.y:
+			if new_pos.x < position.x:
 				position.x -= Globals.TRAIN_X_SPEED * delta
 			else:
 				reset_angle()

@@ -2,6 +2,8 @@ extends Node2D
 class_name MainGameplay
 
 signal initiate_middle_to_right_transition()
+signal initiate_middle_to_left_transition()
+signal initiate_left_to_middle_transition()
 
 signal player_signal_points_changed()
 
@@ -36,7 +38,9 @@ func _ready() -> void:
 			current_box.grid_pos = Vector2i(i, j)
 			box_parent.add_child(current_box)
 	
-	initiate_middle_to_right_transition.emit()
+	#initiate_middle_to_right_transition.emit()
+	initiate_middle_to_left_transition.emit()
+	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
 	
@@ -77,6 +81,8 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.MOVE:
+							_selected_actor.state = EntityBody.EntityState.PLANNING_MOVE
+							
 							var move_clicked = await battle_grid.cell_clicked
 							var move_grid_pos = move_clicked[0]
 							var move_click_button = move_clicked[1]
