@@ -13,5 +13,8 @@ shape = SubResource("CircleShape2D_m5msg")
 [node name="Polygon2D" parent="WeaponArea" parent_id_path=PackedInt32Array(1856779226) index="0" unique_id=540347352]
 polygon = PackedVector2Array(16, 16, 40, 24, 32, 32, 0, 40, -32, 32, -40, 24, -16, 16, 0, 20)
 
-[node name="CollisionPolygon2D" parent="WeaponArea/Area2D" parent_id_path=PackedInt32Array(989688549) index="0" unique_id=2063845099]
+[node name="Area2D" parent="WeaponArea" parent_id_path=PackedInt32Array(1856779226) index="1" unique_id=989688549]
+collision_mask = 4
+
+[node name="CollisionPolygon2D" parent="WeaponArea/Area2D" index="0" unique_id=2063845099]
 polygon = PackedVector2Array(24, 24, 32, 32, -32, 32, -24, 24)

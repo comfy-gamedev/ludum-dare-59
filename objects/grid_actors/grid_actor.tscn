@@ -24,7 +24,7 @@ polygon = PackedVector2Array(32, 0, 96, 80, -96, 80, -32, 0)
 
 [node name="Area2D" type="Area2D" parent="WeaponArea" unique_id=989688549]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 8
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WeaponArea/Area2D" unique_id=2063845099]

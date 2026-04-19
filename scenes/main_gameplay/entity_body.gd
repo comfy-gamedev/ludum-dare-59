@@ -84,13 +84,14 @@ func clear_moves() -> void:
 	orders = []
 	_update_plan_visuals()
 
+#switched to tile attacks
 func get_entities_in_range() -> Array[EntityBody]:
-	var a: Array[EntityBody]
+	var entities: Array[EntityBody]
 	for area in weapon_collision.get_overlapping_areas():
-		var p = area.get_parent()
-		if p is EntityBody:
-			a.append(p)
-	return a
+		var coord = area.get_parent().grid_pos
+		if battle_grid.get_occupant(coord):
+			entities.append(battle_grid.get_occupant(coord))
+	return entities
 
 func cell_in_range(cell_pos: Vector2i) -> bool:
 	return grid_position.distance_to(cell_pos) <= max_movement
