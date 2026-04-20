@@ -104,8 +104,7 @@ func create_preview_visuals() -> Node2D:
 	var preview = Node2D.new()
 	preview.script = preload("uid://ba7rss64n18kc")
 	var preview_sprite = sprite.duplicate()
-	preview_sprite.position.y = self.position.y 
-	preview_sprite.position.y -= 16
+	preview_sprite.position.y = 0
 	preview_sprite.speed_scale = 0
 	preview_sprite.modulate = Color8(255, 255, 255, 100)
 	preview.add_child(preview_sprite)
