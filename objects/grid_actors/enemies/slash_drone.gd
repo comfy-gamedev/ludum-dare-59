@@ -13,7 +13,11 @@ func start_turn() -> void:
 		return ad < bd
 	)
 	
-	var target = players[0]
+	var target = players[0] if not players.is_empty() else null
+	
+	if target == null:
+		print("you lose")
+		return
 	
 	var move_speed_tmp = move_speed
 	
