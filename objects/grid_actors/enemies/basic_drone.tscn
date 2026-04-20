@@ -1,7 +1,30 @@
 [gd_scene format=3 uid="uid://cnmq3hnxqotm3"]
 
 [ext_resource type="Script" uid="uid://cuopd3etqmnph" path="res://objects/grid_actors/enemies/basic_drone.gd" id="1_418kl"]
-[ext_resource type="Texture2D" uid="uid://brri8w73h0lug" path="res://assets/textures/unit_placeholder.png" id="2_418kl"]
+[ext_resource type="Texture2D" uid="uid://cjjuto5n28s0" path="res://assets/textures/units/drone_enemy/drone_enemy_1.png" id="2_j4r36"]
+[ext_resource type="Texture2D" uid="uid://bofyjwx60mbmd" path="res://assets/textures/units/drone_enemy/drone_enemy_2.png" id="3_skmvx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_533ud"]
+atlas = ExtResource("2_j4r36")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bwfm"]
+atlas = ExtResource("3_skmvx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5so67"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_533ud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bwfm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_418kl"]
 size = Vector2(10, 10)
@@ -10,9 +33,9 @@ size = Vector2(10, 10)
 script = ExtResource("1_418kl")
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1893496436]
-texture = ExtResource("2_418kl")
-flip_v = true
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1273822516]
+sprite_frames = SubResource("SpriteFrames_5so67")
+autoplay = "default"
 
 [node name="SelfArea2D" type="Area2D" parent="." unique_id=864605618]
 collision_layer = 8
