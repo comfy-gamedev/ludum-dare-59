@@ -25,26 +25,36 @@ func _process(delta):
 	process_follow_movement(delta)
 
 func process_follow_movement(delta):
-	if new_pos != null:		
-		if moving_direction == "RIGHT":
-			if update_flatbed_pos:
-				update_flatbed_pos = false
-				update_flatbed_position.emit(new_pos, Globals.TrainDirections.RIGHT)
+	if new_pos != null:
+		match moving_direction:
+			"RIGHT":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.RIGHT)
+					
+				if new_pos.x > position.x:
+					position.x += Globals.TRAIN_X_SPEED * delta
+					
+				else:
+					reset_angle()
+			"LEFT":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.LEFT)
 				
-			if new_pos.x > position.x:
-				position.x += Globals.TRAIN_X_SPEED * delta
+				if new_pos.x < position.x:
+					position.x -= Globals.TRAIN_X_SPEED * delta
+				else:
+					reset_angle()
+			"DOWN":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.DOWN)
 				
-			else:
-				reset_angle()
-		elif moving_direction == "LEFT":
-			if update_flatbed_pos:
-				update_flatbed_pos = false
-				update_flatbed_position.emit(new_pos, Globals.TrainDirections.LEFT)
-			
-			if new_pos.x < position.x:
-				position.x -= Globals.TRAIN_X_SPEED * delta
-			else:
-				reset_angle()
+				if new_pos.y > position.y:
+					position.y += Globals.TRAIN_Y_SPEED * delta
+				else:
+					reset_angle()
 
 func reset_angle():
 	if moving_direction != "NONE":
@@ -74,6 +84,8 @@ func _on_engine_update_train_position(target_pos: Vector2, train_direction: Glob
 		Globals.TrainDirections.LEFT:
 			moving_direction = "LEFT"
 			rotation_degrees -= Globals.TRAIN_ROTATION
+		Globals.TrainDirections.DOWN:
+			moving_direction = "DOWN"
 	
 	new_pos = target_pos
 

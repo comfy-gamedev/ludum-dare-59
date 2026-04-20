@@ -5,6 +5,8 @@ signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
 signal initiate_left_to_middle_transition()
 signal initiate_right_to_middle_transition()
+signal initiate_train_intro()
+signal initiate_train_death()
 
 signal player_signal_points_changed()
 
@@ -47,6 +49,7 @@ func _ready() -> void:
 	#initiate_middle_to_right_transition.emit()
 	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
+	#initiate_train_death.emit()
 	
 	reset_turn_state()
 	
