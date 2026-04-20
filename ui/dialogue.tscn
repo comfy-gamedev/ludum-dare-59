@@ -10,6 +10,10 @@
 [sub_resource type="Theme" id="Theme_xl33q"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wyt3e"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
 texture = ExtResource("6_qwm1w")
 texture_margin_left = 10.0
 texture_margin_top = 10.0
@@ -18,7 +22,6 @@ texture_margin_bottom = 10.0
 region_rect = Rect2(192, 0, 64, 64)
 
 [node name="Dialogue" type="Control" unique_id=341286864]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -105,8 +108,18 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_wyt3e")
 
 [node name="NextButton" type="Button" parent="VBoxContainer/Bottom/Rect2" unique_id=1286152528]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.09019608, 0.05882353, 0.050980393, 1)
+theme_override_font_sizes/font_size = 18
 text = "Next"
+
+[node name="SkipButton" type="Button" parent="VBoxContainer/Bottom/Rect2" unique_id=1036927807]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.09019608, 0.05882353, 0.050980393, 1)
+theme_override_font_sizes/font_size = 18
+text = "Skip"
+
+[connection signal="pressed" from="VBoxContainer/Bottom/Rect2/SkipButton" to="." method="_on_skip_button_pressed"]
