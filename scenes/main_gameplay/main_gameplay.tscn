@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
+[ext_resource type="PackedScene" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 [ext_resource type="PackedScene" uid="uid://cvjjdv61uicgl" path="res://objects/grid_actors/enemies/ranger_drone.tscn" id="14_sbvst"]
-[ext_resource type="PackedScene" uid="uid://x8sq25taewiu" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -37,7 +37,6 @@ unique_name_in_owner = true
 script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
-health = 1
 grid_position = Vector2i(15, 2)
 
 [node name="SupportMech" parent="BattleGrid" unique_id=183001927 instance=ExtResource("8_wjmgw")]
