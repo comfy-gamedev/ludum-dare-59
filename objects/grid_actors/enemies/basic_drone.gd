@@ -26,10 +26,10 @@ func execute_turn_async() -> void:
 		#take_damage(damage)
 	
 	var y_sign = sign(target.y - grid_position.y)
-	if not battle_grid.get_occupant(grid_position + Vector2i(y_sign, 0)):
+	if not battle_grid.get_occupant(grid_position + Vector2i(0, y_sign)):
 		grid_position += Vector2i(0, y_sign)
 	else:
-		battle_grid.get_occupant(grid_position + Vector2i(x_sign, 0)).take_damage(damage)
+		battle_grid.get_occupant(grid_position + Vector2i(0, y_sign)).take_damage(damage)
 		#take_damage(damage)
 
 func _on_death() -> void:

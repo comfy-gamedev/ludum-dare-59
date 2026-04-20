@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://e274qojiifqq" path="res://scenes/main_gameplay/main_gameplay.gd" id="1_wt4mr"]
 [ext_resource type="PackedScene" uid="uid://pfgyth2tcuys" path="res://objects/train/engine.tscn" id="3_nbr0a"]
 [ext_resource type="PackedScene" uid="uid://dlm41j3s4eedk" path="res://objects/train/caboose.tscn" id="4_1svbp"]
-[ext_resource type="PackedScene" path="res://objects/train/flat_bed.tscn" id="4_ieocc"]
+[ext_resource type="PackedScene" uid="uid://cjm2oej6u87ud" path="res://objects/train/flat_bed.tscn" id="4_ieocc"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
