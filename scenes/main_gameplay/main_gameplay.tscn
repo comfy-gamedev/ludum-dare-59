@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="12_sbvst"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
+[ext_resource type="PackedScene" uid="uid://x8sq25taewiu" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -68,6 +69,10 @@ width = 2.0
 default_color = Color(0, 1, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1295181322]
+
+[node name="SelectionPanel" parent="CanvasLayer" unique_id=1758050327 instance=ExtResource("14_km80p")]
+offset_top = 400.0
+offset_bottom = 480.0
 
 [node name="RightPanel" parent="CanvasLayer" unique_id=1215067547 node_paths=PackedStringArray("main_gameplay") instance=ExtResource("13_sbvst")]
 main_gameplay = NodePath("../..")

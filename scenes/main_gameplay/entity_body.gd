@@ -16,6 +16,7 @@ enum EntityState {
 @export var health: int = 3
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
+@export var mugshot: Texture2D
 
 var abilities: Array[EntityAbility]
 var orders: Array
@@ -26,6 +27,7 @@ var state: EntityState = EntityState.DESELECTED: set = _set_state
 var turn_end_previews: Array[Node2D]
 var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
 var preview_line: Line2D
+var selection_panel: Panel
 
 @onready var plan_line: Line2D = $PlanLine
 @onready var sprite = $Sprite2D
@@ -40,6 +42,7 @@ func _ready() -> void:
 			c.visible = false
 	float_animation_player.play("float")
 	battle_grid.mouse_over_cell_changed.connect(_on_grid_mouse_move)
+	selection_panel = battle_grid.get_parent().get_node("CanvasLayer/SelectionPanel")
 
 func _on_grid_mouse_move(mouse_grid_pos: Vector2i) -> void:
 	if state == EntityState.PLANNING_MOVE and cell_in_range(mouse_grid_pos):
@@ -162,7 +165,9 @@ func _update_plan_visuals() -> void:
 		order.ability.update_preview(self, order.params)
 
 func on_selected():
+	selection_panel.set_selected_entity(self)
 	_set_state(EntityState.PLANNING_MENU)
 
 func on_deselected():
+	selection_panel.set_selected_entity(null)
 	_set_state(EntityState.DESELECTED)

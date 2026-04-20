@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://x8sq25taewiu"]
+
+[ext_resource type="StyleBox" uid="uid://birmltd504f6x" path="res://assets/stylebox/ui_panel.tres" id="1_tpgd3"]
+[ext_resource type="Script" uid="uid://bdqhbpib15uuh" path="res://scenes/main_gameplay/ui_selection_panel.gd" id="2_2ktqe"]
+[ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="3_3rgk8"]
+
+[node name="SelectionPanel" type="Panel" unique_id=1758050327]
+visible = false
+offset_right = 320.0
+offset_bottom = 80.0
+theme_override_styles/panel = ExtResource("1_tpgd3")
+script = ExtResource("2_2ktqe")
+
+[node name="MugshotPanel" type="PanelContainer" parent="." unique_id=656819135]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_right = 64.0
+offset_bottom = 52.0
+theme = ExtResource("3_3rgk8")
+
+[node name="Mugshot" type="TextureRect" parent="MugshotPanel" unique_id=1674438121]
+layout_mode = 2
+stretch_mode = 2
