@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bnl7coec2rh2a"
-path="res://.godot/imported/Heidi.wav-293604a5f93fa6979c8e2693b43541d2.sample"
+path="res://.godot/imported/heidi.wav-166fac5354d14089e0520ff39984d15b.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/Heidi.wav"
-dest_files=["res://.godot/imported/Heidi.wav-293604a5f93fa6979c8e2693b43541d2.sample"]
+source_file="res://assets/sfx/dialogue/heidi.wav"
+dest_files=["res://.godot/imported/heidi.wav-166fac5354d14089e0520ff39984d15b.sample"]
 
 [params]
 
