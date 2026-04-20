@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="1_0dhgq"]
 [ext_resource type="Texture2D" uid="uid://dlvcoek48oqy2" path="res://assets/textures/units/shield_unit/shield_unit_1.png" id="2_0dhgq"]
+[ext_resource type="Texture2D" uid="uid://cp6g64hjycs6t" path="res://assets/textures/characters/demi_small.png" id="2_de80e"]
 [ext_resource type="Texture2D" uid="uid://c5tbysvhwu2p3" path="res://assets/textures/units/shield_unit/shield_unit_2.png" id="3_de80e"]
 [ext_resource type="Script" uid="uid://bnx31susfecbu" path="res://scenes/main_gameplay/entity_abilities/move_shield_ability.gd" id="4_0dhgq"]
 [ext_resource type="Texture2D" uid="uid://cpfagosky4qv" path="res://assets/textures/effects/shield.png" id="5_ytfvd"]
@@ -185,6 +186,7 @@ _data = {
 [node name="ShieldMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_0dhgq")
 move_speed = 2
+mugshot = ExtResource("2_de80e")
 facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 

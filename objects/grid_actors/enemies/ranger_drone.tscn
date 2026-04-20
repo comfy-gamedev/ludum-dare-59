@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cvjjdv61uicgl"]
+
+[ext_resource type="Script" uid="uid://bhuct38epmy4o" path="res://objects/grid_actors/enemies/ranger_drone.gd" id="1_ty6ar"]
+[ext_resource type="Texture2D" uid="uid://dueud5tgqrs7p" path="res://assets/textures/units/ranged_enemy/ranged_enemy_1.png" id="2_tlqsk"]
+[ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="3_8w1ef"]
+[ext_resource type="Script" uid="uid://ck7mbqaf3cxgh" path="res://scenes/main_gameplay/entity_abilities/shoot_attack_ability.gd" id="3_35xeb"]
+[ext_resource type="Texture2D" uid="uid://cjgucx6s5xety" path="res://assets/textures/units/ranged_enemy/ranged_enemy_2.png" id="3_mjm5u"]
+[ext_resource type="Texture2D" uid="uid://da8l87i1n78s2" path="res://assets/textures/particles/soft_circle.tres" id="4_hmj87"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6qlsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tlqsk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mjm5u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty6ar"]
+size = Vector2(10, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8w1ef"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_m5msg"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_bqrvl"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_35xeb"]
+_data = {
+&"RESET": SubResource("Animation_m5msg"),
+&"float": SubResource("Animation_bqrvl")
+}
+
+[sub_resource type="Animation" id="Animation_86wbg"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_komya"]
+resource_name = "hurt"
+length = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hmj87"]
+_data = {
+&"RESET": SubResource("Animation_86wbg"),
+&"hurt": SubResource("Animation_komya")
+}
+
+[node name="RangerDrone" type="Node2D" unique_id=1542730889]
+script = ExtResource("1_ty6ar")
+team = 1
+metadata/_custom_type_script = "uid://cbvn0mrra1aot"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1200141396]
+sprite_frames = SubResource("SpriteFrames_6qlsg")
+autoplay = "default"
+
+[node name="SelfArea2D" type="Area2D" parent="." unique_id=825453007]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" unique_id=96145257]
+shape = SubResource("RectangleShape2D_ty6ar")
+
+[node name="ShootAttackAbility" type="Node2D" parent="." unique_id=712816799]
+script = ExtResource("3_35xeb")
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="ShootAttackAbility" unique_id=1449974808]
+visible = false
+texture = ExtResource("4_hmj87")
+
+[node name="Area2D" type="Area2D" parent="ShootAttackAbility/WeaponSprite2D" unique_id=1926736992]
+visible = false
+collision_layer = 2
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootAttackAbility/WeaponSprite2D/Area2D" unique_id=2646992]
+shape = SubResource("CircleShape2D_8w1ef")
+
+[node name="PlanLine" type="Line2D" parent="." unique_id=1898916401]
+
+[node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=957327997]
+libraries/ = SubResource("AnimationLibrary_35xeb")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=21386563]
+libraries/ = SubResource("AnimationLibrary_hmj87")
+
+[node name="HealingEffectSprite2D" type="AnimatedSprite2D" parent="." unique_id=1866317016]
+sprite_frames = ExtResource("3_8w1ef")
+
+[connection signal="area_entered" from="ShootAttackAbility/WeaponSprite2D/Area2D" to="ShootAttackAbility" method="_on_area_2d_area_entered"]

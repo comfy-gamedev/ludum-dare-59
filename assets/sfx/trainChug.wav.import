@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ylol7b0hmjgn"
-path="res://.godot/imported/trainChugHigh.wav-46048068de9fa024dd5cf960f1a6041e.sample"
+path="res://.godot/imported/trainChug.wav-f0a57c0e890515ba9e0aff70007e3325.sample"
 
 [deps]
 
-source_file="res://assets/sfx/trainChugHigh.wav"
-dest_files=["res://.godot/imported/trainChugHigh.wav-46048068de9fa024dd5cf960f1a6041e.sample"]
+source_file="res://assets/sfx/trainChug.wav"
+dest_files=["res://.godot/imported/trainChug.wav-f0a57c0e890515ba9e0aff70007e3325.sample"]
 
 [params]
 

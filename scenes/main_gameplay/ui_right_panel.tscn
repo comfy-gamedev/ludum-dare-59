@@ -1,21 +1,9 @@
 [gd_scene format=3 uid="uid://c8ugt5wb3drlt"]
 
 [ext_resource type="Script" uid="uid://il6hjqsfqal7" path="res://scenes/main_gameplay/signal_points_container.gd" id="1_3611v"]
-[ext_resource type="Texture2D" uid="uid://daya86vrf55mb" path="res://assets/textures/interface.png" id="1_xxpeq"]
+[ext_resource type="StyleBox" uid="uid://birmltd504f6x" path="res://assets/stylebox/ui_panel.tres" id="1_sm2do"]
 [ext_resource type="Script" uid="uid://bfrtr0a0fpprb" path="res://scenes/main_gameplay/ui_right_panel.gd" id="2_sm2do"]
 [ext_resource type="Texture2D" uid="uid://cim71rkoagb13" path="res://assets/textures/sp_tokens.png" id="3_xxpeq"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sm2do"]
-atlas = ExtResource("1_xxpeq")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lg2ml"]
-texture = SubResource("AtlasTexture_sm2do")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lg2ml"]
 atlas = ExtResource("3_xxpeq")
@@ -29,7 +17,7 @@ region = Rect2(0, 0, 32, 32)
 offset_left = 512.0
 offset_right = 640.0
 offset_bottom = 480.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_lg2ml")
+theme_override_styles/panel = ExtResource("1_sm2do")
 script = ExtResource("2_sm2do")
 
 [node name="TurnButton" type="Button" parent="." unique_id=1155579039]
