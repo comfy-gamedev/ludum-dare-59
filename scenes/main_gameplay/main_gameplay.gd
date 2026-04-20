@@ -37,6 +37,10 @@ var _selected_actor: EntityBody
 var _box_scene = preload("res://objects/ui/indicator.tscn")
 var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
 
+var turn_counter = 0
+var current_level = 0
+var current_wave = 0
+
 func _ready() -> void:
 	selection_box.hide()
 	
@@ -230,7 +234,14 @@ func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegme
 	print("Init new terrain segment transition")
 
 func _on_turn_end():
+	turn_counter += 1
+	if turn_counter % 3 == 0:
+		current_wave += 1
+		
 	initiate_terrain_segment_transition()
+	print("turn: %s" % turn_counter)
+	print("wave: %s" % current_wave)
+	print("level: %s" % current_level)
 
 func on_train_death():
 	right_panel.turn_button.disabled = true
