@@ -18,6 +18,8 @@ signal turn_end
 const UI_GRID_CLICKED = 0
 const UI_START_TURN_CLICKED = 1
 
+static var current: MainGameplay
+
 @onready var battle_grid: BattleGrid = $BattleGrid
 @onready var selection_box: Line2D = %SelectionBox
 @onready var box_parent = $IndicatorBoxesParent
@@ -26,7 +28,7 @@ const UI_START_TURN_CLICKED = 1
 @onready var selection_panel: Panel = $CanvasLayer/SelectionPanel
 
 @onready var dialogue = %Dialogue
-@onready var sf_dialogue = %SfDialogue
+@onready var sf_dialogue: SFDialogue = %SfDialogue
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
 
@@ -54,6 +56,8 @@ var scene_tranition_queue: Signal
 var incoming_segment = Globals.TerrainSegmentStates.NONE
 
 func _ready() -> void:
+	current = self
+	
 	selection_box.hide()
 	
 	var current_box : Node2D
@@ -298,9 +302,34 @@ func set_segment_queue(segment_signal: Signal, new_segment):
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
 		print("mountains LEFT coming in one turn")
+		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
 		print("mountains RIGHT coming in one turn")
-	
+		queue_mountain_smoke_left()
+
+func queue_mountain_smoke_left():
+	var tiles = []
+	for r in range(6):
+		for c in range(13):
+			tiles.append(Vector2i(r, c))
+			
+	for i in tiles:
+		var new_warning_tile = _warning_scene.instantiate()
+		new_warning_tile.grid_position = i
+		battle_grid.add_child(new_warning_tile)
+
+func queue_mountain_smoke_right():
+	var tiles = []
+	const starting_row = 10
+	for r in range(6):
+		for c in range(13):
+			tiles.append(Vector2i(r + starting_row, c))
+			
+	for i in tiles:
+		var new_warning_tile = _warning_scene.instantiate()
+		new_warning_tile.grid_position = i
+		battle_grid.add_child(new_warning_tile)
+
 func initiate_terrain_segment_transition():
 	scene_tranition_queue.emit()
 	set_current_terrain_segment(incoming_segment)

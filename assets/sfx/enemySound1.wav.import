@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c4d6le1dskcut"
-path="res://.godot/imported/Diana.wav-e5d87349cb9301f556d048ea068cb744.sample"
+uid="uid://equ8ap6hm5i4"
+path="res://.godot/imported/enemySound1.wav-e1d0c0f7f7bb355cb3d1432fa3f10a7e.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/Diana.wav"
-dest_files=["res://.godot/imported/Diana.wav-e5d87349cb9301f556d048ea068cb744.sample"]
+source_file="res://assets/sfx/enemySound1.wav"
+dest_files=["res://.godot/imported/enemySound1.wav-e1d0c0f7f7bb355cb3d1432fa3f10a7e.sample"]
 
 [params]
 
