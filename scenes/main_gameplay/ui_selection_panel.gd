@@ -1,5 +1,6 @@
 extends Panel
 
+
 @onready var mugshot_panel: PanelContainer = $MugshotPanel
 @onready var mugshot: TextureRect = $MugshotPanel/Mugshot
 @onready var health_bar: TextureProgressBar = $StatsPanel/MarginContainer/StatsList/HealthContainer/HealthProgressBar
@@ -7,6 +8,19 @@ extends Panel
 @onready var move_label: Label = $StatsPanel/MarginContainer/StatsList/MoveLabel
 
 var selected_entity: EntityBody
+var mouse_duck_rect: Rect2
+var original_position: Vector2
+
+func _ready() -> void:
+	original_position = position
+	mouse_duck_rect = Rect2(global_position - Vector2(0, 50), Vector2(160, size.y + 50))
+
+func _process(delta: float) -> void:
+	if visible:
+		if mouse_duck_rect.has_point(get_global_mouse_position()):
+			position = original_position + Vector2(0, size.y)
+		else:
+			position = original_position
 
 func set_selected_entity(ent: EntityBody) -> void:
 	if not ent:

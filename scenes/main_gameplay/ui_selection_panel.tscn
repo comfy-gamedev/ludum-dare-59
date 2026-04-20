@@ -33,8 +33,8 @@ script = ExtResource("2_2ktqe")
 [node name="MugshotPanel" type="PanelContainer" parent="." unique_id=656819135]
 layout_mode = 0
 offset_left = 8.0
-offset_right = 64.0
-offset_bottom = 52.0
+offset_right = 142.0
+offset_bottom = 138.0
 theme = ExtResource("3_3rgk8")
 theme_override_styles/panel = ExtResource("4_2ktqe")
 
