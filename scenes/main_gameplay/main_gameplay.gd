@@ -24,6 +24,8 @@ const UI_START_TURN_CLICKED = 1
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 
+var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
+
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
@@ -257,3 +259,9 @@ func initiate_level():
 	support_mech.grid_position = Vector2i(9, 9)
 	gunner_mech.grid_position = Vector2i(6, 9)
 	#print(battle_grid.get_node("SwordMech"))
+	spawn_drones()
+
+func spawn_drones():
+	var new_drone = basic_drone_scene.instantiate()
+	new_drone.grid_position = Vector2i(0, 0)
+	battle_grid.add_child(new_drone)
