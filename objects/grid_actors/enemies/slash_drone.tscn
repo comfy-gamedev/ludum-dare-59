@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ditilhnl06qdq"]
+[gd_scene format=3 uid="uid://dbugqn4h54yn7"]
 
 [ext_resource type="Script" uid="uid://40a873ixev7d" path="res://objects/grid_actors/enemies/slash_drone.gd" id="1_u2iv6"]
 [ext_resource type="Texture2D" uid="uid://vky1x7cqclv" path="res://assets/textures/units/horse_enemy/horse_enemy_1.png" id="2_u2iv6"]

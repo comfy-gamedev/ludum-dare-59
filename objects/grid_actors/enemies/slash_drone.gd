@@ -3,6 +3,7 @@ extends EntityBody
 @export var damage = 1
 
 func _ready() -> void:
+	mugshot = load("res://assets/textures/characters/horse_small.png")
 	float_animation_player.play("float")
 
 func start_turn() -> void:

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cvjjdv61uicgl"]
 
-[ext_resource type="Script" uid="uid://bhuct38epmy4o" path="res://objects/grid_actors/enemies/ranger_drone.gd" id="1_ty6ar"]
+[ext_resource type="Script" path="res://objects/grid_actors/enemies/ranger_drone.gd" id="1_ty6ar"]
 [ext_resource type="Texture2D" uid="uid://dueud5tgqrs7p" path="res://assets/textures/units/ranged_enemy/ranged_enemy_1.png" id="2_tlqsk"]
 [ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="3_8w1ef"]
 [ext_resource type="Script" uid="uid://ck7mbqaf3cxgh" path="res://scenes/main_gameplay/entity_abilities/shoot_attack_ability.gd" id="3_35xeb"]
