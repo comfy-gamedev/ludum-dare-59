@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bnl7coec2rh2a"
-path="res://.godot/imported/Kailey.wav-c006a4d721b6f09600a0b15940eec9af.sample"
+path="res://.godot/imported/kailey.wav-86f329cc9d03a9f65045fe4f324bd6c6.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/Kailey.wav"
-dest_files=["res://.godot/imported/Kailey.wav-c006a4d721b6f09600a0b15940eec9af.sample"]
+source_file="res://assets/sfx/dialogue/kailey.wav"
+dest_files=["res://.godot/imported/kailey.wav-86f329cc9d03a9f65045fe4f324bd6c6.sample"]
 
 [params]
 
