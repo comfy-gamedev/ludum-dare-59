@@ -27,6 +27,7 @@ var preview_line: Line2D
 @onready var plan_line: Line2D = $PlanLine
 @onready var sprite = $Sprite2D
 @onready var float_animation_player: AnimationPlayer = $FloatAnimationPlayer
+@onready var effect_animation_player: AnimationPlayer = $EffectAnimationPlayer
 @onready var healing_effect_sprite: AnimatedSprite2D = $HealingEffectSprite2D
 
 func _ready() -> void:
@@ -95,6 +96,8 @@ func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
 		_on_death()
+	elif effect_animation_player:
+		effect_animation_player.play("hurt")
 
 func heal(amount: int) -> void:
 	health = clampi(health + amount, 0, max_health)
