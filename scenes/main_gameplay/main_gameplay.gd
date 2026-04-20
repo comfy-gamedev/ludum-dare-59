@@ -50,6 +50,7 @@ var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
 var turn_counter = 0
 var current_level = 0
 var current_wave = 0
+var scene_tranition_queue = null
 
 func _ready() -> void:
 	selection_box.hide()
@@ -285,6 +286,9 @@ func initiate_terrain_segment_transition():
 			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
 				initiate_right_to_middle_transition.emit()
 				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+
+func queue_segment_transition():
+	pass
 
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
 	current_terrain_segment_state = new_terrain_segment_state
