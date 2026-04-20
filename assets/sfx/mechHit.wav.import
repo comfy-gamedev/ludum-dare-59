@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c4d6le1dskcut"
-path="res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"
+uid="uid://cpnyc2o1a5mhs"
+path="res://.godot/imported/mechHit.wav-48f5bfdb135086a862d9aae9e600e26b.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/diana.wav"
-dest_files=["res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"]
+source_file="res://assets/sfx/mechHit.wav"
+dest_files=["res://.godot/imported/mechHit.wav-48f5bfdb135086a862d9aae9e600e26b.sample"]
 
 [params]
 

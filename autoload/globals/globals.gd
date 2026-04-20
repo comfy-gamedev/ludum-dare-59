@@ -10,6 +10,10 @@ extends Node
 ## Emitted when any variable changes.
 signal changed(prop_name: StringName)
 
+signal engine_health_changed(value: float)
+signal flatbead_health_changed(value: float)
+signal caboose_health_changed(value: float)
+
 ## Train constants.
 const TRAIN_X_SPEED = 95
 const TRAIN_Y_SPEED = 50

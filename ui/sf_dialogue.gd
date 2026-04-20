@@ -1,7 +1,12 @@
 extends Control
+class_name SFDialogue
+
+signal dialogue_finished()
 
 var left_character: Character
 var right_character: Character
+
+var is_running_dialogue: bool = false
 
 func show_step(step: ConversationStep) -> void:
 	var left_rect = $VBoxContainer/HBoxContainer/RectLeft
@@ -71,6 +76,9 @@ func show_conversation(conv: Conversation) -> void:
 	$".".visible = false
 
 func create_character_dialogue_step(character: CharacterEnum, dialogue: Dialogue) -> ConversationStep:
+	if character == CharacterEnum.NONE:
+		return
+	
 	var c = characters[character]
 	if not c.dialogues.has(dialogue):
 		return
@@ -87,22 +95,34 @@ func create_character_dialogue_step(character: CharacterEnum, dialogue: Dialogue
 	return step
 
 func show_character_dialogue(character: CharacterEnum, dialogue: Dialogue) -> void:
+	print({ character = character, dialogue = dialogue })
+	if character == CharacterEnum.NONE:
+		return
+	
+	if randf() > DIALOGUE_CHANCES[dialogue]:
+		return
+	
 	var step = create_character_dialogue_step(character, dialogue)
 	if step == null:
 		return
+	
+	if is_running_dialogue:
+		await dialogue_finished
+	
+	is_running_dialogue = true
+	
 	var conv = Conversation.new()
 	conv.steps.push_back(step)
 	await show_conversation(conv)
+	
+	is_running_dialogue = false
+	dialogue_finished.emit()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$".".visible = false
 	%RectLeft.visible = false
 	%RectRight.visible = false
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 var characters: Dictionary[CharacterEnum, CharacterDialogue] = {
 		CharacterEnum.COMMANDER: create_commander(),
@@ -113,6 +133,7 @@ var characters: Dictionary[CharacterEnum, CharacterDialogue] = {
 	}
 
 enum CharacterEnum {
+	NONE,
 	COMMANDER,
 	MARKSMAN,
 	SWORDSMAN,
@@ -131,6 +152,19 @@ enum Dialogue {
 	EXITTING_BLACKOUT,
 	PROGRESS,
 	SPECIAL_EVENT
+}
+const DIALOGUE_CHANCES = {
+	Dialogue.NORMAL_ATTACK: 0.1,
+	Dialogue.SPECIAL_ABILITY: 0.5,
+	Dialogue.KILL_STREAK: 0.5,
+	Dialogue.DAMAGE_TAKEN: 0.5,
+	Dialogue.KILLED: 1.0,
+	Dialogue.TRAIN_DAMAGED: 0.5,
+	Dialogue.ENTERING_BLACKOUT: 0.5,
+	Dialogue.IN_BLACKOUT: 0.5,
+	Dialogue.EXITTING_BLACKOUT: 0.5,
+	Dialogue.PROGRESS: 0.5,
+	Dialogue.SPECIAL_EVENT: 1.0,
 }
 
 class CharacterDialogue:

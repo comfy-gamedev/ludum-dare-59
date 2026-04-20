@@ -134,17 +134,21 @@ func show_step(step: ConversationStep, stay_focused: bool) -> void:
 	
 	label.text = step.message
 	for i in range(1, step.message.length() + 1):
+		if skip_dialogue == true:
+			break
+		
 		if i % 2 == 0:
 			MusicMan.sfx(sfx, null, 1, randf_range(0.99, 1.1))
 		var visible_ratio = float(i) / step.message.length()
 		label.visible_ratio = visible_ratio
 		await get_tree().create_timer(0.0335).timeout
 	
-	if step.time != 0:
-		await get_tree().create_timer(step.time).timeout
-	else:
-		next.visible = true
-		await next.pressed
+	if skip_dialogue == false:
+		if step.time != 0:
+			await get_tree().create_timer(step.time).timeout
+		else:
+			next.visible = true
+			await next.pressed
 	
 	if not stay_focused:
 		if step.side == ConversationStep.TextureSide.LEFT:
@@ -154,6 +158,7 @@ func show_step(step: ConversationStep, stay_focused: bool) -> void:
 
 func show_conversation(conv: Conversation) -> void:
 	$".".visible = true
+	skip_dialogue = false
 	
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
@@ -186,6 +191,9 @@ func show_conversation(conv: Conversation) -> void:
 		await right_signal
 	
 	for i in range(conv.steps.size()):
+		if skip_dialogue == true:
+			break
+		
 		var step = conv.steps[i]
 		var stay_focused = false
 		if i < conv.steps.size() - 1:
@@ -206,7 +214,12 @@ func show_conversation(conv: Conversation) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$".".visible = false
+	show_conversation(preload("res://ui/conversations/level1_intro.tres"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+var skip_dialogue: bool = false
+func _on_skip_button_pressed() -> void:
+	skip_dialogue = true

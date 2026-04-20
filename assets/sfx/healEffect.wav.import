@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c4d6le1dskcut"
-path="res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"
+uid="uid://0d8lawprh778"
+path="res://.godot/imported/healEffect.wav-757c24bf568edb11d86367b28b85319a.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/diana.wav"
-dest_files=["res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"]
+source_file="res://assets/sfx/healEffect.wav"
+dest_files=["res://.godot/imported/healEffect.wav-757c24bf568edb11d86367b28b85319a.sample"]
 
 [params]
 
