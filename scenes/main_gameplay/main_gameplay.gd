@@ -320,8 +320,8 @@ func queue_mountain_smoke_left():
 
 func queue_mountain_smoke_right():
 	var tiles = []
-	const starting_row = 10
-	for r in range(6):
+	const starting_row = 12
+	for r in range(4):
 		for c in range(13):
 			tiles.append(Vector2i(r + starting_row, c))
 			
