@@ -28,12 +28,14 @@ var preview_line: Line2D
 @onready var weapon_area = $WeaponArea
 @onready var weapon_collision = $WeaponArea/Area2D
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var float_animation_player: AnimationPlayer = $FloatAnimationPlayer
 
 func _ready() -> void:
 	for c in get_children():
 		if c is EntityAbility:
 			abilities.append(c)
 			c.visible = false
+	float_animation_player.play("float")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

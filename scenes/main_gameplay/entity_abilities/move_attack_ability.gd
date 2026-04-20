@@ -7,6 +7,8 @@ func display_name() -> String:
 	return "Move"
 
 func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
+	entity.state = EntityBody.EntityState.PLANNING_MOVE
+	
 	var move_clicked = await battle_grid.cell_clicked
 	var move_grid_pos = move_clicked[0]
 	var move_click_button = move_clicked[1]
@@ -26,6 +28,7 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 		preview_area.rotation = atan2(dir.y, dir.x)
 	)
 	
+	entity.state = EntityBody.EntityState.PLANNING_AIM
 	var dir_click = await battle_grid.cell_clicked
 	
 	if dir_click[1] == BattleGrid.CLICK_SECONDARY:
