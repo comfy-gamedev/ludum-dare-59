@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://nqdi4t36nxxl"]
+
+[ext_resource type="Texture2D" uid="uid://bx6g2uvf7xivl" path="res://assets/textures/effects/sword_slash.png" id="1_q3de3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f36x8"]
+atlas = ExtResource("1_q3de3")
+region = Rect2(0, 0, 29, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kenta"]
+atlas = ExtResource("1_q3de3")
+region = Rect2(29, 0, 29, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tab6o"]
+atlas = ExtResource("1_q3de3")
+region = Rect2(58, 0, 29, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp01e"]
+atlas = ExtResource("1_q3de3")
+region = Rect2(87, 0, 29, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k656t"]
+atlas = ExtResource("1_q3de3")
+region = Rect2(116, 0, 29, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f36x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kenta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tab6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tp01e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k656t")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]

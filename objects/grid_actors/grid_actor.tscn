@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://b0lage4fmi3co"]
 
 [ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="1_3bpsw"]
-[ext_resource type="Texture2D" uid="uid://brri8w73h0lug" path="res://assets/textures/unit_placeholder.png" id="2_iix85"]
+[ext_resource type="Texture2D" uid="uid://dur2nomppphsh" path="res://assets/textures/units/gung_in_the_lung.png" id="2_3bpsw"]
 
 [node name="GridActor" type="Node2D" unique_id=86839546]
 script = ExtResource("1_3bpsw")
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1569867512]
-texture = ExtResource("2_iix85")
+texture = ExtResource("2_3bpsw")
 
 [node name="PlanLine" type="Line2D" parent="." unique_id=1485000665]
 joint_mode = 2
