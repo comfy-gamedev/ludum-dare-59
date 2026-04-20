@@ -3,9 +3,11 @@ extends EntityBody
 @export var damage = 1
 
 var train_target = null
+#var mugshot: Texture2D = null
 
 func _ready() -> void:
-	float_animation_player.play("float")
+	mugshot = load("res://assets/textures/characters/drone_small.png")
+	super._ready()
 	
 	train_target = [
 		$"../../Engine",

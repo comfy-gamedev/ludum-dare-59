@@ -4,6 +4,10 @@
 [ext_resource type="StyleBox" uid="uid://birmltd504f6x" path="res://assets/stylebox/ui_panel.tres" id="1_sm2do"]
 [ext_resource type="Script" uid="uid://bfrtr0a0fpprb" path="res://scenes/main_gameplay/ui_right_panel.gd" id="2_sm2do"]
 [ext_resource type="Texture2D" uid="uid://cim71rkoagb13" path="res://assets/textures/sp_tokens.png" id="3_xxpeq"]
+[ext_resource type="Texture2D" uid="uid://c1bg15r5u2v6x" path="res://assets/textures/ui/train_health_bar_under.png" id="5_gt350"]
+[ext_resource type="Texture2D" uid="uid://d1l0i5minjoh8" path="res://assets/textures/ui/plaque_box.png" id="6_65o03"]
+[ext_resource type="FontFile" uid="uid://dv4y6a2mw7r2y" path="res://assets/fonts/Silver_nodescent.ttf" id="7_bac8q"]
+[ext_resource type="Texture2D" uid="uid://ovp3w1dpaxyv" path="res://assets/textures/ui/train_health_bar.png" id="8_twail"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lg2ml"]
 atlas = ExtResource("3_xxpeq")
@@ -43,9 +47,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -26.0
+offset_left = -44.0
 offset_top = -66.5
-offset_right = 26.0
+offset_right = 8.0
 offset_bottom = 66.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -104,5 +108,59 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_y1iwt")
 stretch_mode = 3
+
+[node name="TrainHealthBarBack" type="NinePatchRect" parent="." unique_id=1854958356]
+z_index = 1
+layout_mode = 0
+offset_left = 94.0
+offset_top = 12.0
+offset_right = 104.0
+offset_bottom = 217.0
+scale = Vector2(2, 2)
+texture = ExtResource("5_gt350")
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_vertical = 1
+
+[node name="LabelContainer" type="NinePatchRect" parent="TrainHealthBarBack" unique_id=33398039]
+z_index = -1
+layout_mode = 0
+offset_left = -49.0
+offset_top = 3.0
+offset_right = 2.0
+offset_bottom = 20.0
+texture = ExtResource("6_65o03")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label" type="Label" parent="TrainHealthBarBack/LabelContainer" unique_id=2037893036]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 48.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("7_bac8q")
+theme_override_font_sizes/font_size = 19
+text = "Train HP"
+horizontal_alignment = 2
+
+[node name="TrainHealthBar" type="NinePatchRect" parent="TrainHealthBarBack" unique_id=421563133]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 9.0
+offset_bottom = 204.0
+texture = ExtResource("8_twail")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_vertical = 1
 
 [connection signal="pressed" from="TurnButton" to="." method="_on_turn_button_pressed"]

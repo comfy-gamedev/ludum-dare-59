@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://c2rglukeb1nrr" path="res://scenes/main_gameplay/entity_abilities/move_shoot_ability.gd" id="4_uxy1q"]
 [ext_resource type="Texture2D" uid="uid://dljspoi6s78ov" path="res://assets/textures/effects/sword_slash_frame_0.tres" id="5_whu7e"]
 [ext_resource type="Texture2D" uid="uid://c4kalmy71iapl" path="res://assets/textures/effects/sword_slash_frame_1.tres" id="6_hh01w"]
-[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="7_ifkxf"]
+[ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="7_ifkxf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
 animations = [{
@@ -260,6 +260,7 @@ _data = {
 script = ExtResource("1_uxy1q")
 move_speed = 2
 mugshot = ExtResource("2_7hlf0")
+crossing_sprite = ExtResource("2_hh01w")
 facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 
