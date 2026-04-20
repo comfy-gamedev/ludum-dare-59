@@ -140,6 +140,7 @@ func initiate_death_sequence():
 	#$sfx/death_noise.play()
 	#$DeathInitiatedTimer.start()
 	$ExplosionAddedTimer.start()
+	$DeathTimer.start()
 	#enable_input = false
 
 #func _on_death_initiated_timer_timeout():
@@ -177,3 +178,7 @@ func take_damage(damage: int):
 
 func heal(heal_amount):
 	health += heal_amount
+
+
+func _on_death_timer_timeout() -> void:
+	SceneGirl.change_scene("res://scenes/lose_screen/lose_screen.tscn")
