@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://c1vomcd4tfhx4"]
+
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_e1y27"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_t5b5m"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="3_6igcn"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="4_6wdqy"]
+[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="5_esl1r"]
+[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="6_qyt53"]
+[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="7_iphx3"]
+
+[sub_resource type="Resource" id="Resource_x627r"]
+script = ExtResource("2_t5b5m")
+side = 1
+texture = ExtResource("3_6igcn")
+message = "Why are we taking this ancient train anyway?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_1s2sj"]
+script = ExtResource("2_t5b5m")
+texture = ExtResource("4_6wdqy")
+message = "You all need power..."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_yx3o2"]
+script = ExtResource("2_t5b5m")
+side = 1
+message = "Well yeah, but why not the trucks?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_nvhlo"]
+script = ExtResource("2_t5b5m")
+texture = ExtResource("5_esl1r")
+message = "We're too heavy, and we'll need the armor."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_kjirk"]
+script = ExtResource("2_t5b5m")
+side = 1
+texture = ExtResource("6_qyt53")
+message = "I didn't even know the tracks went this way."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_061kp"]
+script = ExtResource("2_t5b5m")
+texture = ExtResource("4_6wdqy")
+message = "Exactly, neither does the Crimson Legion, it's old world tech."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_sqhig"]
+script = ExtResource("2_t5b5m")
+side = 1
+texture = ExtResource("7_iphx3")
+message = "Cut the chatter! We got drones."
+time = 3.0
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[resource]
+script = ExtResource("1_e1y27")
+steps = Array[ExtResource("2_t5b5m")]([SubResource("Resource_x627r"), SubResource("Resource_1s2sj"), SubResource("Resource_yx3o2"), SubResource("Resource_nvhlo"), SubResource("Resource_kjirk"), SubResource("Resource_061kp"), SubResource("Resource_sqhig")])
+metadata/_custom_type_script = "uid://bprhkt5tix3qd"
