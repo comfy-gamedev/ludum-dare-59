@@ -2,6 +2,8 @@ extends Node2D
 signal update_train_position(target_pos: Vector2)
 signal initiate_train_move
 
+var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_explosion.tscn")
+
 @onready var engine_sprite = %Sprite2D
 @onready var tile_area = $Area2D
 
@@ -21,6 +23,7 @@ const TARGET_MIDDLE_X_POS = 256.0
 
 func _ready() -> void:
 	original_sprite_pos = engine_sprite.position
+	#initiate_death_sequence()
 
 func _process(delta):
 	process_shimmy(delta)
@@ -113,3 +116,28 @@ func _on_parallax_background_segment_transition_initiated():
 func get_tiles():
 	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
 	return areas.map(func(x): return x.get_parent().grid_pos)
+	
+func initiate_death_sequence():
+	#death_initiated = true
+	#$sfx/death_noise.play()
+	#$DeathInitiatedTimer.start()
+	$ExplosionAddedTimer.start()
+	#enable_input = false
+
+#func _on_death_initiated_timer_timeout():
+	#SaveGame.reload()
+	#get_tree().change_scene_to_file(game_over_scene)
+#
+#func _on_explosion_added_timer_timeout():
+	#var death_explosion: Node2D = death_explosion_scene.instantiate()
+	#death_explosion.position.x += randf_range(-20, 20)
+	#death_explosion.position.y += randf_range(-20, 20)
+	#death_explosion.play("default")
+	#$DeathExplosions.add_child(death_explosion)
+
+func _on_explosion_added_timer_timeout():
+	var death_explosion: Node2D = death_explosion_scene.instantiate()
+	death_explosion.position.x += randf_range(-20, 20)
+	death_explosion.position.y += randf_range(-20, 20)
+	#death_explosion.play("default")
+	$DeathExplosions.add_child(death_explosion)

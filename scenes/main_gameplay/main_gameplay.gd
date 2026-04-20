@@ -141,7 +141,7 @@ func perform_turn() -> void:
 	var entities: Array[GridBody] = battle_grid.get_bodies()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent.team == team:
+			if ent and ent.is_inside_tree() and ent.team == team:
 				if ent == EntityBody:
 					ent.clear_plan_visuals()
 				await ent.execute_turn_async()

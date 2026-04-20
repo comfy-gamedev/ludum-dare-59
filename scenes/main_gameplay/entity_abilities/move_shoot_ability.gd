@@ -12,7 +12,7 @@ func _ready() -> void:
 	weapon_sprite.hide()
 
 func display_name() -> String:
-	return "Move"
+	return "MoveShoot"
 
 func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	entity.state = EntityBody.EntityState.PLANNING_MOVE
