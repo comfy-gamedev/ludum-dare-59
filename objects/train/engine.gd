@@ -174,3 +174,6 @@ func take_damage(damage: int):
 	health -= damage
 	if health <= 0:
 		initiate_death_sequence()
+
+func heal(heal_amount):
+	health += heal_amount
