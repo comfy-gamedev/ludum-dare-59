@@ -15,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
 [ext_resource type="PackedScene" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
+[ext_resource type="PackedScene" uid="uid://vtwovuplg2ld" path="res://ui/dialogue.tscn" id="14_om7j4"]
 [ext_resource type="PackedScene" uid="uid://cvjjdv61uicgl" path="res://objects/grid_actors/enemies/ranger_drone.tscn" id="14_sbvst"]
+[ext_resource type="PackedScene" uid="uid://5rd2ee201n80" path="res://ui/sf_dialogue.tscn" id="15_jclp5"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -81,6 +83,15 @@ unique_name_in_owner = true
 battle_grid = NodePath("../../BattleGrid")
 
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
+
+[node name="DialogueCanvasLayer" type="CanvasLayer" parent="." unique_id=2122191527]
+visible = false
+
+[node name="Dialogue" parent="DialogueCanvasLayer" unique_id=341286864 instance=ExtResource("14_om7j4")]
+unique_name_in_owner = true
+
+[node name="SfDialogue" parent="DialogueCanvasLayer" unique_id=1134654972 instance=ExtResource("15_jclp5")]
+unique_name_in_owner = true
 
 [connection signal="initiate_left_to_middle_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_left_to_middle_transition"]
 [connection signal="initiate_left_to_middle_transition" from="." to="Engine" method="_on_main_gameplay_initiate_left_to_middle_transition"]

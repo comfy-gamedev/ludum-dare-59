@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_h278d"]
 [ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="2_8ubwr"]
-[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="3_psatb"]
-[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="4_yn51q"]
+[ext_resource type="Script" path="res://ui/conversation.gd" id="3_psatb"]
+[ext_resource type="Script" path="res://ui/conversation_step.gd" id="4_yn51q"]
 [ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_krjbi"]
 [ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="6_yqr8w"]
 [ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="7_musxj"]
@@ -113,4 +113,3 @@ script = ExtResource("3_psatb")
 left_texture = ExtResource("1_h278d")
 right_texture = ExtResource("2_8ubwr")
 steps = Array[ExtResource("4_yn51q")]([SubResource("Resource_0gmtb"), SubResource("Resource_6qm1b"), SubResource("Resource_7i11d"), SubResource("Resource_pcu2o"), SubResource("Resource_vgi65"), SubResource("Resource_e1yoy"), SubResource("Resource_m25q7"), SubResource("Resource_b2cds"), SubResource("Resource_t5ll6"), SubResource("Resource_h1esn"), SubResource("Resource_65xoq"), SubResource("Resource_wncrj"), SubResource("Resource_m8480"), SubResource("Resource_m67gf"), SubResource("Resource_75nt3"), SubResource("Resource_isi4v"), SubResource("Resource_6gmtd")])
-metadata/_custom_type_script = "uid://bprhkt5tix3qd"
