@@ -4,10 +4,12 @@ class_name MainGameplay
 signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
 signal initiate_left_to_middle_transition()
+signal initiate_right_to_middle_transition()
 
 signal player_signal_points_changed()
 
 signal _ui_input(what: int, params: Dictionary)
+signal turn_end
 
 const UI_GRID_CLICKED = 0
 const UI_START_TURN_CLICKED = 1
@@ -17,6 +19,8 @@ const UI_START_TURN_CLICKED = 1
 @onready var selection_box: Line2D = %SelectionBox
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
+
+var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
 	set(v):
@@ -39,7 +43,7 @@ func _ready() -> void:
 			box_parent.add_child(current_box)
 	
 	#initiate_middle_to_right_transition.emit()
-	initiate_middle_to_left_transition.emit()
+	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
 	
 	reset_turn_state()
@@ -49,7 +53,7 @@ func _ready() -> void:
 func turn_input() -> void:
 	await get_tree().process_frame
 	
-	turn_button.disabled = false
+	#turn_button.disabled = false
 	
 	var ui_input = await _ui_input
 	var ui_event: int = ui_input[0]
@@ -60,62 +64,58 @@ func turn_input() -> void:
 			var grid_pos: Vector2i = ui_params.grid_pos
 			var click_button: int = ui_params.click_button
 			
-			turn_button.disabled = true
+			#turn_button.disabled = true
 			
 			var occupant = battle_grid.get_occupant(grid_pos)
 			var tile_terrains = battle_grid.get_terrain(grid_pos)
+			var is_future_order = false
+			
+			# If no occupant found, check for planning previews
+			if not occupant:
+				for ent in battle_grid.get_entities():
+					if ent.turn_done and ent.turn_end_grid_pos == grid_pos:
+						is_future_order = true
+						occupant = ent
 			
 			if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
-					if _selected_actor.turn_done:
+					if _selected_actor.turn_done and not is_future_order:
+						# TODO: only orders places this turn should be refundable
 						player_signal_points += 1 + _selected_actor.future_orders.size()
+						_selected_actor.clear_orders()
+					
 					_selected_actor.on_selected()
 					
-					selection_box.position = _selected_actor.position
+					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
 					
-					command_menu.popup(_selected_actor)
+					command_menu.popup(_selected_actor, grid_pos)
 					
 					var cmd = await command_menu.command_chosen
-					match cmd:
+					match cmd[0]:
 						CommandMenu.Command.NONE:
 							turn_input()
 							return
-						CommandMenu.Command.MOVE:
-							_selected_actor.state = EntityBody.EntityState.PLANNING_MOVE
+						CommandMenu.Command.ABILITY:
+							var ability: EntityAbility = cmd[1]
+							assert(ability)
 							
-							var move_clicked = await battle_grid.cell_clicked
-							var move_grid_pos = move_clicked[0]
-							var move_click_button = move_clicked[1]
-							if move_click_button == BattleGrid.CLICK_SECONDARY:
-								turn_input()
-								return
+							@warning_ignore("redundant_await")
+							var order = await ability.input_async(_selected_actor, battle_grid)
 							
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT)
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY)
-							_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
-							
-							move_clicked = await battle_grid.cell_clicked
-							move_grid_pos = move_clicked[0]
-							move_click_button = move_clicked[1]
-							
-							var last_order = _selected_actor.orders.back()
-							if last_order:
-								last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
+							if order:
+								player_signal_points -= 1
+								var turn_index = 0
+								if is_future_order:
+									turn_index = _selected_actor.future_orders.size() + 1
+								_selected_actor.plan_order(order, turn_index)
 							
 							_selected_actor.turn_done = true
 							_selected_actor.on_deselected()
-							_selected_actor = null
 							
 							selection_box.hide()
 							
-							player_signal_points -= 1
-							
-							turn_input()
-							return
-						CommandMenu.Command.SPECIAL:
-							print("unimplemented")
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
@@ -132,11 +132,12 @@ func turn_input() -> void:
 	return
 
 func perform_turn() -> void:
-	var entities: Array[EntityBody] = battle_grid.get_entities()
+	var entities: Array[GridBody] = battle_grid.get_bodies()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
 			if ent.team == team:
-				ent.clear_plan_visuals()
+				if ent == EntityBody:
+					ent.clear_plan_visuals()
 				await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
@@ -145,7 +146,7 @@ func perform_turn() -> void:
 	
 	reset_turn_state()
 	spawn_clouds()
-
+	turn_end.emit()
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
@@ -159,6 +160,7 @@ func _on_turn_button_pressed() -> void:
 
 
 func _on_parallax_background_segment_transition_complete():
+	turn_button.disabled = false
 	print("Terrain segment transition complete!")
 
 func spawn_clouds(num = 2, radii = 4):
@@ -183,3 +185,43 @@ func spawn_clouds(num = 2, radii = 4):
 					current_coord += dir
 					if current_coord.x == center_coord.x || current_coord.y == center_coord.y:
 						break
+
+func initiate_terrain_segment_transition():
+	match current_terrain_segment_state:
+		Globals.TerrainSegmentStates.MIDDLE:
+			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE] # and tunnel eventually
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.LEFT:
+				initiate_middle_to_left_transition.emit()
+				set_current_terrain_segment(Globals.TerrainSegmentStates.LEFT)
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.LEFT
+			elif random_transition == Globals.TerrainSegmentStates.RIGHT:
+				initiate_middle_to_right_transition.emit()
+				set_current_terrain_segment(Globals.TerrainSegmentStates.RIGHT)
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.RIGHT
+		
+		Globals.TerrainSegmentStates.LEFT:
+			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.MIDDLE]
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
+				initiate_left_to_middle_transition.emit()
+				#current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
+				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+		
+		Globals.TerrainSegmentStates.RIGHT:
+			var possible_transitions = [Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE]
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
+				initiate_right_to_middle_transition.emit()
+				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+
+func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
+	current_terrain_segment_state = new_terrain_segment_state
+	turn_button.disabled = true
+	print("Init new terrain segment transition")
+
+func _on_turn_end():
+	initiate_terrain_segment_transition()

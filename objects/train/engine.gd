@@ -1,5 +1,6 @@
 extends Node2D
 signal update_train_position(target_pos: Vector2)
+signal initiate_train_move
 
 @onready var engine_sprite = %Sprite2D
 
@@ -63,12 +64,6 @@ func process_shimmy(delta):
 func initiate_shimmy():
 	_shimmy_timer = shimmy_duration
 
-func _on_main_gameplay_initiate_middle_to_right_transition():
-	await get_tree().create_timer(1.5).timeout
-	rotation_degrees += Globals.TRAIN_ROTATION
-	moving_right = true
-	update_train_pos = true
-
 func _on_parallax_background_segment_transition_complete():
 	#rotation_degrees = 0
 	pass
@@ -76,18 +71,40 @@ func _on_parallax_background_segment_transition_complete():
 func _on_shimmy_timer_timeout():
 	initiate_shimmy()
 
+func _on_main_gameplay_initiate_middle_to_right_transition():
+	#await get_tree().create_timer(1.5).timeout
+	await initiate_train_move
+	await get_tree().create_timer(0.34).timeout
+	target_pos = Vector2(TARGET_RIGHT_X_POS, position.y)
+	rotation_degrees += Globals.TRAIN_ROTATION
+	moving_right = true
+	update_train_pos = true
 
 func _on_main_gameplay_initiate_middle_to_left_transition():
-	await get_tree().create_timer(1.5).timeout
+	#await get_tree().create_timer(0.75).timeout
+	await initiate_train_move
+	await get_tree().create_timer(0.34).timeout
 	target_pos = Vector2(TARGET_LEFT_X_POS, position.y)
 	moving_left = true
 	update_train_pos = true
 	rotation_degrees -= Globals.TRAIN_ROTATION
 
-
 func _on_main_gameplay_initiate_left_to_middle_transition():
-	await get_tree().create_timer(1.5).timeout	
+	#await get_tree().create_timer(1.5).timeout
+	await initiate_train_move
+	await get_tree().create_timer(0.34).timeout
 	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
 	moving_right = true
 	update_train_pos = true
 	rotation_degrees += Globals.TRAIN_ROTATION
+
+func _on_main_gameplay_initiate_right_to_middle_transition():
+	await initiate_train_move
+	await get_tree().create_timer(0.34).timeout
+	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
+	rotation_degrees -= Globals.TRAIN_ROTATION
+	moving_left = true
+	update_train_pos = true
+
+func _on_parallax_background_segment_transition_initiated():
+	initiate_train_move.emit()

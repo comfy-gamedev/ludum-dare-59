@@ -10,24 +10,10 @@ script = ExtResource("1_f7w8w")
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1724201984]
 layout_mode = 2
 
-[node name="MoveButton" type="Button" parent="VBoxContainer" unique_id=2098724424]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"FlatButton"
-text = "Plan Move"
-
-[node name="SpecialButton" type="Button" parent="VBoxContainer" unique_id=1889541124]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"FlatButton"
-text = "Plan Special"
-
 [node name="BurstButton" type="Button" parent="VBoxContainer" unique_id=706416435]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"FlatButton"
 text = "Burst"
 
-[connection signal="pressed" from="VBoxContainer/MoveButton" to="." method="_on_move_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/SpecialButton" to="." method="_on_special_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/BurstButton" to="." method="_on_burst_button_pressed"]

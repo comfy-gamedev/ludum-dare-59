@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="AttackAbility" format=3 uid="uid://dsj1p2jcifds5"]
-
-[ext_resource type="Script" uid="uid://ddop3ju6jscaj" path="res://scenes/main_gameplay/entity_abilities/attack_ability.gd" id="1_4i4xr"]
-
-[resource]
-script = ExtResource("1_4i4xr")
-display_name = "Attack"
-metadata/_custom_type_script = "uid://ddop3ju6jscaj"
