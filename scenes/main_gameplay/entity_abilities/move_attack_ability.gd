@@ -36,7 +36,7 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	
 	var target_dir = get_global_mouse_position() - battle_grid.get_cell_center(move_grid_pos)
 	
-	preview.queue_free()
+	entity.clear_plan_visuals()
 	
 	var order = EntityOrder.new()
 	order.ability = self
@@ -56,7 +56,7 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 			occupant.take_damage(damage)
 
 func update_preview(entity: EntityBody, params: Dictionary) -> void:
-	entity.plan_line.add_point(Vector2(params.target_pos) * entity.battle_grid.CELL_SIZE)
+	entity.plan_line.add_point(Vector2(params.target_pos - entity.grid_position) * entity.battle_grid.CELL_SIZE)
 	
 	var preview = entity.create_preview_visuals()
 	var preview_area = self.duplicate(0)
