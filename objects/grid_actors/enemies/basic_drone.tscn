@@ -134,6 +134,7 @@ _data = {
 [node name="BasicDrone" type="Node2D" unique_id=1386753269]
 script = ExtResource("1_418kl")
 team = 1
+crossing_sprite = ExtResource("2_j4r36")
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1273822516]

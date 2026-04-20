@@ -11,13 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://2pikq8vp3ng5" path="res://scenes/main_gameplay/mechs/shield_mech.tscn" id="10_sbvst"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
-[ext_resource type="PackedScene" uid="uid://ditilhnl06qdq" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
+[ext_resource type="PackedScene" uid="uid://dbugqn4h54yn7" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
-[ext_resource type="PackedScene" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
+[ext_resource type="PackedScene" uid="uid://x8sq25taewiu" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 [ext_resource type="PackedScene" uid="uid://vtwovuplg2ld" path="res://ui/dialogue.tscn" id="14_om7j4"]
 [ext_resource type="PackedScene" uid="uid://cvjjdv61uicgl" path="res://objects/grid_actors/enemies/ranger_drone.tscn" id="14_sbvst"]
 [ext_resource type="PackedScene" uid="uid://5rd2ee201n80" path="res://ui/sf_dialogue.tscn" id="15_jclp5"]
+[ext_resource type="PackedScene" uid="uid://fjjf145uwdef" path="res://scenes/main_gameplay/crossing_panel.tscn" id="16_km80p"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -82,6 +83,9 @@ main_gameplay = NodePath("../..")
 unique_name_in_owner = true
 battle_grid = NodePath("../../BattleGrid")
 
+[node name="CrossingPanel" parent="CanvasLayer" unique_id=1862481143 instance=ExtResource("16_km80p")]
+visible = false
+
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [node name="DialogueCanvasLayer" type="CanvasLayer" parent="." unique_id=2122191527]
@@ -111,4 +115,5 @@ unique_name_in_owner = true
 [connection signal="update_train_position" from="Engine" to="FlatBed" method="_on_engine_update_train_position"]
 [connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
+[connection signal="crossing" from="BattleGrid" to="." method="_on_battle_grid_crossing"]
 [connection signal="go_button_pressed" from="CanvasLayer/RightPanel" to="." method="_on_right_panel_go_button_pressed"]

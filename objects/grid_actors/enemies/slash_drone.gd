@@ -4,7 +4,7 @@ extends EntityBody
 
 func _ready() -> void:
 	mugshot = load("res://assets/textures/characters/horse_small.png")
-	float_animation_player.play("float")
+	super._ready()
 
 func start_turn() -> void:
 	var players = battle_grid.get_entities().filter(func (a): return a.team == BattleGrid.Team.PLAYER)
@@ -37,8 +37,6 @@ func start_turn() -> void:
 			+ Vector2(grid_position))
 	
 	var target_dir = (Vector2(target.grid_position) - Vector2(grid_position)).normalized()
-	
-	print({ target = target, target_pos = target_pos, target_dir = target_dir })
 	
 	var order = EntityOrder.new()
 	order.ability = $AttackAbility

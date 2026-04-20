@@ -7,7 +7,7 @@ var train_target = null
 
 func _ready() -> void:
 	mugshot = load("res://assets/textures/characters/drone_small.png")
-	float_animation_player.play("float")
+	super._ready()
 	
 	train_target = [
 		$"../../Engine",

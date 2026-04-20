@@ -7,6 +7,8 @@ const CLICK_SECONDARY = MOUSE_BUTTON_RIGHT
 signal cell_clicked(grid_pos: Vector2i, click_button: int)
 signal mouse_over_cell_changed(grid_pos: Vector2i)
 
+signal crossing(entity_a: EntityBody, entity_b: EntityBody)
+
 const GRID_DIM = Vector2i(16, 13)
 const CELL_SIZE = Vector2(32, 32)
 
@@ -22,6 +24,9 @@ var movement_center_point: Vector2i
 var movement_radius: int
 var last_mouse_move_grid_pos: Vector2i
 var highlighting_cells: Array[Vector2i]
+
+var crossings: Dictionary[Array, bool]
+var crossings_enabled: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -124,3 +129,21 @@ func is_in_bounds(coord: Vector2i) -> bool:
 	if coord.x >= 0 && coord.x <= GRID_DIM.x && coord.y >= 0 && coord.x <= GRID_DIM.y:
 		return true
 	return false
+
+
+func do_crossing(a: EntityBody, b: EntityBody) -> void:
+	if not crossings_enabled:
+		return
+	var ids = [a.get_instance_id(), b.get_instance_id()]
+	ids.sort()
+	if ids not in crossings:
+		crossings[ids] = true
+		crossing.emit(a, b)
+
+func enable_crossings() -> void:
+	crossings.clear()
+	crossings_enabled = true
+
+func disable_crossings() -> void:
+	crossings.clear()
+	crossings_enabled = false
