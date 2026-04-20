@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bt7ix4clewesy" path="res://assets/textures/objects/train1.png" id="1_av20d"]
 [ext_resource type="Script" uid="uid://bun4l77jky634" path="res://objects/train/engine.gd" id="2_hqc7p"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hscdq"]
+size = Vector2(22, 55)
+
 [node name="Engine" type="Node2D" unique_id=917591001]
 script = ExtResource("2_hqc7p")
 
@@ -13,5 +16,13 @@ texture = ExtResource("1_av20d")
 [node name="ShimmyTimer" type="Timer" parent="." unique_id=1577530929]
 wait_time = 0.5
 autostart = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=38246652]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=6364563]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_hscdq")
 
 [connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]

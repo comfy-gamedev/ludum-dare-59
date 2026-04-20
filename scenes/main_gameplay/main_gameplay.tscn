@@ -6,9 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cjm2oej6u87ud" path="res://objects/train/flat_bed.tscn" id="4_ieocc"]
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
-[ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="7_1svbp"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
-[ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
 [ext_resource type="PackedScene" uid="uid://dddt02sg5yi8v" path="res://scenes/main_gameplay/mechs/support_mech.tscn" id="8_wjmgw"]
 [ext_resource type="Script" uid="uid://il6hjqsfqal7" path="res://scenes/main_gameplay/signal_points_container.gd" id="10_ieocc"]
@@ -23,13 +21,13 @@ script = ExtResource("1_wt4mr")
 z_index = -1
 
 [node name="Engine" parent="." unique_id=25683959 instance=ExtResource("3_nbr0a")]
-position = Vector2(256, 243)
+position = Vector2(256, 258)
 
 [node name="FlatBed" parent="." unique_id=212317123 instance=ExtResource("4_ieocc")]
-position = Vector2(256, 304)
+position = Vector2(256, 319)
 
 [node name="Caboose" parent="." unique_id=2023632522 instance=ExtResource("4_1svbp")]
-position = Vector2(256, 365)
+position = Vector2(256, 380)
 
 [node name="BattleGrid" type="Node2D" parent="." unique_id=1114038081]
 unique_name_in_owner = true
@@ -40,13 +38,6 @@ health = 1
 
 [node name="SupportMech" parent="BattleGrid" unique_id=183001927 instance=ExtResource("8_wjmgw")]
 grid_position = Vector2i(3, 1)
-
-[node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
-position = Vector2(224, 352)
-grid_position = Vector2i(3, 3)
-
-[node name="Warning" parent="BattleGrid" unique_id=1372385912 instance=ExtResource("7_vsax7")]
-grid_position = Vector2i(2, 2)
 
 [node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
 position = Vector2(151.08636, 129.7958)

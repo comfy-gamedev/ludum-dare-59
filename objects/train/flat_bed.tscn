@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://b641ydwx1j7rm" path="res://objects/train/flat_bed.gd" id="1_cu7ok"]
 [ext_resource type="Texture2D" uid="uid://dm78rlysnjjjs" path="res://assets/textures/objects/flat_bed_car.png" id="2_dib5s"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cu7ok"]
+size = Vector2(22, 50)
+
 [node name="FlatBed" type="Node2D" unique_id=212317123]
 script = ExtResource("1_cu7ok")
 
@@ -13,5 +16,12 @@ texture = ExtResource("2_dib5s")
 [node name="ShimmyTimer" type="Timer" parent="." unique_id=1064859520]
 wait_time = 0.5
 autostart = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2090236704]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=279689450]
+shape = SubResource("RectangleShape2D_cu7ok")
 
 [connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]

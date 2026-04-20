@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bf5tkuve4flq1" path="res://objects/train/caboose.gd" id="1_3u86x"]
 [ext_resource type="Texture2D" uid="uid://ce0alk2pwqvlr" path="res://assets/textures/objects/caboose1.png" id="1_23tvs"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u86x"]
+size = Vector2(22, 50)
+
 [node name="Caboose" type="Node2D" unique_id=2023632522]
 script = ExtResource("1_3u86x")
 
@@ -13,5 +16,12 @@ texture = ExtResource("1_23tvs")
 [node name="ShimmyTimer" type="Timer" parent="." unique_id=1081903085]
 wait_time = 0.5
 autostart = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1295828644]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1312946441]
+shape = SubResource("RectangleShape2D_3u86x")
 
 [connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]
