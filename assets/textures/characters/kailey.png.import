@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8fiadpcf1vcd"
-path="res://.godot/imported/piper_small.png-77cc88b18839a4cb0dbbde9b3c4e8fe7.ctex"
+uid="uid://b6c4a60u4up4f"
+path="res://.godot/imported/kailey.png-1608d3727b9684786547128bb96915ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/piper_small.png"
-dest_files=["res://.godot/imported/piper_small.png-77cc88b18839a4cb0dbbde9b3c4e8fe7.ctex"]
+source_file="res://assets/textures/characters/kailey.png"
+dest_files=["res://.godot/imported/kailey.png-1608d3727b9684786547128bb96915ed.ctex"]
 
 [params]
 

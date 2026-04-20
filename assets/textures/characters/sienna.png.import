@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq07ivmsiavys"
-path="res://.godot/imported/charlie_small.png-1abe1aeb85d8db065b8aba844de26c79.ctex"
+uid="uid://c4s2f5bgy34w0"
+path="res://.godot/imported/sienna.png-2273e3506e3230ef45448abc4f45df93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/charlie_small.png"
-dest_files=["res://.godot/imported/charlie_small.png-1abe1aeb85d8db065b8aba844de26c79.ctex"]
+source_file="res://assets/textures/characters/sienna.png"
+dest_files=["res://.godot/imported/sienna.png-2273e3506e3230ef45448abc4f45df93.ctex"]
 
 [params]
 

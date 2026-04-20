@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://fhyxqtqhvwm"]
 
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_e42ps"]
-[ext_resource type="Script" path="res://ui/conversation.gd" id="1_f6vnc"]
-[ext_resource type="Script" path="res://ui/conversation_step.gd" id="2_2mm3m"]
-[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="4_51t2e"]
-[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_xoc17"]
+[ext_resource type="Resource" uid="uid://cbvnimi1oldft" path="res://ui/characters/kailey.tres" id="1_51t2e"]
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_f6vnc"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_2mm3m"]
+[ext_resource type="Resource" uid="uid://dvy11ai5qnrus" path="res://ui/characters/heidi.tres" id="4_xoc17"]
+[ext_resource type="Resource" uid="uid://cdc08j7a8m1n2" path="res://ui/characters/sienna.tres" id="6_2g58p"]
 
 [sub_resource type="Resource" id="Resource_2132m"]
 script = ExtResource("2_2mm3m")
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_2g58p"]
 script = ExtResource("2_2mm3m")
 side = 1
-texture = ExtResource("4_51t2e")
+character = ExtResource("4_xoc17")
 message = "Yeah, and they're not happy about it!"
 time = 5.0
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
@@ -23,12 +23,12 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_yo7ee"]
 script = ExtResource("2_2mm3m")
 side = 1
-texture = ExtResource("5_xoc17")
+character = ExtResource("6_2g58p")
 message = "Perfect! Now to pull them away."
 time = 5.0
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [resource]
 script = ExtResource("1_f6vnc")
-left_texture = ExtResource("1_e42ps")
+left_character = ExtResource("1_51t2e")
 steps = Array[ExtResource("2_2mm3m")]([SubResource("Resource_2132m"), SubResource("Resource_2g58p"), SubResource("Resource_yo7ee")])

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkg3d5u8jio5r"
-path="res://.godot/imported/charlie.png-9b5af0f7824d82afc58c5324477dae0b.ctex"
+uid="uid://cq07ivmsiavys"
+path="res://.godot/imported/maisie_sf.png-ff3211f3ad66a745b22f526fb4bf8444.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/charlie.png"
-dest_files=["res://.godot/imported/charlie.png-9b5af0f7824d82afc58c5324477dae0b.ctex"]
+source_file="res://assets/textures/characters/maisie_sf.png"
+dest_files=["res://.godot/imported/maisie_sf.png-ff3211f3ad66a745b22f526fb4bf8444.ctex"]
 
 [params]
 

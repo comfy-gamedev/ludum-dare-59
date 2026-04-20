@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7sdh36fh0elm"
-path="res://.godot/imported/demi.png-4eabfb431b6c938d68476e47fb9b8e01.ctex"
+path="res://.godot/imported/diana.png-851036736a84acc9a3415365d06ff578.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/demi.png"
-dest_files=["res://.godot/imported/demi.png-4eabfb431b6c938d68476e47fb9b8e01.ctex"]
+source_file="res://assets/textures/characters/diana.png"
+dest_files=["res://.godot/imported/diana.png-851036736a84acc9a3415365d06ff578.ctex"]
 
 [params]
 

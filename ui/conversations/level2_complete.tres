@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://u3am31jvoyl3"]
 
-[ext_resource type="Script" path="res://ui/conversation.gd" id="1_06ua0"]
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_mqp4x"]
-[ext_resource type="Script" path="res://ui/conversation_step.gd" id="2_spk0a"]
-[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="4_ddh4j"]
-[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_coexj"]
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_06ua0"]
+[ext_resource type="Resource" uid="uid://cbvnimi1oldft" path="res://ui/characters/kailey.tres" id="1_ddh4j"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_spk0a"]
+[ext_resource type="Resource" uid="uid://c12dv78ugkwqi" path="res://ui/characters/maisie.tres" id="5_c47wc"]
+[ext_resource type="Resource" uid="uid://cdc08j7a8m1n2" path="res://ui/characters/sienna.tres" id="6_3coni"]
 
 [sub_resource type="Resource" id="Resource_c47wc"]
 script = ExtResource("2_spk0a")
@@ -14,14 +14,14 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_3coni"]
 script = ExtResource("2_spk0a")
 side = 1
-texture = ExtResource("4_ddh4j")
+character = ExtResource("5_c47wc")
 message = "Looked like Plasma."
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [sub_resource type="Resource" id="Resource_6cg5g"]
 script = ExtResource("2_spk0a")
 side = 1
-texture = ExtResource("5_coexj")
+character = ExtResource("6_3coni")
 message = "Nah it looked like Smoke."
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -32,5 +32,5 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [resource]
 script = ExtResource("1_06ua0")
-left_texture = ExtResource("1_mqp4x")
+left_character = ExtResource("1_ddh4j")
 steps = Array[ExtResource("2_spk0a")]([SubResource("Resource_c47wc"), SubResource("Resource_3coni"), SubResource("Resource_6cg5g"), SubResource("Resource_mbjfb")])

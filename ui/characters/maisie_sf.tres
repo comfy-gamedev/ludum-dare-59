@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Character" format=3 uid="uid://c0bs8lmw1bgr8"]
+
+[ext_resource type="Script" uid="uid://dvng4as2c634m" path="res://ui/character.gd" id="1_asera"]
+[ext_resource type="AudioStream" uid="uid://v6s0hxv7o3uj" path="res://assets/sfx/dialogue/radio_maisie.wav" id="2_asera"]
+[ext_resource type="Texture2D" uid="uid://cq07ivmsiavys" path="res://assets/textures/characters/maisie_sf.png" id="3_j3y53"]
+
+[resource]
+script = ExtResource("1_asera")
+name = "Maisie"
+texture = ExtResource("3_j3y53")
+talk_sfx = ExtResource("2_asera")
+metadata/_custom_type_script = "uid://dvng4as2c634m"

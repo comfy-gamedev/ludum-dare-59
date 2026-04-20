@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxorggv065jy0"
-path="res://.godot/imported/sloane_small.png-17e271758a152a78554cfdd5d3c6dba2.ctex"
+uid="uid://bao4notqjbux0"
+path="res://.godot/imported/heidi.png-e3bbc4a91fbd059764d2381322a5db8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/sloane_small.png"
-dest_files=["res://.godot/imported/sloane_small.png-17e271758a152a78554cfdd5d3c6dba2.ctex"]
+source_file="res://assets/textures/characters/heidi.png"
+dest_files=["res://.godot/imported/heidi.png-e3bbc4a91fbd059764d2381322a5db8f.ctex"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c3hrq80sljtqf"
-path="res://.godot/imported/Sienna.wav-6eec272b939ed505d97a9842e3049e02.sample"
+path="res://.godot/imported/sienna.wav-5179caae3062f34852f1d41ecb741323.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/Sienna.wav"
-dest_files=["res://.godot/imported/Sienna.wav-6eec272b939ed505d97a9842e3049e02.sample"]
+source_file="res://assets/sfx/dialogue/sienna.wav"
+dest_files=["res://.godot/imported/sienna.wav-5179caae3062f34852f1d41ecb741323.sample"]
 
 [params]
 

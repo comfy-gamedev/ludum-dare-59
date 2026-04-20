@@ -1,5 +1,8 @@
 extends Control
 
+var left_character: Character
+var right_character: Character
+
 func show_step(step: ConversationStep) -> void:
 	var left_rect = $VBoxContainer/HBoxContainer/RectLeft
 	var left_tex = $VBoxContainer/HBoxContainer/RectLeft/PortraitLeft
@@ -13,22 +16,36 @@ func show_step(step: ConversationStep) -> void:
 	
 	if step.side == ConversationStep.TextureSide.LEFT:
 		left_rect.visible = true
-		if step.texture != null:
-			left_tex.texture = step.texture
+		if step.character != null:
+			left_character = step.character
+			left_tex.texture = left_character.texture
 	else:
 		right_rect.visible = true
-		if step.texture != null:
-			right_tex.texture = step.texture
+		if step.character != null:
+			right_character = step.character
+			right_tex.texture = right_character.texture
 	
 	center_rect.visible = true
+	
+	var sfx: AudioStream
+	if step.side == ConversationStep.TextureSide.LEFT:
+		sfx = left_character.talk_sfx
+	else:
+		sfx = right_character.talk_sfx
+	
 	label.text = step.message
-	await create_tween().tween_property(label, "visible_ratio", 1.0, 0.5).finished
+	for i in range(1, step.message.length() + 1):
+		if i % 2 == 0:
+			MusicMan.sfx(sfx, null, 1, randf_range(0.99, 1.1))
+		var visible_ratio = float(i) / step.message.length()
+		label.visible_ratio = visible_ratio
+		await get_tree().create_timer(0.0335).timeout
 	
 	if step.time != 0:
 		await get_tree().create_timer(step.time).timeout
 	else:
 		await get_tree().create_timer(1.0).timeout
-		
+	
 	left_rect.visible = false
 	right_rect.visible = false
 	center_rect.visible = false
@@ -37,17 +54,19 @@ func show_conversation(conv: Conversation) -> void:
 	var left_tex = $VBoxContainer/HBoxContainer/RectLeft/PortraitLeft
 	var right_tex = $VBoxContainer/HBoxContainer/RectRight/PortraitRight
 	
-	if conv.left_texture != null:
-		left_tex.texture = conv.left_texture
+	if conv.left_character != null:
+		left_character = conv.left_character
+		left_tex.texture = conv.left_character.texture
 	
-	if conv.right_texture != null:
-		right_tex.texture = conv.right_texture
+	if conv.right_character != null:
+		right_character = conv.right_character
+		right_tex.texture = conv.right_character.texture
 	
 	for step in conv.steps:
 		await show_step(step)
 		await get_tree().create_timer(1.0).timeout
 
-func create_character_dialogue_step(character: Character, dialogue: Dialogue) -> ConversationStep:
+func create_character_dialogue_step(character: CharacterEnum, dialogue: Dialogue) -> ConversationStep:
 	var c = characters[character]
 	if not c.dialogues.has(dialogue):
 		return
@@ -58,12 +77,12 @@ func create_character_dialogue_step(character: Character, dialogue: Dialogue) ->
 	
 	var step = ConversationStep.new()
 	step.side = ConversationStep.TextureSide.LEFT
-	step.texture = c.texture
+	step.character = c.character
 	step.message = d
 	step.time = 1.0
 	return step
 
-func show_character_dialogue(character: Character, dialogue: Dialogue) -> void:
+func show_character_dialogue(character: CharacterEnum, dialogue: Dialogue) -> void:
 	var step = create_character_dialogue_step(character, dialogue)
 	if step == null:
 		return
@@ -73,7 +92,7 @@ func show_character_dialogue(character: Character, dialogue: Dialogue) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for character in Character.values():
+	for character in CharacterEnum.values():
 		for dialogue in Dialogue.values():
 			await show_character_dialogue(character, dialogue)
 
@@ -81,15 +100,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-var characters: Dictionary[Character, CharacterDialogue] = {
-		Character.COMMANDER: create_commander(),
-		Character.MARKSMAN: create_marksman(),
-		Character.SWORDSMAN: create_swordsman(),
-		Character.DEFENDER: create_defender(),
-		Character.HEALER: create_healer()
+var characters: Dictionary[CharacterEnum, CharacterDialogue] = {
+		CharacterEnum.COMMANDER: create_commander(),
+		CharacterEnum.MARKSMAN: create_marksman(),
+		CharacterEnum.SWORDSMAN: create_swordsman(),
+		CharacterEnum.DEFENDER: create_defender(),
+		CharacterEnum.HEALER: create_healer()
 	}
 
-enum Character {
+enum CharacterEnum {
 	COMMANDER,
 	MARKSMAN,
 	SWORDSMAN,
@@ -111,12 +130,12 @@ enum Dialogue {
 }
 
 class CharacterDialogue:
-	var texture: Texture2D
+	var character: Character
 	var dialogues: Dictionary = {}
 
 func create_commander() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
-	cd.texture = preload("res://assets/textures/characters/constance_small.png")
+	cd.character = preload("res://ui/characters/kailey_sf.tres")
 	cd.dialogues[Dialogue.KILLED] = ["We're going off the rails!"]
 	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["Need some help here!"]
 	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["Losing signal for a sec."]
@@ -127,7 +146,7 @@ func create_commander() -> CharacterDialogue:
 
 func create_marksman() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
-	cd.texture = preload("res://assets/textures/characters/charlie_small.png")
+	cd.character = preload("res://ui/characters/maisie_sf.tres")
 	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Taking aim.", "Firing!"]
 	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["Firing my laser!"]
 	cd.dialogues[Dialogue.KILL_STREAK] = ["Another one bites the dust!"]
@@ -143,7 +162,7 @@ func create_marksman() -> CharacterDialogue:
 
 func create_swordsman() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
-	cd.texture = preload("res://assets/textures/characters/sloane_small.png")
+	cd.character = preload("res://ui/characters/sienna_sf.tres")
 	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Eat steel!", "Hiyah!"]
 	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["I'll cut 'em down!", "I'm here to Bill and I'm here to Kill, and I'm all out of Bills!"]
 	cd.dialogues[Dialogue.KILL_STREAK] = ["Livin' on the edge!"]
@@ -159,7 +178,7 @@ func create_swordsman() -> CharacterDialogue:
 	
 func create_defender() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
-	cd.texture = preload("res://assets/textures/characters/demi_small.png")
+	cd.character = preload("res://ui/characters/diana_sf.tres")
 	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Take that!"]
 	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["Outta my way!", "Stay behind me!"]
 	cd.dialogues[Dialogue.KILL_STREAK] = ["How did that happen?"]
@@ -175,7 +194,7 @@ func create_defender() -> CharacterDialogue:
 
 func create_healer() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
-	cd.texture = preload("res://assets/textures/characters/piper_small.png")
+	cd.character = preload("res://ui/characters/heidi_sf.tres")
 	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Oops! Sorry!"]
 	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["I got you."]
 	cd.dialogues[Dialogue.KILL_STREAK] = ["Dang it Jim, I'm a healer not a fighter!"]

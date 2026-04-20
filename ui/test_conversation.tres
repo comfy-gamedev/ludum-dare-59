@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://yl487iisve8m"]
 
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_cb1yq"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/kailey.png" id="1_cb1yq"]
 [ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_tr27l"]
 [ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_40k8f"]
-[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_e13ur"]
-[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="5_cb1yq"]
-[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="6_aq8ex"]
-[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="7_ebeu6"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/maisie.png" id="2_e13ur"]
+[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/heidi.png" id="5_cb1yq"]
+[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sienna.png" id="6_aq8ex"]
+[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/diana.png" id="7_ebeu6"]
 
 [sub_resource type="Resource" id="Resource_e13ur"]
 script = ExtResource("2_40k8f")
