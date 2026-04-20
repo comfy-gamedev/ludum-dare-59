@@ -101,10 +101,16 @@ func get_cell_center(pos: Vector2i) -> Vector2:
 func get_cell_rect(pos: Vector2i) -> Rect2:
 	return Rect2(Vector2(pos) * CELL_SIZE, CELL_SIZE)
 
-func get_occupant(pos: Vector2i) -> GridBody:
+func get_occupant(pos: Vector2i, include_train: bool = true):
 	for b in _grid_bodies:
 		if b.grid_position == pos:
 			return b
+	if include_train:
+		for train in Globals.train_sections:
+			if train.health > 0:
+				if train.get_tiles().has(pos):
+					return train
+			
 	return null
 
 func get_terrain(pos: Vector2i) -> Array[GridTerrain]:

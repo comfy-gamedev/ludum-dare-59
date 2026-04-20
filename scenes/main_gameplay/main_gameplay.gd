@@ -59,6 +59,7 @@ func _ready() -> void:
 	#initiate_left_to_middle_transition.emit()
 	#on_train_death()
 	initiate_level()
+	Globals.init_train($Engine, $FlatBed, $Caboose)
 	
 	reset_turn_state()
 	
