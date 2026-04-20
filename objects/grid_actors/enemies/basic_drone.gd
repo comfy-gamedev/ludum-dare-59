@@ -6,11 +6,17 @@ extends GridBody
 @export var team: BattleGrid.Team = BattleGrid.Team.ENEMY
 @export var damage = 1
 
-var target = Vector2i(7, 7)
+var train_target = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	match randi_range(0, 2):
+		0:
+			train_target = $"../../Engine"
+		1:
+			train_target = $"../../FlatBed"
+		2:
+			train_target = $"../../Caboose"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +24,7 @@ func _process(delta: float) -> void:
 	pass
 
 func execute_turn_async() -> void:
+	var target = train_target.get_tiles().reduce(func(x, a): return x if abs(x - grid_position) < abs(a - grid_position) else a)
 	var x_sign = sign(target.x - grid_position.x)
 	if not battle_grid.get_occupant(grid_position + Vector2i(x_sign, 0)):
 		grid_position += Vector2i(x_sign, 0)

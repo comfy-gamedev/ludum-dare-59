@@ -134,6 +134,7 @@ func _set_state(value: EntityState) -> void:
 
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
+	queue_free()
 
 func _update_plan_visuals() -> void:
 	clear_plan_visuals()

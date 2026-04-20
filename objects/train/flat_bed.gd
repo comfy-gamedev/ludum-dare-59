@@ -2,6 +2,7 @@ extends Node2D
 signal update_flatbed_position(target_pos: Vector2)
 
 @onready var flatbed_sprite = %Sprite2D
+@onready var tile_area = $Area2D
 
 var update_flatbed_pos = false
 
@@ -71,3 +72,7 @@ func initiate_shimmy():
 
 func _on_shimmy_timer_timeout():
 	initiate_shimmy()
+
+func get_tiles():
+	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
+	return areas.map(func(x): return x.get_parent().grid_pos)

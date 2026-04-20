@@ -3,6 +3,7 @@ signal update_train_position(target_pos: Vector2)
 signal initiate_train_move
 
 @onready var engine_sprite = %Sprite2D
+@onready var tile_area = $Area2D
 
 var moving_right = false
 var moving_left = false
@@ -108,3 +109,7 @@ func _on_main_gameplay_initiate_right_to_middle_transition():
 
 func _on_parallax_background_segment_transition_initiated():
 	initiate_train_move.emit()
+
+func get_tiles():
+	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
+	return areas.map(func(x): return x.get_parent().grid_pos)

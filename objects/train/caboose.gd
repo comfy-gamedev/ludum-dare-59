@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var caboose_sprite = %Sprite2D
+@onready var tile_area = $Area2D
 
 var new_pos = null
 var moving_direction = "NONE" # | "RIGHT" | "LEFT" | "DOWN" ? | "UP" ?
@@ -73,3 +74,7 @@ func _on_flat_bed_update_flatbed_position(target_pos):
 		rotation_degrees -= Globals.TRAIN_ROTATION
 	
 	new_pos = target_pos
+
+func get_tiles():
+	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
+	return areas.map(func(x): return x.get_parent().grid_pos)
