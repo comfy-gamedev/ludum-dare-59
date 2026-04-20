@@ -89,7 +89,6 @@ func _on_main_gameplay_initiate_middle_to_left_transition():
 	update_train_pos = true
 	rotation_degrees -= Globals.TRAIN_ROTATION
 
-
 func _on_main_gameplay_initiate_left_to_middle_transition():
 	#await get_tree().create_timer(1.5).timeout
 	await initiate_train_move
@@ -99,6 +98,13 @@ func _on_main_gameplay_initiate_left_to_middle_transition():
 	update_train_pos = true
 	rotation_degrees += Globals.TRAIN_ROTATION
 
+func _on_main_gameplay_initiate_right_to_middle_transition():
+	await initiate_train_move
+	await get_tree().create_timer(0.34).timeout
+	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
+	rotation_degrees -= Globals.TRAIN_ROTATION
+	moving_left = true
+	update_train_pos = true
 
 func _on_parallax_background_segment_transition_initiated():
 	initiate_train_move.emit()
