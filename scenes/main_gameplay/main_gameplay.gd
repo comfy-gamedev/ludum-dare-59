@@ -180,7 +180,7 @@ func perform_turn() -> void:
 		await terr.perform_turn()
 	
 	reset_turn_state()
-	spawn_clouds()
+	#spawn_clouds()
 	turn_end.emit()
 
 func reset_turn_state() -> void:
@@ -198,7 +198,7 @@ func _on_parallax_background_segment_transition_complete():
 func spawn_clouds(num = 2, radii = 4):
 	for i in num:
 		var center = randi_range(0, (battle_grid.GRID_DIM.x - 2) * (battle_grid.GRID_DIM.y - 2))
-		var center_coord := Vector2i(1 + (center / (battle_grid.GRID_DIM.x - 2)), 1 + (center % (battle_grid.GRID_DIM.x - 2)))
+		var center_coord := Vector2i(1 + (center / (battle_grid.GRID_DIM.x - 2)), 1 + (center % (battle_grid.GRID_DIM.y - 2)))
 		var current_coord := center_coord
 		var dirs = [Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, 1)]
 		
@@ -259,6 +259,7 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter % 3 == 0:
 		current_wave += 1
+		spawn_clouds(1, 3)
 		init_new_wave()
 		
 	initiate_terrain_segment_transition()
