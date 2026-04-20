@@ -81,8 +81,10 @@ func turn_input() -> void:
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
 					if _selected_actor.turn_done and not is_future_order:
+						# TODO: only orders places this turn should be refundable
 						player_signal_points += 1 + _selected_actor.future_orders.size()
 						_selected_actor.clear_orders()
+					
 					_selected_actor.on_selected()
 					
 					selection_box.position = battle_grid.get_cell_center(grid_pos)
@@ -91,54 +93,29 @@ func turn_input() -> void:
 					command_menu.popup(_selected_actor, grid_pos)
 					
 					var cmd = await command_menu.command_chosen
-					match cmd:
+					match cmd[0]:
 						CommandMenu.Command.NONE:
 							turn_input()
 							return
-						CommandMenu.Command.MOVE:
-							_selected_actor.state = EntityBody.EntityState.PLANNING_MOVE
+						CommandMenu.Command.ABILITY:
+							var ability: EntityAbility = cmd[1]
+							assert(ability)
 							
-							var move_clicked = await battle_grid.cell_clicked
-							var move_grid_pos = move_clicked[0]
-							var move_click_button = move_clicked[1]
-							while not _selected_actor.cell_in_range(move_grid_pos):
-								move_clicked = await battle_grid.cell_clicked
-								move_grid_pos = move_clicked[0]
-								move_click_button = move_clicked[1]
-							if move_click_button == BattleGrid.CLICK_SECONDARY:
-								turn_input()
-								return
+							@warning_ignore("redundant_await")
+							var order = await ability.input_async(_selected_actor, battle_grid)
 							
-							var turn_index = 0
-							if is_future_order: turn_index = _selected_actor.future_orders.size() + 1
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.MOVEMENT, turn_index)
-							_selected_actor.plan_order(move_grid_pos, _selected_actor.facing_vector, EntityOrder.OrderType.ABILITY, turn_index)
-							_selected_actor.state = EntityBody.EntityState.PLANNING_AIM
-							
-							move_clicked = await battle_grid.cell_clicked
-							move_grid_pos = move_clicked[0]
-							move_click_button = move_clicked[1]
-							
-							var last_order: EntityOrder
-							if is_future_order:
-								last_order = _selected_actor.future_orders.back().back()
-							else:
-								last_order = _selected_actor.orders.back()
-							if last_order:
-								last_order.target_dir = get_global_mouse_position() - battle_grid.get_cell_center(last_order.target_pos)
+							if order:
+								player_signal_points -= 1
+								var turn_index = 0
+								if is_future_order:
+									turn_index = _selected_actor.future_orders.size() + 1
+								_selected_actor.plan_order(order, turn_index)
 							
 							_selected_actor.turn_done = true
 							_selected_actor.on_deselected()
-							_selected_actor = null
 							
 							selection_box.hide()
 							
-							player_signal_points -= 1
-							
-							turn_input()
-							return
-						CommandMenu.Command.SPECIAL:
-							print("unimplemented")
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
