@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d281igqqv7uuk" path="res://assets/textures/units/sword_unit/sword_unit_1.png" id="2_gbo81"]
 [ext_resource type="Texture2D" uid="uid://bkn5vhfwpmshi" path="res://assets/textures/units/sword_unit/sword_unit_2.png" id="3_nqd8c"]
 [ext_resource type="Texture2D" uid="uid://bx6g2uvf7xivl" path="res://assets/textures/effects/sword_slash.png" id="5_nqd8c"]
+[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="6_5md71"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5md71"]
 atlas = ExtResource("2_gbo81")
@@ -229,3 +230,6 @@ libraries/ = SubResource("AnimationLibrary_86wbg")
 
 [node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=420817617]
 libraries/ = SubResource("AnimationLibrary_mktmg")
+
+[node name="HealingEffectSprite2D" type="AnimatedSprite2D" parent="." unique_id=703986451]
+sprite_frames = ExtResource("6_5md71")
