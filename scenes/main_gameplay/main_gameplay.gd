@@ -48,7 +48,7 @@ var _box_scene = preload("res://objects/ui/indicator.tscn")
 var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
 
 var turn_counter = 0
-var current_level = 0
+var turn_goal = 20
 var current_wave = 0
 var scene_tranition_queue: Signal
 var incoming_segment = Globals.TerrainSegmentStates.NONE
@@ -319,10 +319,11 @@ func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegme
 
 func _on_turn_end():
 	turn_counter += 1
-	if turn_counter % 3 == 0:
-		current_wave += 1
-		spawn_clouds(1, 3)
-		init_new_wave()
+	if turn_counter > turn_goal:
+		Globals.level += 1
+		initiate_level()
+		return
+	_spawn_turn_stuff()
 	
 	if incoming_segment != Globals.TerrainSegmentStates.NONE:
 		print("transition")
@@ -331,7 +332,16 @@ func _on_turn_end():
 		queue_terrain_segment_transition()
 	print("turn: %s" % turn_counter)
 	print("wave: %s" % current_wave)
-	print("level: %s" % current_level)
+	print("level: %s" % Globals.level)
+
+func _spawn_turn_stuff():
+	if Globals.level > 0:
+		spawn_clouds(2 + (Globals.level / 3), min(2 + Globals.level, 4))
+	if turn_counter % 3 == 0:
+		current_wave += 1
+		init_new_wave()
+	else:
+		spawn_clouds(1, 3)
 
 func on_train_death():
 	right_panel.turn_button.disabled = true
@@ -341,6 +351,8 @@ func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})
 
 func initiate_level():
+	turn_counter = 0
+	current_wave = 0
 	dialogue.show_conversation(level_1_intro_conversation)
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
@@ -355,7 +367,7 @@ func initiate_level():
 	#spawn_drones()
 
 func init_new_wave():
-	for i in range(current_wave):
+	for i in range(max(2, floor(current_wave * (0.67 + (Globals.level * .5) ) ))):
 		#spawn_enemy_left()
 		#spawn_enemy_right()
 		#spawn_enemy_up()
@@ -378,7 +390,7 @@ func spawn_random_enemy():
 					spawn_enemy(spawn_location, enemy_scene)
 					return
 		"up":
-			var grid_y_pos = 0	
+			var grid_y_pos = 0
 			for i in range(10):
 				var grid_x_pos = randi_range(0, 15)
 				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
