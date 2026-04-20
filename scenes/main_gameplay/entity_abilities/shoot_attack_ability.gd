@@ -35,8 +35,8 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	weapon_sprite.show()
 	attack_area.show()
 	tween = create_tween()
-	#tween.tween_property(weapon_sprite, "position", (entity.grid_position - target) * 32 * 2, 1.0)
-	tween.tween_property(weapon_sprite, "position", Vector2(target * 32), 1.0)
+	tween.tween_property(weapon_sprite, "position", Vector2((target - entity.grid_position) * 32 * 2), 1.0)
+	#tween.tween_property(weapon_sprite, "position", Vector2(target * 32), 1.0)
 	await tween.finished
 	
 	attacking = true

@@ -20,6 +20,19 @@ const TRAIN_TURN_DELAY = 0.35
 enum TrainDirections { LEFT, RIGHT, UP, DOWN }
 enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
 
+var train_sections = []
+
+func init_train(train1, train2, train3):
+	train_sections = [train1, train2, train3]
+	for train in train_sections:
+		train.health = train.max_health
+
+func get_train_tiles():
+	var tiles = []
+	for train in train_sections:
+		if train.health > 0:
+			tiles.append_array(train.get_tiles())
+
 ## Example variable.
 var player_health: int = 0:
 	set(v):

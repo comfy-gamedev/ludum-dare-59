@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://2pikq8vp3ng5" path="res://scenes/main_gameplay/mechs/shield_mech.tscn" id="10_sbvst"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
-[ext_resource type="PackedScene" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
+[ext_resource type="PackedScene" uid="uid://ditilhnl06qdq" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
 [ext_resource type="PackedScene" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
@@ -57,7 +57,7 @@ grid_position = Vector2i(4, 4)
 
 [node name="RangerDrone" parent="BattleGrid" unique_id=1542730889 instance=ExtResource("14_sbvst")]
 position = Vector2(190, 50)
-grid_position = Vector2i(5, 3)
+grid_position = Vector2i(7, 3)
 
 [node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
 unique_name_in_owner = true
