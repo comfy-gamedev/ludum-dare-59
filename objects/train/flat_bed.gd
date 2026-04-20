@@ -1,8 +1,10 @@
 extends Node2D
-signal update_flatbed_position(target_pos: Vector2)
+signal update_flatbed_position(target_pos: Vector2, train_direction: Globals.TrainDirections)
 
 @onready var flatbed_sprite = %Sprite2D
 @onready var tile_area = $Area2D
+
+var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_explosion.tscn")
 
 var update_flatbed_pos = false
 
@@ -14,28 +16,45 @@ var shimmy_intensity: float = 0.25
 var _shimmy_timer: float = 0.0
 var original_sprite_pos: Vector2
 
+func _ready():
+	original_sprite_pos = flatbed_sprite.position
+	#initiate_death_sequence()
+	
 func _process(delta):
 	process_shimmy(delta)
 	process_follow_movement(delta)
 
 func process_follow_movement(delta):
 	if new_pos != null:
-		if update_flatbed_pos:
-			update_flatbed_position.emit(new_pos)
-			update_flatbed_pos = false
-		
-		#update_train_position.emit(new_pos)
-		
-		if moving_direction == "RIGHT":
-			if new_pos.x > position.x:
-				position.x += Globals.TRAIN_X_SPEED * delta
-			else:
-				reset_angle()
-		elif moving_direction == "LEFT":
-			if new_pos.x < position.x:
-				position.x -= Globals.TRAIN_X_SPEED * delta
-			else:
-				reset_angle()
+		match moving_direction:
+			"RIGHT":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.RIGHT)
+					
+				if new_pos.x > position.x:
+					position.x += Globals.TRAIN_X_SPEED * delta
+					
+				else:
+					reset_angle()
+			"LEFT":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.LEFT)
+				
+				if new_pos.x < position.x:
+					position.x -= Globals.TRAIN_X_SPEED * delta
+				else:
+					reset_angle()
+			"DOWN":
+				if update_flatbed_pos:
+					update_flatbed_pos = false
+					update_flatbed_position.emit(new_pos, Globals.TrainDirections.DOWN)
+				
+				if new_pos.y > position.y:
+					position.y += Globals.TRAIN_Y_SPEED * delta
+				else:
+					reset_angle()
 
 func reset_angle():
 	if moving_direction != "NONE":
@@ -53,17 +72,20 @@ func process_shimmy(delta):
 	else:
 		flatbed_sprite.position = original_sprite_pos
 
-func _on_engine_update_train_position(target_pos: Vector2):
+func _on_engine_update_train_position(target_pos: Vector2, train_direction: Globals.TrainDirections):
 	await get_tree().create_timer(Globals.TRAIN_CAR_DELAY).timeout
 	#update_flatbed_position.emit()
 	update_flatbed_pos = true
 	
-	if target_pos.x > position.x:
-		moving_direction = "RIGHT"
-		rotation_degrees += Globals.TRAIN_ROTATION
-	else:
-		moving_direction = "LEFT"
-		rotation_degrees -= Globals.TRAIN_ROTATION
+	match train_direction:
+		Globals.TrainDirections.RIGHT:
+			moving_direction = "RIGHT"
+			rotation_degrees += Globals.TRAIN_ROTATION
+		Globals.TrainDirections.LEFT:
+			moving_direction = "LEFT"
+			rotation_degrees -= Globals.TRAIN_ROTATION
+		Globals.TrainDirections.DOWN:
+			moving_direction = "DOWN"
 	
 	new_pos = target_pos
 
@@ -76,3 +98,17 @@ func _on_shimmy_timer_timeout():
 func get_tiles():
 	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
 	return areas.map(func(x): return x.get_parent().grid_pos)
+
+func initiate_death_sequence():
+	$ExplosionAddedTimer.start()
+
+func _on_explosion_added_timer_timeout():
+	var death_explosion: Node2D = death_explosion_scene.instantiate()
+	death_explosion.position.x += randf_range(-20, 20)
+	death_explosion.position.y += randf_range(-20, 20)
+	#death_explosion.play("default")
+	$DeathExplosions.add_child(death_explosion)
+
+
+func _on_main_gameplay_initiate_train_death():
+	initiate_death_sequence()

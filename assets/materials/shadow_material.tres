@@ -1,16 +1,23 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://dnyj3tyg2oc7o"]
 
 [ext_resource type="Shader" uid="uid://cctctl4lebujm" path="res://assets/materials/shadow_material.gdshader" id="1_lkl3b"]
+[ext_resource type="Texture2D" uid="uid://dqjlwa2audnhs" path="res://assets/materials/colorRamp.png" id="2_dmpn4"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lkl3b"]
 noise_type = 2
+frequency = 0.02
+fractal_type = 3
+cellular_distance_function = 2
 metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmpn4"]
 width = 640
 height = 480
 noise = SubResource("FastNoiseLite_lkl3b")
+seamless = true
+in_3d_space = true
 
 [resource]
 shader = ExtResource("1_lkl3b")
 shader_parameter/noise = SubResource("NoiseTexture2D_dmpn4")
+shader_parameter/color_ramp = ExtResource("2_dmpn4")

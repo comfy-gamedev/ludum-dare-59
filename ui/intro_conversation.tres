@@ -1,0 +1,116 @@
+[gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://bqcdebvgt5ktm"]
+
+[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_5yrjr"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_drwmc"]
+[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="2_2av6o"]
+[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_8ieoi"]
+[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_2av6o"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="6_6qm1b"]
+[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="7_7i11d"]
+
+[sub_resource type="Resource" id="Resource_0gmtb"]
+script = ExtResource("2_8ieoi")
+side = 1
+message = "Uhhh... What are we doing again?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_6qm1b"]
+script = ExtResource("2_8ieoi")
+message = "We've been over this two times already!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_7i11d"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("5_2av6o")
+message = "I'm still confused too."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_pcu2o"]
+script = ExtResource("2_8ieoi")
+message = "Ok, one more time, we're almost there."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_vgi65"]
+script = ExtResource("2_8ieoi")
+message = "The nerds at Command have figured out how to control the Crimson Legion's drones."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_e1yoy"]
+script = ExtResource("2_8ieoi")
+message = "The drones receive commands from the Legion, using an encryption key."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_m25q7"]
+script = ExtResource("2_8ieoi")
+message = "We're going to steal that key."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_b2cds"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("5_2av6o")
+message = "How does that help? Are we gonna have them bash into each other?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_t5ll6"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("6_6qm1b")
+message = "We can have them shoot each other."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_h1esn"]
+script = ExtResource("2_8ieoi")
+message = "Either way, we have to take the key back to Command."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_65xoq"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("7_7i11d")
+message = "Why can't I send the signal when we get the key?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_wncrj"]
+script = ExtResource("2_8ieoi")
+message = "We don't have the power to reach them all at once. Once they figure out what we're doing, they'll change the key."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_m8480"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("2_2av6o")
+message = "Won't they just do that when we steal the key?"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_m67gf"]
+script = ExtResource("2_8ieoi")
+message = "Yep, that's why we need to distract them."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_75nt3"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("6_6qm1b")
+message = "We take out as many as we can and pull their focus away."
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_isi4v"]
+script = ExtResource("2_8ieoi")
+side = 1
+texture = ExtResource("5_2av6o")
+message = "We'll slash their drones to pieces!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[sub_resource type="Resource" id="Resource_6gmtd"]
+script = ExtResource("2_8ieoi")
+message = "Exactly. Now get ready, we're here!"
+metadata/_custom_type_script = "uid://bh7au0lmg7bca"
+
+[resource]
+script = ExtResource("1_5yrjr")
+left_texture = ExtResource("1_drwmc")
+right_texture = ExtResource("2_2av6o")
+steps = Array[ExtResource("2_8ieoi")]([SubResource("Resource_0gmtb"), SubResource("Resource_6qm1b"), SubResource("Resource_7i11d"), SubResource("Resource_pcu2o"), SubResource("Resource_vgi65"), SubResource("Resource_e1yoy"), SubResource("Resource_m25q7"), SubResource("Resource_b2cds"), SubResource("Resource_t5ll6"), SubResource("Resource_h1esn"), SubResource("Resource_65xoq"), SubResource("Resource_wncrj"), SubResource("Resource_m8480"), SubResource("Resource_m67gf"), SubResource("Resource_75nt3"), SubResource("Resource_isi4v"), SubResource("Resource_6gmtd")])
+metadata/_custom_type_script = "uid://bprhkt5tix3qd"

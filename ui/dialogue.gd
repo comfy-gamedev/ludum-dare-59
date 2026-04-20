@@ -29,6 +29,9 @@ func unfocus_left() -> Signal:
 		UNFOCUSED_LIGHTNESS)
 	return tween.finished
 
+func is_left_focused() -> bool:
+	return $VBoxContainer/Container/PortraitLeft.custom_minimum_size.x == FOCUSED_WIDTH
+
 func focus_left() -> Signal:
 	var tween = create_tween()
 	tween.tween_property(
@@ -48,6 +51,9 @@ func unfocus_right() -> Signal:
 		$VBoxContainer/Container/PortraitRight,
 		UNFOCUSED_LIGHTNESS)
 	return tween.finished
+
+func is_right_focused() -> bool:
+	return $VBoxContainer/Container/PortraitRight.custom_minimum_size.x == FOCUSED_WIDTH
 
 func focus_right() -> Signal:
 	var tween = create_tween()
@@ -87,11 +93,11 @@ func slide_right_out() -> Signal:
 		"position:x", RIGHT_OFFSCREEN_X, SLIDE_DURATION)
 	return tween.finished
 	
-func show_step(step: ConversationStep) -> void:
+func show_step(step: ConversationStep,stay_focused: bool) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
-	var label = $VBoxContainer/ColorRect/RichTextLabel
-	var next = $VBoxContainer/ColorRect/NextButton
+	var label = %Label
+	var next = %NextButton
 	
 	label.text = ""
 	label.visible_ratio = 0.0
@@ -110,9 +116,11 @@ func show_step(step: ConversationStep) -> void:
 		right.texture = step.texture
 		await slide_right_in()
 	
-	if step.side == ConversationStep.TextureSide.LEFT:
+	if (step.side == ConversationStep.TextureSide.LEFT and
+		not is_left_focused()):
 		await focus_left()
-	if step.side == ConversationStep.TextureSide.RIGHT:
+	if (step.side == ConversationStep.TextureSide.RIGHT and
+		not is_right_focused()):
 		await focus_right()
 	
 	label.text = step.message
@@ -124,16 +132,17 @@ func show_step(step: ConversationStep) -> void:
 		next.visible = true
 		await next.pressed
 	
-	if step.side == ConversationStep.TextureSide.LEFT:
-		await unfocus_left()
-	if step.side == ConversationStep.TextureSide.RIGHT:
-		await unfocus_right()
+	if not stay_focused:
+		if step.side == ConversationStep.TextureSide.LEFT:
+			await unfocus_left()
+		if step.side == ConversationStep.TextureSide.RIGHT:
+			await unfocus_right()
 
 func show_conversation(conv: Conversation) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
-	var label = $VBoxContainer/ColorRect/RichTextLabel
-	var rect = $VBoxContainer/ColorRect
+	var label = %Label
+	var rect = %Bottom
 	
 	left.position.x = LEFT_OFFSCREEN_X
 	left.texture = null
@@ -148,11 +157,11 @@ func show_conversation(conv: Conversation) -> void:
 	var left_signal: Signal
 	var right_signal: Signal
 	var right_done = [false]
-	if conversation.left_texture != null:
-		left.texture = conversation.left_texture
+	if conv.left_texture != null:
+		left.texture = conv.left_texture
 		left_signal = slide_left_in()
-	if conversation.right_texture != null:
-		right.texture = conversation.right_texture
+	if conv.right_texture != null:
+		right.texture = conv.right_texture
 		right_signal = slide_right_in()
 		right_signal.connect(func (): right_done[0] = true)
 	if (left_signal):
@@ -160,8 +169,16 @@ func show_conversation(conv: Conversation) -> void:
 	if (right_signal) and not right_done[0]:
 		await right_signal
 	
-	for step in conv.steps:
-		await show_step(step)
+	for i in range(conv.steps.size()):
+		var step = conv.steps[i]
+		var stay_focused = false
+		if i < conv.steps.size() - 1:
+			var next_step = conv.steps[i + 1]
+			stay_focused = (
+				step.side == next_step.side and
+				step.texture == next_step.texture
+			)
+		await show_step(step, stay_focused)
 	
 	slide_left_out()
 	await slide_right_out()
@@ -172,8 +189,8 @@ func show_conversation(conv: Conversation) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().create_timer(2.0).timeout
-	await show_conversation(conversation)
+	var conv = preload("res://ui/intro_conversation.tres")
+	await show_conversation(conv)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c5tbysvhwu2p3" path="res://assets/textures/units/shield_unit/shield_unit_2.png" id="3_de80e"]
 [ext_resource type="Script" uid="uid://bnx31susfecbu" path="res://scenes/main_gameplay/entity_abilities/move_shield_ability.gd" id="4_0dhgq"]
 [ext_resource type="Texture2D" uid="uid://cpfagosky4qv" path="res://assets/textures/effects/shield.png" id="5_ytfvd"]
+[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="6_0dhgq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
 animations = [{
@@ -120,6 +121,67 @@ _data = {
 &"float": SubResource("Animation_bqrvl")
 }
 
+[sub_resource type="Animation" id="Animation_86wbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_komya"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0dhgq"]
+_data = {
+&"RESET": SubResource("Animation_86wbg"),
+&"hurt": SubResource("Animation_komya")
+}
+
 [node name="ShieldMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_0dhgq")
 move_speed = 2
@@ -169,3 +231,9 @@ libraries/ = SubResource("AnimationLibrary_dnjpg")
 
 [node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=420817617]
 libraries/ = SubResource("AnimationLibrary_mktmg")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=282706389]
+libraries/ = SubResource("AnimationLibrary_0dhgq")
+
+[node name="HealingEffectSprite2D" type="AnimatedSprite2D" parent="." unique_id=317619936]
+sprite_frames = ExtResource("6_0dhgq")

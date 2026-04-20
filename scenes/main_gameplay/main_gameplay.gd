@@ -5,6 +5,8 @@ signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
 signal initiate_left_to_middle_transition()
 signal initiate_right_to_middle_transition()
+signal initiate_train_intro()
+signal initiate_train_death()
 
 signal player_signal_points_changed()
 
@@ -19,6 +21,8 @@ const UI_START_TURN_CLICKED = 1
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
+
+@onready var shadow = $BattleGrid/Shadow/ColorRect
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
@@ -45,10 +49,15 @@ func _ready() -> void:
 	#initiate_middle_to_right_transition.emit()
 	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
+	#on_train_death()
+	initiate_level()
 	
 	reset_turn_state()
 	
 	turn_input()
+
+func _process(delta: float) -> void:
+	set_shader_values(delta)
 
 func turn_input() -> void:
 	await get_tree().process_frame
@@ -136,7 +145,7 @@ func perform_turn() -> void:
 	var entities: Array[GridBody] = battle_grid.get_bodies()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent.team == team:
+			if ent and ent.is_inside_tree() and ent.team == team:
 				if ent == EntityBody:
 					ent.clear_plan_visuals()
 				await ent.execute_turn_async()
@@ -159,6 +168,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 func _on_parallax_background_segment_transition_complete():
 	right_panel.turn_button.disabled = false
 	print("Terrain segment transition complete!")
+	#on_train_death()
 
 func spawn_clouds(num = 2, radii = 4):
 	for i in num:
@@ -223,6 +233,27 @@ func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegme
 func _on_turn_end():
 	initiate_terrain_segment_transition()
 
+func on_train_death():
+	right_panel.turn_button.disabled = true
+	initiate_train_death.emit()
 
 func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})
+
+func set_shader_values(delta: float):
+	const SPEED = 5
+	var noise_param = shadow.material.get_shader_parameter("noise")
+	noise_param.noise.offset += Vector3(delta * SPEED, 0, delta * SPEED)
+	shadow.material.set_shader_parameter("noise", noise_param)
+
+func initiate_level():
+	# do difficult based on level
+	var sword_mech = battle_grid.get_node("SwordMech")
+	var shield_mech = battle_grid.get_node("ShieldMech")
+	var support_mech = battle_grid.get_node("SupportMech")
+	var gunner_mech = battle_grid.get_node("GunnerMech")
+	sword_mech.grid_position = Vector2i(9, 6)
+	shield_mech.grid_position = Vector2i(6, 6)
+	support_mech.grid_position = Vector2i(9, 9)
+	gunner_mech.grid_position = Vector2i(6, 9)
+	#print(battle_grid.get_node("SwordMech"))
