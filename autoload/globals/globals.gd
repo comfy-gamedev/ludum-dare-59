@@ -18,9 +18,11 @@ const TRAIN_CAR_DELAY = 0.08
 const TRAIN_TURN_DELAY = 0.35
 
 enum TrainDirections { LEFT, RIGHT, UP, DOWN }
-enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
+enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL, NONE }
 
 var train_sections = []
+
+var level = 0
 
 func init_train(train1, train2, train3):
 	train_sections = [train1, train2, train3]

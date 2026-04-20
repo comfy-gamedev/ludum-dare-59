@@ -153,10 +153,11 @@ func show_step(step: ConversationStep, stay_focused: bool) -> void:
 			await unfocus_right()
 
 func show_conversation(conv: Conversation) -> void:
+	$".".visible = true
+	
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
 	var label = %Label
-	var rect = %Bottom
 	
 	left.position.x = LEFT_OFFSCREEN_X
 	left.texture = null
@@ -166,7 +167,6 @@ func show_conversation(conv: Conversation) -> void:
 	right.set_instance_shader_parameter("lightness", 0.5)
 	label.text = ""
 	label.visible_ratio = 0.0
-	rect.visible = true
 	
 	var left_signal: Signal
 	var right_signal: Signal
@@ -201,11 +201,11 @@ func show_conversation(conv: Conversation) -> void:
 	
 	label.text = ""
 	label.visible_ratio = 0.0
-	rect.visible = false
+	$".".visible = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	show_conversation(preload("res://ui/conversations/level2_intro.tres"))
+	$".".visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

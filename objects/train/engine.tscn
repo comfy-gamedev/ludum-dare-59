@@ -30,5 +30,10 @@ shape = SubResource("RectangleShape2D_hscdq")
 [node name="ExplosionAddedTimer" type="Timer" parent="." unique_id=97976688]
 wait_time = 0.1
 
+[node name="DeathTimer" type="Timer" parent="." unique_id=1177330795]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="ShimmyTimer" to="." method="_on_shimmy_timer_timeout"]
 [connection signal="timeout" from="ExplosionAddedTimer" to="." method="_on_explosion_added_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

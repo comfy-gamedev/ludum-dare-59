@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://jst4d3lcpqbv"]
+
+[ext_resource type="Texture2D" uid="uid://bml48xjwrxd4h" path="res://assets/textures/screens/main_menu_screen.png" id="1_2yi6y"]
+[ext_resource type="Script" uid="uid://bkbl72gpkuupj" path="res://scenes/win_screen/win_screen.gd" id="1_misvs"]
+
+[node name="WinScreen" type="Node2D" unique_id=299104044]
+script = ExtResource("1_misvs")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=175560723]
+offset_right = 640.0
+offset_bottom = 480.0
+texture = ExtResource("1_2yi6y")
+
+[node name="Label" type="Label" parent="." unique_id=556152750]
+offset_left = 27.0
+offset_top = 43.0
+offset_right = 221.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 40
+text = "YOU WON!!!"
+
+[node name="Label2" type="Label" parent="." unique_id=1495309334]
+offset_left = 25.0
+offset_top = 86.0
+offset_right = 235.0
+offset_bottom = 107.0
+text = "You Beat Level 4 probably!"
+
+[node name="Button" type="Button" parent="." unique_id=346331171]
+offset_left = 63.0
+offset_top = 179.0
+offset_right = 186.0
+offset_bottom = 224.0
+text = "Main Menu"
+
+[node name="Button2" type="Button" parent="." unique_id=1797335897]
+offset_left = 77.0
+offset_top = 119.0
+offset_right = 163.0
+offset_bottom = 164.0
+text = "Again?"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

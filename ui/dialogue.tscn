@@ -18,6 +18,7 @@ texture_margin_bottom = 10.0
 region_rect = Rect2(192, 0, 64, 64)
 
 [node name="Dialogue" type="Control" unique_id=341286864]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,8 +80,6 @@ stretch_mode = 4
 flip_h = true
 
 [node name="Bottom" type="HBoxContainer" parent="VBoxContainer" unique_id=1390630131]
-unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="Rect" type="PanelContainer" parent="VBoxContainer/Bottom" unique_id=1297954432]

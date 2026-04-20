@@ -20,6 +20,8 @@ enum EntityState {
 
 @export var crossing_sprite: Texture2D
 
+@export var character: SFDialogue.CharacterEnum = SFDialogue.CharacterEnum.NONE
+
 var abilities: Array[EntityAbility]
 var orders: Array
 var future_orders: Array[Array]
@@ -174,6 +176,8 @@ func _set_state(value: EntityState) -> void:
 
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
+	if team == BattleGrid.Team.PLAYER:
+		MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
 	queue_free()
 
 func _update_plan_visuals() -> void:

@@ -53,6 +53,7 @@ grid_position = Vector2i(0, 12)
 grid_position = Vector2i(2, 4)
 
 [node name="SlashDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("11_wjmgw")]
+crossing_sprite = null
 grid_position = Vector2i(10, 2)
 
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]
@@ -89,7 +90,6 @@ visible = false
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [node name="DialogueCanvasLayer" type="CanvasLayer" parent="." unique_id=2122191527]
-visible = false
 
 [node name="Dialogue" parent="DialogueCanvasLayer" unique_id=341286864 instance=ExtResource("14_om7j4")]
 unique_name_in_owner = true
