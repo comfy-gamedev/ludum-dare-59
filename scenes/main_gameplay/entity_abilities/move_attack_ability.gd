@@ -14,6 +14,10 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	var move_clicked = await battle_grid.cell_clicked
 	var move_grid_pos = move_clicked[0]
 	var move_click_button = move_clicked[1]
+	while move_click_button == BattleGrid.CLICK_PRIMARY and not entity.cell_in_range(move_grid_pos):
+		move_clicked = await battle_grid.cell_clicked
+		move_grid_pos = move_clicked[0]
+		move_click_button = move_clicked[1]
 	
 	if move_click_button == BattleGrid.CLICK_SECONDARY:
 		return null
