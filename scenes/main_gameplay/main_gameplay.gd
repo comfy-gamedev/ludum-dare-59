@@ -24,8 +24,6 @@ const UI_START_TURN_CLICKED = 1
 @onready var command_menu: CommandMenu = %CommandMenu
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
 
-@onready var shadow = $BattleGrid/Shadow/ColorRect
-
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
