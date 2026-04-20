@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://35sxt67gsm8r"]
+
+[ext_resource type="Script" uid="uid://ly5yshwpmw2n" path="res://scenes/lose_screen/lose_screen.gd" id="1_aywvn"]
+[ext_resource type="Texture2D" uid="uid://bml48xjwrxd4h" path="res://assets/textures/screens/main_menu_screen.png" id="1_tg53y"]
+
+[node name="LoseScreen" type="Node2D" unique_id=175776321]
+script = ExtResource("1_aywvn")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2030459327]
+offset_right = 640.0
+offset_bottom = 480.0
+texture = ExtResource("1_tg53y")
+
+[node name="Label" type="Label" parent="." unique_id=2075447128]
+offset_left = 39.0
+offset_top = 69.0
+offset_right = 207.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 40
+text = "YOU LOSE"
+
+[node name="Label2" type="Label" parent="." unique_id=1889667911]
+offset_left = 37.0
+offset_top = 106.0
+offset_right = 213.0
+offset_bottom = 127.0
+text = "You made it to level: X"
+
+[node name="Button" type="Button" parent="." unique_id=1483821395]
+offset_left = 67.0
+offset_top = 204.0
+offset_right = 190.0
+offset_bottom = 249.0
+text = "Main Menu"
+
+[node name="Button2" type="Button" parent="." unique_id=650326827]
+offset_left = 88.0
+offset_top = 144.0
+offset_right = 165.0
+offset_bottom = 189.0
+text = "Retry"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

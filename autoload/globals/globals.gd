@@ -22,6 +22,8 @@ enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
 
 var train_sections = []
 
+var level = 0
+
 func init_train(train1, train2, train3):
 	train_sections = [train1, train2, train3]
 	for train in train_sections:
