@@ -191,6 +191,10 @@ func perform_turn() -> void:
 	for terr in terrain_tiles:
 		await terr.perform_turn()
 	
+	var bodies: Array[GridBody] = battle_grid.get_bodies(true)
+	for body in bodies:
+		body.execute_turn_async()
+	
 	reset_turn_state()
 	#spawn_clouds()
 	turn_end.emit()

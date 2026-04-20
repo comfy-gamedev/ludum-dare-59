@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c5tbysvhwu2p3" path="res://assets/textures/units/shield_unit/shield_unit_2.png" id="3_de80e"]
 [ext_resource type="Script" uid="uid://bnx31susfecbu" path="res://scenes/main_gameplay/entity_abilities/move_shield_ability.gd" id="4_0dhgq"]
 [ext_resource type="Texture2D" uid="uid://cpfagosky4qv" path="res://assets/textures/effects/shield.png" id="5_ytfvd"]
-[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="6_0dhgq"]
+[ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="6_0dhgq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
 animations = [{

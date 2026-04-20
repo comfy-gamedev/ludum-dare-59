@@ -6,6 +6,8 @@ class_name ShieldAbility
 @onready var weapon_area = $WeaponArea
 @onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer
 
+var shiled_entity = preload("res://objects/grid_actors/shield.tscn")
+
 func _ready() -> void:
 	weapon_area.show()
 
@@ -75,6 +77,9 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 		var occupant = entity.battle_grid.get_occupant(coord)
 		if occupant:
 			occupant.take_damage(damage)
+		var shield = shiled_entity.instantiate()
+		shield.grid_position = coord
+		get_parent().get_parent().add_child(shield)
 
 func update_preview(entity: EntityBody, params: Dictionary) -> void:
 	entity.plan_line.add_point(Vector2(params.target_pos - entity.grid_position) * entity.battle_grid.CELL_SIZE)

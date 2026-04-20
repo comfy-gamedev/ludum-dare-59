@@ -82,8 +82,15 @@ func clear_highlights() -> void:
 	highlighting_cells.clear()
 	queue_redraw()
 
-func get_bodies() -> Array[GridBody]:
-	return _grid_bodies.duplicate()
+func get_bodies(bodies_only = false) -> Array[GridBody]:
+	if bodies_only:
+		var a: Array[GridBody]
+		for body in _grid_bodies:
+			if body is not EntityBody:
+				a.append(body)
+		return a
+	else:
+		return _grid_bodies.duplicate()
 
 func get_entities() -> Array[EntityBody]:
 	var a: Array[EntityBody]
@@ -101,8 +108,9 @@ func get_cell_center(pos: Vector2i) -> Vector2:
 func get_cell_rect(pos: Vector2i) -> Rect2:
 	return Rect2(Vector2(pos) * CELL_SIZE, CELL_SIZE)
 
-func get_occupant(pos: Vector2i, include_train: bool = true):
-	for b in _grid_bodies:
+func get_occupant(pos: Vector2i, include_train: bool = true, entities_only: bool = true):
+	var pool = get_entities() if entities_only else get_bodies()
+	for b in pool:
 		if b.grid_position == pos:
 			return b
 	if include_train:

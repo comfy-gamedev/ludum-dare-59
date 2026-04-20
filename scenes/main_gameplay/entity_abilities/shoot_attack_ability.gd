@@ -56,7 +56,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		return
 	
 	var coord = area.get_parent().grid_pos
-	var occupant = battle_grid.get_occupant(coord)
+	var occupant = battle_grid.get_occupant(coord, true, false)
 	if occupant:
 		occupant.take_damage(damage)
 		tween.custom_step(100000)
