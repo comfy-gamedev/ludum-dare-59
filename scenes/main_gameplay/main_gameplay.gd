@@ -258,6 +258,7 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter % 3 == 0:
 		current_wave += 1
+		init_new_wave()
 		
 	initiate_terrain_segment_transition()
 	print("turn: %s" % turn_counter)
@@ -282,9 +283,48 @@ func initiate_level():
 	support_mech.grid_position = Vector2i(9, 9)
 	gunner_mech.grid_position = Vector2i(6, 9)
 	#print(battle_grid.get_node("SwordMech"))
-	spawn_drones()
+	#spawn_drones()
 
-func spawn_drones():
+func init_new_wave():
+	for i in range(current_wave):
+		spawn_enemy_left()
+		spawn_enemy_right()
+		spawn_enemy_up()
+
+func spawn_enemy_left():
+	var grid_x_pos = 0
+	
+	for i in range(10):
+		var grid_y_pos = randi_range(0, 12)
+		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+		
+		if battle_grid.get_occupant(spawn_location) == null:
+			spawn_drone(spawn_location)
+			return
+
+func spawn_enemy_right():
+	var grid_x_pos = 15
+	
+	for i in range(10):
+		var grid_y_pos = randi_range(0, 12)
+		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+		
+		if battle_grid.get_occupant(spawn_location) == null:
+			spawn_drone(spawn_location)
+			return
+
+func spawn_enemy_up():
+	var grid_y_pos = 0
+	
+	for i in range(10):
+		var grid_x_pos = randi_range(0, 15)
+		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+		
+		if battle_grid.get_occupant(spawn_location) == null:
+			spawn_drone(spawn_location)
+			return
+
+func spawn_drone(grid_pos: Vector2i):
 	var new_drone = basic_drone_scene.instantiate()
-	new_drone.grid_position = Vector2i(0, 0)
+	new_drone.grid_position = grid_pos
 	battle_grid.add_child(new_drone)
