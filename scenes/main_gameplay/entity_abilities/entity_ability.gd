@@ -9,3 +9,5 @@ class_name EntityAbility
 @abstract func execute_async(entity: EntityBody, params: Dictionary) -> void
 
 @abstract func update_preview(entity: EntityBody, params: Dictionary) -> void
+
+@abstract func on_cancel(entity: EntityBody) -> void

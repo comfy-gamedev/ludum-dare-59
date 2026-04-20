@@ -5,7 +5,8 @@ enum EntityState {
 	DESELECTED,
 	PLANNING_MENU,
 	PLANNING_MOVE,
-	PLANNING_AIM
+	PLANNING_AIM,
+	PLANNING_AOE
 }
 
 @export var max_health: int = 3
@@ -19,14 +20,13 @@ var future_orders: Array[Array]
 var turn_done := false
 var turn_end_grid_pos: Vector2i
 var state: EntityState = EntityState.DESELECTED: set = _set_state
-var max_movement := 2
 var turn_end_previews: Array[Node2D]
 var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
 var preview_line: Line2D
 
 @onready var plan_line: Line2D = $PlanLine
-@onready var weapon_area = $WeaponArea
-@onready var weapon_collision = $WeaponArea/Area2D
+@onready var weapon_area = $AttackAbility/WeaponArea
+@onready var weapon_collision = $AttackAbility/WeaponArea/Area2D
 @onready var sprite = $Sprite2D
 @onready var float_animation_player: AnimationPlayer = $FloatAnimationPlayer
 
@@ -36,23 +36,21 @@ func _ready() -> void:
 			abilities.append(c)
 			c.visible = false
 	float_animation_player.play("float")
+	battle_grid.mouse_over_cell_changed.connect(_on_grid_mouse_move)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		var local_mouse_pos := get_global_mouse_position() - position + battle_grid.CELL_SIZE/2
-		var local_mouse_grid_pos := Vector2(floor(local_mouse_pos.x/32), floor(local_mouse_pos.y/32))
-		if state == EntityState.PLANNING_MOVE and cell_in_range(local_mouse_grid_pos + Vector2(grid_position)):
-			if not preview_line:
-				preview_line = plan_line.duplicate()
-				add_child(preview_line)
-			preview_line.clear_points()
-			if turn_done:
-				preview_line.add_point(Vector2(turn_end_grid_pos - grid_position) * battle_grid.CELL_SIZE)
-			else:
-				preview_line.add_point(Vector2.ZERO)
-			preview_line.add_point(local_mouse_grid_pos * battle_grid.CELL_SIZE)
-		elif preview_line:
-			preview_line.clear_points()
+func _on_grid_mouse_move(mouse_grid_pos: Vector2i) -> void:
+	if state == EntityState.PLANNING_MOVE and cell_in_range(mouse_grid_pos):
+		if not preview_line:
+			preview_line = plan_line.duplicate()
+			add_child(preview_line)
+		preview_line.clear_points()
+		if turn_done:
+			preview_line.add_point(Vector2(turn_end_grid_pos - grid_position) * battle_grid.CELL_SIZE)
+		else:
+			preview_line.add_point(Vector2.ZERO)
+		preview_line.add_point(Vector2(mouse_grid_pos - grid_position) * battle_grid.CELL_SIZE)
+	elif preview_line:
+		preview_line.clear_points()
 
 func execute_turn_async() -> void:
 	while not orders.is_empty():
@@ -92,12 +90,15 @@ func clear_orders() -> void:
 func cell_in_range(cell_pos: Vector2i) -> bool:
 	var of_cell := grid_position
 	if turn_done: of_cell = turn_end_grid_pos
-	return of_cell.distance_to(cell_pos) <= max_movement
+	return of_cell.distance_to(cell_pos) <= move_speed
 
 func take_damage(amount: int) -> void:
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
 		_on_death()
+
+func heal(amount: int) -> void:
+	health = clampi(health + amount, 0, max_health)
 
 func create_preview_visuals() -> Node2D:
 	var preview = Node2D.new()
@@ -125,9 +126,9 @@ func _set_state(value: EntityState) -> void:
 	match value:
 		EntityState.PLANNING_MOVE, EntityState.PLANNING_MENU:
 			if turn_done:
-				battle_grid.show_movement_range(turn_end_grid_pos, max_movement)
+				battle_grid.show_movement_range(turn_end_grid_pos, move_speed)
 			else:
-				battle_grid.show_movement_range(grid_position, max_movement)
+				battle_grid.show_movement_range(grid_position, move_speed)
 		_:
 			battle_grid.hide_movement_range()
 

@@ -178,6 +178,7 @@ _data = {
 
 [node name="SwordMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_mktmg")
+facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1348261928]

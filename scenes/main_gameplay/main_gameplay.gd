@@ -110,10 +110,11 @@ func turn_input() -> void:
 								if is_future_order:
 									turn_index = _selected_actor.future_orders.size() + 1
 								_selected_actor.plan_order(order, turn_index)
+								_selected_actor.turn_done = true
+							else:
+								await ability.on_cancel(_selected_actor)
 							
-							_selected_actor.turn_done = true
 							_selected_actor.on_deselected()
-							
 							selection_box.hide()
 							
 							turn_input()

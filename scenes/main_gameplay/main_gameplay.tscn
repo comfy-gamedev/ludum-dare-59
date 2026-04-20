@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="7_vsax7"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
+[ext_resource type="PackedScene" uid="uid://dddt02sg5yi8v" path="res://scenes/main_gameplay/mechs/support_mech.tscn" id="8_wjmgw"]
 [ext_resource type="Script" uid="uid://il6hjqsfqal7" path="res://scenes/main_gameplay/signal_points_container.gd" id="10_ieocc"]
 [ext_resource type="Texture2D" uid="uid://bbecl65o8oslo" path="res://assets/textures/particles/circle.png" id="10_w3spe"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
@@ -35,6 +36,10 @@ unique_name_in_owner = true
 script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
+health = 1
+
+[node name="SupportMech" parent="BattleGrid" unique_id=183001927 instance=ExtResource("8_wjmgw")]
+grid_position = Vector2i(3, 1)
 
 [node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("7_1svbp")]
 position = Vector2(224, 352)
@@ -129,9 +134,9 @@ battle_grid = NodePath("../../BattleGrid")
 [connection signal="initiate_right_to_middle_transition" from="." to="Engine" method="_on_main_gameplay_initiate_right_to_middle_transition"]
 [connection signal="player_signal_points_changed" from="." to="CanvasLayer/Panel/SignalPointsContainer" method="_on_main_gameplay_player_signal_points_changed"]
 [connection signal="turn_end" from="." to="." method="_on_turn_end"]
-[connection signal="segment_transition_initiated" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_initiated"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
+[connection signal="segment_transition_initiated" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_initiated"]
 [connection signal="update_train_position" from="Engine" to="FlatBed" method="_on_engine_update_train_position"]
 [connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
