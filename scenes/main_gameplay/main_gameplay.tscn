@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
+[ext_resource type="PackedScene" uid="uid://qt6qy7wrpxo" path="res://objects/grid_terrain/shadow.tscn" id="12_sbvst"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
@@ -52,6 +53,11 @@ grid_position = Vector2i(13, 4)
 
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]
 grid_position = Vector2i(4, 4)
+
+[node name="Shadow" parent="BattleGrid" unique_id=165163691 instance=ExtResource("12_sbvst")]
+position = Vector2(-93, -39)
+grid_position = Vector2i(-1, -1)
+lifetime = 2000
 
 [node name="SelectionBox" type="Line2D" parent="." unique_id=1774445469]
 unique_name_in_owner = true

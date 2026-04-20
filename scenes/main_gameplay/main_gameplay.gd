@@ -20,6 +20,8 @@ const UI_START_TURN_CLICKED = 1
 @onready var command_menu: CommandMenu = %CommandMenu
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
 
+@onready var shadow = $BattleGrid/Shadow/ColorRect
+
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
@@ -49,6 +51,9 @@ func _ready() -> void:
 	reset_turn_state()
 	
 	turn_input()
+
+func _process(delta: float) -> void:
+	set_shader_values(delta)
 
 func turn_input() -> void:
 	await get_tree().process_frame
@@ -226,3 +231,9 @@ func _on_turn_end():
 
 func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})
+
+func set_shader_values(delta: float):
+	const SPEED = 5
+	var noise_param = shadow.material.get_shader_parameter("noise")
+	noise_param.noise.offset += Vector3(delta * SPEED, 0, delta * SPEED)
+	shadow.material.set_shader_parameter("noise", noise_param)
