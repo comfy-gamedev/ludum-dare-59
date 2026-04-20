@@ -167,6 +167,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 func _on_parallax_background_segment_transition_complete():
 	right_panel.turn_button.disabled = false
 	print("Terrain segment transition complete!")
+	#on_train_death()
 
 func spawn_clouds(num = 2, radii = 4):
 	for i in num:
@@ -232,6 +233,7 @@ func _on_turn_end():
 	initiate_terrain_segment_transition()
 
 func on_train_death():
+	right_panel.turn_button.disabled = true
 	initiate_train_death.emit()
 
 func _on_right_panel_go_button_pressed() -> void:
