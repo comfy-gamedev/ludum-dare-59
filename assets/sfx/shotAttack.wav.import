@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c4d6le1dskcut"
-path="res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"
+uid="uid://b5xd1y282a3i0"
+path="res://.godot/imported/shotAttack.wav-995ac76dcc64de9f40d0a491b9406dba.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/diana.wav"
-dest_files=["res://.godot/imported/diana.wav-62208ba21c4958b3b4333bd28cf8f74a.sample"]
+source_file="res://assets/sfx/shotAttack.wav"
+dest_files=["res://.godot/imported/shotAttack.wav-995ac76dcc64de9f40d0a491b9406dba.sample"]
 
 [params]
 

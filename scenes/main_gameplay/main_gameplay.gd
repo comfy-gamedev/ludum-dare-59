@@ -25,6 +25,11 @@ const UI_START_TURN_CLICKED = 1
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
 @onready var selection_panel: Panel = $CanvasLayer/SelectionPanel
 
+@onready var dialogue = %Dialogue
+@onready var sf_dialogue = %SfDialogue
+
+var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
+
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
 
@@ -284,6 +289,7 @@ func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})
 
 func initiate_level():
+	dialogue.show_conversation(level_1_intro_conversation)
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
 	var shield_mech = battle_grid.get_node("ShieldMech")

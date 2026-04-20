@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://fhyxqtqhvwm"]
 
 [ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_e42ps"]
-[ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="1_f6vnc"]
-[ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="2_2mm3m"]
+[ext_resource type="Script" path="res://ui/conversation.gd" id="1_f6vnc"]
+[ext_resource type="Script" path="res://ui/conversation_step.gd" id="2_2mm3m"]
 [ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="4_51t2e"]
 [ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_xoc17"]
 
@@ -32,4 +32,3 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 script = ExtResource("1_f6vnc")
 left_texture = ExtResource("1_e42ps")
 steps = Array[ExtResource("2_2mm3m")]([SubResource("Resource_2132m"), SubResource("Resource_2g58p"), SubResource("Resource_yo7ee")])
-metadata/_custom_type_script = "uid://bprhkt5tix3qd"
