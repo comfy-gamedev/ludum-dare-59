@@ -11,6 +11,12 @@ var shimmy_intensity: float = 0.25
 var _shimmy_timer: float = 0.0
 var original_sprite_pos: Vector2
 
+var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_explosion.tscn")
+
+func _ready():
+	original_sprite_pos = caboose_sprite.position
+	#initiate_death_sequence()
+
 func _process(delta):
 	process_shimmy(delta)
 	process_follow_movement(delta)
@@ -78,3 +84,13 @@ func _on_flat_bed_update_flatbed_position(target_pos):
 func get_tiles():
 	var areas : Array[Area2D] = tile_area.get_overlapping_areas()
 	return areas.map(func(x): return x.get_parent().grid_pos)
+
+func initiate_death_sequence():
+	$ExplosionAddedTimer.start()
+
+func _on_explosion_added_timer_timeout():
+	var death_explosion: Node2D = death_explosion_scene.instantiate()
+	death_explosion.position.x += randf_range(-20, 20)
+	death_explosion.position.y += randf_range(-20, 20)
+	#death_explosion.play("default")
+	$DeathExplosions.add_child(death_explosion)
