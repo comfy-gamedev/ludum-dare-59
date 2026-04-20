@@ -88,7 +88,7 @@ func get_bodies() -> Array[GridBody]:
 func get_entities() -> Array[EntityBody]:
 	var a: Array[EntityBody]
 	for body in _grid_bodies:
-		if body is EntityBody:
+		if body is EntityBody and body.is_inside_tree():
 			a.append(body)
 	return a
 

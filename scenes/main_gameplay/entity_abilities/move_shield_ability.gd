@@ -56,10 +56,11 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	attack_area.monitorable = false
 	return order
 
-func execute_async(entity: EntityBody, params: Dictionary) -> void:
+func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	entity.clear_plan_visuals()
 	await entity.set_grid_position(params.target_pos)
-	
+
+func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
 	
 	attack_animation_player.play(&"shoot")

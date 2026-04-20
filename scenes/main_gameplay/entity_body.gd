@@ -1,6 +1,9 @@
 extends GridBody
 class_name EntityBody
 
+signal turn_setup_done()
+signal continue_turn()
+
 enum EntityState {
 	DESELECTED,
 	PLANNING_MENU,
@@ -51,6 +54,15 @@ func _on_grid_mouse_move(mouse_grid_pos: Vector2i) -> void:
 		preview_line.add_point(Vector2(mouse_grid_pos - grid_position) * battle_grid.CELL_SIZE)
 	elif preview_line:
 		preview_line.clear_points()
+
+func start_turn() -> void:
+	pass
+
+func execute_turn_movement_async() -> void:
+	for order in orders:
+		await order.ability.execute_movement_async(self, order.params)
+	
+	_update_plan_visuals()
 
 func execute_turn_async() -> void:
 	while not orders.is_empty():

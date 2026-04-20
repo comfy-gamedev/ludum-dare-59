@@ -10,6 +10,8 @@ signal initiate_train_death()
 
 signal player_signal_points_changed()
 
+signal _turn_movement_done()
+
 signal _ui_input(what: int, params: Dictionary)
 signal turn_end
 
@@ -145,12 +147,31 @@ func turn_input() -> void:
 	return
 
 func perform_turn() -> void:
-	var entities: Array[GridBody] = battle_grid.get_bodies()
+	var entities: Array[EntityBody] = battle_grid.get_entities()
+	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent and ent.is_inside_tree() and ent.team == team:
-				if ent == EntityBody:
-					ent.clear_plan_visuals()
+			if ent.team == team:
+				ent.clear_plan_visuals()
+				ent.start_turn()
+	
+	var turn_move_dones: Dictionary[EntityBody, bool]
+	
+	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
+		for ent in entities:
+			if ent.team == team:
+				(func ():
+					await ent.execute_turn_movement_async()
+					turn_move_dones[ent] = true
+					if turn_move_dones.size() == entities.size():
+						_turn_movement_done.emit()
+				).call_deferred()
+	
+	await _turn_movement_done
+	
+	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
+		for ent in entities:
+			if ent.team == team:
 				await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()

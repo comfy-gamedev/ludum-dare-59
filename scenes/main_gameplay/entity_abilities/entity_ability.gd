@@ -6,6 +6,8 @@ class_name EntityAbility
 
 @abstract func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder
 
+@abstract func execute_movement_async(entity: EntityBody, params: Dictionary) -> void
+
 @abstract func execute_async(entity: EntityBody, params: Dictionary) -> void
 
 @abstract func update_preview(entity: EntityBody, params: Dictionary) -> void

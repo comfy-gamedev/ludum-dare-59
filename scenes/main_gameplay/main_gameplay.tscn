@@ -46,7 +46,7 @@ position = Vector2(34.529594, 22.307968)
 grid_position = Vector2i(0, 12)
 
 [node name="ShieldMech" parent="BattleGrid" unique_id=909610497 instance=ExtResource("10_sbvst")]
-grid_position = Vector2i(0, 2)
+grid_position = Vector2i(2, 4)
 
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]
 grid_position = Vector2i(4, 4)
