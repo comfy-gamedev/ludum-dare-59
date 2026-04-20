@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ditilhnl06qdq"]
+[gd_scene format=3 uid="uid://dbugqn4h54yn7"]
 
 [ext_resource type="Script" uid="uid://40a873ixev7d" path="res://objects/grid_actors/enemies/slash_drone.gd" id="1_u2iv6"]
 [ext_resource type="Texture2D" uid="uid://vky1x7cqclv" path="res://assets/textures/units/horse_enemy/horse_enemy_1.png" id="2_u2iv6"]
@@ -233,6 +233,7 @@ _data = {
 [node name="SlashDrone" type="Node2D" unique_id=1386753269]
 script = ExtResource("1_u2iv6")
 team = 1
+crossing_sprite = ExtResource("3_xqmqh")
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1273822516]

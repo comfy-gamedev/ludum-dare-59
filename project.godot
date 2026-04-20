@@ -44,6 +44,7 @@ theme/custom="uid://cy6gwsvlnrel7"
 2d_physics/layer_2="attacks"
 2d_physics/layer_3="grid_tile"
 2d_physics/layer_4="bodies"
+2d_physics/layer_5="crossing_area"
 
 [physics]
 

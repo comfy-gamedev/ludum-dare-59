@@ -30,6 +30,9 @@ const UI_START_TURN_CLICKED = 1
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
 
+@onready var shadow = $BattleGrid/Shadow/ColorRect
+@onready var crossing_panel: CrossingPanel = $CanvasLayer/CrossingPanel
+
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
 
@@ -167,6 +170,8 @@ func perform_turn() -> void:
 				ent.clear_plan_visuals()
 				ent.start_turn()
 	
+	battle_grid.enable_crossings()
+	
 	var turn_move_dones: Dictionary[EntityBody, bool]
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
@@ -180,6 +185,8 @@ func perform_turn() -> void:
 				).call_deferred()
 	
 	await _turn_movement_done
+	
+	battle_grid.disable_crossings()
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
@@ -347,3 +354,16 @@ func spawn_enemy(grid_pos: Vector2i, enemy_scene: PackedScene):
 	var new_enemy = enemy_scene.instantiate()
 	new_enemy.grid_position = grid_pos
 	battle_grid.add_child(new_enemy)
+
+func _on_battle_grid_crossing(entity_a: EntityBody, entity_b: EntityBody) -> void:
+	get_tree().paused = true
+	if entity_a.team != BattleGrid.Team.PLAYER:
+		var tmp = entity_a
+		entity_a = entity_b
+		entity_b = tmp
+	var winner = await crossing_panel.play(entity_a, entity_b)
+	if winner == entity_a:
+		entity_b.take_damage(1)
+	else:
+		entity_a.take_damage(1)
+	get_tree().paused = false

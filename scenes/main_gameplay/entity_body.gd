@@ -18,6 +18,8 @@ enum EntityState {
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
 @export var mugshot: Texture2D
 
+@export var crossing_sprite: Texture2D
+
 var abilities: Array[EntityAbility]
 var orders: Array
 var future_orders: Array[Array]
@@ -27,6 +29,8 @@ var state: EntityState = EntityState.DESELECTED: set = _set_state
 var turn_end_previews: Array[Node2D]
 var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
 var preview_line: Line2D
+
+var crossing_area: Area2D
 
 @onready var plan_line: Line2D = $PlanLine
 @onready var sprite = $Sprite2D
@@ -40,7 +44,25 @@ func _ready() -> void:
 			abilities.append(c)
 			c.visible = false
 	float_animation_player.play("float")
-	battle_grid.mouse_over_cell_changed.connect(_on_grid_mouse_move)
+	
+	if team == BattleGrid.Team.PLAYER:
+		battle_grid.mouse_over_cell_changed.connect(_on_grid_mouse_move)
+	
+	crossing_area = Area2D.new()
+	crossing_area.name = "CrossingArea2D"
+	crossing_area.collision_layer = 16
+	crossing_area.collision_mask = 16
+	crossing_area.area_entered.connect(_on_crossing_area_entered)
+	var collision_shape = CollisionShape2D.new()
+	collision_shape.shape = CircleShape2D.new()
+	collision_shape.shape.radius = 12.0
+	collision_shape.disabled = true
+	collision_shape.debug_color = Color.YELLOW
+	crossing_area.add_child(collision_shape)
+	add_child(crossing_area)
+	
+	moving.connect(func (is_moving):
+		collision_shape.disabled = not is_moving)
 
 func _on_grid_mouse_move(mouse_grid_pos: Vector2i) -> void:
 	if state == EntityState.PLANNING_MOVE and cell_in_range(mouse_grid_pos):
@@ -167,3 +189,8 @@ func on_selected():
 
 func on_deselected():
 	_set_state(EntityState.DESELECTED)
+
+func _on_crossing_area_entered(area: Area2D) -> void:
+	print("Boo!", area)
+	if area.get_parent().team != team:
+		battle_grid.do_crossing(self, area.get_parent())

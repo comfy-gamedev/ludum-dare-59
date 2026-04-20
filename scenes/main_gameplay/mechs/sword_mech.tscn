@@ -242,6 +242,7 @@ _data = {
 [node name="SwordMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_mktmg")
 mugshot = ExtResource("2_mv08r")
+crossing_sprite = ExtResource("3_nqd8c")
 facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 
