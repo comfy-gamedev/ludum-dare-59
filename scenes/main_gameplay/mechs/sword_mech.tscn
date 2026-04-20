@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="1_mktmg"]
 [ext_resource type="Script" uid="uid://ddop3ju6jscaj" path="res://scenes/main_gameplay/entity_abilities/move_attack_ability.gd" id="2_bqrvl"]
-[ext_resource type="Texture2D" uid="uid://dlvcoek48oqy2" path="res://assets/textures/units/shield_unit/shield_unit_1.png" id="2_gbo81"]
-[ext_resource type="Texture2D" uid="uid://c5tbysvhwu2p3" path="res://assets/textures/units/shield_unit/shield_unit_2.png" id="3_nqd8c"]
+[ext_resource type="Texture2D" uid="uid://d281igqqv7uuk" path="res://assets/textures/units/sword_unit/sword_unit_1.png" id="2_gbo81"]
+[ext_resource type="Texture2D" uid="uid://bkn5vhfwpmshi" path="res://assets/textures/units/sword_unit/sword_unit_2.png" id="3_nqd8c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5md71"]
 atlas = ExtResource("2_gbo81")
