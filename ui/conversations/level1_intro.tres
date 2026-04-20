@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Conversation" format=3 uid="uid://bqcdebvgt5ktm"]
 
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_h278d"]
-[ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/piper.png" id="2_8ubwr"]
+[ext_resource type="Resource" uid="uid://cbvnimi1oldft" path="res://ui/characters/kailey.tres" id="1_h278d"]
+[ext_resource type="Resource" uid="uid://dvy11ai5qnrus" path="res://ui/characters/heidi.tres" id="2_8ubwr"]
 [ext_resource type="Script" uid="uid://bprhkt5tix3qd" path="res://ui/conversation.gd" id="3_psatb"]
 [ext_resource type="Script" uid="uid://bh7au0lmg7bca" path="res://ui/conversation_step.gd" id="4_yn51q"]
-[ext_resource type="Texture2D" uid="uid://c4s2f5bgy34w0" path="res://assets/textures/characters/sloane.png" id="5_krjbi"]
-[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="6_yqr8w"]
-[ext_resource type="Texture2D" uid="uid://c7sdh36fh0elm" path="res://assets/textures/characters/demi.png" id="7_musxj"]
+[ext_resource type="Resource" uid="uid://cdc08j7a8m1n2" path="res://ui/characters/sienna.tres" id="5_psatb"]
+[ext_resource type="Resource" uid="uid://c12dv78ugkwqi" path="res://ui/characters/maisie.tres" id="6_yn51q"]
+[ext_resource type="Resource" uid="uid://q671n6sq8en4" path="res://ui/characters/diana.tres" id="7_krjbi"]
 
 [sub_resource type="Resource" id="Resource_0gmtb"]
 script = ExtResource("4_yn51q")
@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_7i11d"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("5_krjbi")
+character = ExtResource("5_psatb")
 message = "I'm still confused too."
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -49,14 +49,14 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_b2cds"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("5_krjbi")
+character = ExtResource("5_psatb")
 message = "How does that help? Are we gonna have them bash into each other?"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [sub_resource type="Resource" id="Resource_t5ll6"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("6_yqr8w")
+character = ExtResource("6_yn51q")
 message = "We can have them shoot each other."
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -68,7 +68,7 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_65xoq"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("7_musxj")
+character = ExtResource("7_krjbi")
 message = "Why can't I send the signal when we get the key?"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -80,7 +80,7 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_m8480"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("2_8ubwr")
+character = ExtResource("2_8ubwr")
 message = "Won't they just do that when we steal the key?"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -92,14 +92,14 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [sub_resource type="Resource" id="Resource_75nt3"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("6_yqr8w")
+character = ExtResource("6_yn51q")
 message = "We take out as many as we can and pull their focus away."
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [sub_resource type="Resource" id="Resource_isi4v"]
 script = ExtResource("4_yn51q")
 side = 1
-texture = ExtResource("5_krjbi")
+character = ExtResource("5_psatb")
 message = "We'll slash their drones to pieces!"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -110,7 +110,7 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
 [resource]
 script = ExtResource("3_psatb")
-left_texture = ExtResource("1_h278d")
-right_texture = ExtResource("2_8ubwr")
+left_character = ExtResource("1_h278d")
+right_character = ExtResource("2_8ubwr")
 steps = Array[ExtResource("4_yn51q")]([SubResource("Resource_0gmtb"), SubResource("Resource_6qm1b"), SubResource("Resource_7i11d"), SubResource("Resource_pcu2o"), SubResource("Resource_vgi65"), SubResource("Resource_e1yoy"), SubResource("Resource_m25q7"), SubResource("Resource_b2cds"), SubResource("Resource_t5ll6"), SubResource("Resource_h1esn"), SubResource("Resource_65xoq"), SubResource("Resource_wncrj"), SubResource("Resource_m8480"), SubResource("Resource_m67gf"), SubResource("Resource_75nt3"), SubResource("Resource_isi4v"), SubResource("Resource_6gmtd")])
 metadata/_custom_type_script = "uid://bprhkt5tix3qd"

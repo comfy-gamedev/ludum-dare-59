@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Character" format=3 uid="uid://ctjclhtvu1no4"]
+
+[ext_resource type="Script" uid="uid://dvng4as2c634m" path="res://ui/character.gd" id="1_er8as"]
+[ext_resource type="AudioStream" uid="uid://bkt63o65bc3ii" path="res://assets/sfx/dialogue/radio_sienna.wav" id="2_er8as"]
+[ext_resource type="Texture2D" uid="uid://cxorggv065jy0" path="res://assets/textures/characters/sienna_sf.png" id="3_c8xiu"]
+
+[resource]
+script = ExtResource("1_er8as")
+name = "Sienna"
+texture = ExtResource("3_c8xiu")
+talk_sfx = ExtResource("2_er8as")
+metadata/_custom_type_script = "uid://dvng4as2c634m"

@@ -88,7 +88,7 @@ func music(stream: AudioStream, xfade: float = 1.0) -> void:
 ## [param stream]: the sound effect stream to play.
 ## [param who]: key for [param max_polyphony].
 ## [param max_polyphony]: maximum simultaneous playbacks for the [param stream] and [param who].
-func sfx(stream: AudioStream, who = null, max_polyphony: int = 1) -> void:
+func sfx(stream: AudioStream, who = null, max_polyphony: int = 1, pitch_scale: float = 1.0) -> void:
 	assert(stream != null)
 	assert(max_polyphony >= 0)
 	
@@ -117,4 +117,5 @@ func sfx(stream: AudioStream, who = null, max_polyphony: int = 1) -> void:
 	if max_polyphony != audio_stream_player.max_polyphony:
 		push_warning("MusicMan.sfx(): max_polyphony does not match initial value for this stream, ignoring new value.")
 	
+	audio_stream_player.pitch_scale = pitch_scale
 	audio_stream_player.play()

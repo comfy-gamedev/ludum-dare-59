@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dou5wsibhq6x1"
-path="res://.godot/imported/constance_small.png-258b8e82a4b5147f54e7c0a4198bb221.ctex"
+uid="uid://bkg3d5u8jio5r"
+path="res://.godot/imported/maisie.png-b6602a45928d5871e6bf977702d90676.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/constance_small.png"
-dest_files=["res://.godot/imported/constance_small.png-258b8e82a4b5147f54e7c0a4198bb221.ctex"]
+source_file="res://assets/textures/characters/maisie.png"
+dest_files=["res://.godot/imported/maisie.png-b6602a45928d5871e6bf977702d90676.ctex"]
 
 [params]
 

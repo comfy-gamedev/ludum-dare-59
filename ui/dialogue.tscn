@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="1_fm7tp"]
 [ext_resource type="Script" uid="uid://cw42mf8mae266" path="res://ui/dialogue.gd" id="1_uo1k0"]
-[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/constance.png" id="1_xl33q"]
+[ext_resource type="Texture2D" uid="uid://b6c4a60u4up4f" path="res://assets/textures/characters/kailey.png" id="1_xl33q"]
 [ext_resource type="Material" uid="uid://b86w6sr8fasot" path="res://ui/color_modulator.tres" id="2_tqx3j"]
-[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/charlie.png" id="2_xyniw"]
+[ext_resource type="Texture2D" uid="uid://bkg3d5u8jio5r" path="res://assets/textures/characters/maisie.png" id="2_xyniw"]
 [ext_resource type="Texture2D" uid="uid://daya86vrf55mb" path="res://assets/textures/interface.png" id="6_qwm1w"]
 
 [sub_resource type="Theme" id="Theme_xl33q"]

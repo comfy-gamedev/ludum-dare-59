@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6c4a60u4up4f"
-path="res://.godot/imported/constance.png-1f2a39a5a02e0b009c455d239f9a1c54.ctex"
+uid="uid://cxorggv065jy0"
+path="res://.godot/imported/sienna_sf.png-86bccd402b06811569fcffd729e1366d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/constance.png"
-dest_files=["res://.godot/imported/constance.png-1f2a39a5a02e0b009c455d239f9a1c54.ctex"]
+source_file="res://assets/textures/characters/sienna_sf.png"
+dest_files=["res://.godot/imported/sienna_sf.png-86bccd402b06811569fcffd729e1366d.ctex"]
 
 [params]
 

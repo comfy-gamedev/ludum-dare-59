@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dsrl2ei3s5vb2"
-path="res://.godot/imported/radioDiana.wav-d262790108c8d8124fbb8dc64582207f.sample"
+path="res://.godot/imported/radio_diana.wav-f8942242d201e09c7528f630fa9fea20.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/radioDiana.wav"
-dest_files=["res://.godot/imported/radioDiana.wav-d262790108c8d8124fbb8dc64582207f.sample"]
+source_file="res://assets/sfx/dialogue/radio_diana.wav"
+dest_files=["res://.godot/imported/radio_diana.wav-f8942242d201e09c7528f630fa9fea20.sample"]
 
 [params]
 

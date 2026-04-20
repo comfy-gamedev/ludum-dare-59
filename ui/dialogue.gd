@@ -90,7 +90,10 @@ func slide_right_out() -> Signal:
 		$VBoxContainer/Container/PortraitRight,
 		"position:x", RIGHT_OFFSCREEN_X, SLIDE_DURATION)
 	return tween.finished
-	
+
+var left_character: Character
+var right_character: Character
+
 func show_step(step: ConversationStep, stay_focused: bool) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
@@ -102,16 +105,18 @@ func show_step(step: ConversationStep, stay_focused: bool) -> void:
 	next.visible = false
 	
 	if (step.side == ConversationStep.TextureSide.LEFT and 
-		step.texture != null):
-		if (step.texture != left.texture):
+		step.character != null):
+		if (step.character.texture != left.texture):
 			await slide_left_out()
-		left.texture = step.texture
+		left_character = step.character
+		left.texture = left_character.texture
 		await slide_left_in()
 	if (step.side == ConversationStep.TextureSide.RIGHT and 
-		step.texture != null):
-		if (step.texture != right.texture):
+		step.character != null):
+		if (step.character.texture != right.texture):
 			await slide_right_out()
-		right.texture = step.texture
+		right_character = step.character
+		right.texture = right_character.texture
 		await slide_right_in()
 	
 	if (step.side == ConversationStep.TextureSide.LEFT and
@@ -121,8 +126,19 @@ func show_step(step: ConversationStep, stay_focused: bool) -> void:
 		not is_right_focused()):
 		await focus_right()
 	
+	var sfx: AudioStream
+	if step.side == ConversationStep.TextureSide.LEFT:
+		sfx = left_character.talk_sfx
+	else:
+		sfx = right_character.talk_sfx
+	
 	label.text = step.message
-	await create_tween().tween_property(label, "visible_ratio", 1.0, 1.0).finished
+	for i in range(1, step.message.length() + 1):
+		if i % 2 == 0:
+			MusicMan.sfx(sfx, null, 1, randf_range(0.99, 1.1))
+		var visible_ratio = float(i) / step.message.length()
+		label.visible_ratio = visible_ratio
+		await get_tree().create_timer(0.0335).timeout
 	
 	if step.time != 0:
 		await get_tree().create_timer(step.time).timeout
@@ -155,11 +171,13 @@ func show_conversation(conv: Conversation) -> void:
 	var left_signal: Signal
 	var right_signal: Signal
 	var right_done = [false]
-	if conv.left_texture != null:
-		left.texture = conv.left_texture
+	if conv.left_character != null:
+		left_character = conv.left_character
+		left.texture = left_character.texture
 		left_signal = slide_left_in()
-	if conv.right_texture != null:
-		right.texture = conv.right_texture
+	if conv.right_character != null:
+		right_character = conv.right_character
+		right.texture = right_character.texture
 		right_signal = slide_right_in()
 		right_signal.connect(func (): right_done[0] = true)
 	if (left_signal):
@@ -174,7 +192,7 @@ func show_conversation(conv: Conversation) -> void:
 			var next_step = conv.steps[i + 1]
 			stay_focused = (
 				step.side == next_step.side and
-				step.texture == next_step.texture
+				step.character == next_step.character
 			)
 		await show_step(step, stay_focused)
 	
@@ -187,7 +205,7 @@ func show_conversation(conv: Conversation) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	show_conversation(preload("res://ui/conversations/level2_intro.tres"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

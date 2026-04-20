@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bkt63o65bc3ii"
-path="res://.godot/imported/radioSienna.wav-1bbb84bc02e57565f597400d215d22a9.sample"
+path="res://.godot/imported/radio_sienna.wav-ade4d6824e23d8b2aca6f550efc8733d.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/radioSienna.wav"
-dest_files=["res://.godot/imported/radioSienna.wav-1bbb84bc02e57565f597400d215d22a9.sample"]
+source_file="res://assets/sfx/dialogue/radio_sienna.wav"
+dest_files=["res://.godot/imported/radio_sienna.wav-ade4d6824e23d8b2aca6f550efc8733d.sample"]
 
 [params]
 

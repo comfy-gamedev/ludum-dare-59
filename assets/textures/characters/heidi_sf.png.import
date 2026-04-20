@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp6g64hjycs6t"
-path="res://.godot/imported/demi_small.png-f444f528536d0dccae756a165d71da72.ctex"
+uid="uid://c8fiadpcf1vcd"
+path="res://.godot/imported/heidi_sf.png-3767022b8bf660be05ac7c648738ea91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/demi_small.png"
-dest_files=["res://.godot/imported/demi_small.png-f444f528536d0dccae756a165d71da72.ctex"]
+source_file="res://assets/textures/characters/heidi_sf.png"
+dest_files=["res://.godot/imported/heidi_sf.png-3767022b8bf660be05ac7c648738ea91.ctex"]
 
 [params]
 

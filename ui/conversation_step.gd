@@ -3,8 +3,8 @@ extends Resource
 
 @export var side: TextureSide
 
-## Texture to show, leave empty to use previous
-@export var texture: Texture2D
+## Character to show, leave empty to use previous
+@export var character: Character
 
 ## BBCode
 @export var message: String

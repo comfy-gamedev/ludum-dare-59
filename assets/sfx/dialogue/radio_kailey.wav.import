@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b56myd7mkf1ty"
-path="res://.godot/imported/radioHeidi.wav-07c11a997ab36f18e0b22e1f76671ec3.sample"
+path="res://.godot/imported/radio_kailey.wav-bf95c0ad2f58cf7a6aed64329f5a93ac.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/radioHeidi.wav"
-dest_files=["res://.godot/imported/radioHeidi.wav-07c11a997ab36f18e0b22e1f76671ec3.sample"]
+source_file="res://assets/sfx/dialogue/radio_kailey.wav"
+dest_files=["res://.godot/imported/radio_kailey.wav-bf95c0ad2f58cf7a6aed64329f5a93ac.sample"]
 
 [params]
 

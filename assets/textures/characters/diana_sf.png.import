@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bao4notqjbux0"
-path="res://.godot/imported/piper.png-4318d670d62f5b6f83470afe50e88a9c.ctex"
+uid="uid://cp6g64hjycs6t"
+path="res://.godot/imported/diana_sf.png-17483630488f1a5ceb4058e30072afd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/characters/piper.png"
-dest_files=["res://.godot/imported/piper.png-4318d670d62f5b6f83470afe50e88a9c.ctex"]
+source_file="res://assets/textures/characters/diana_sf.png"
+dest_files=["res://.godot/imported/diana_sf.png-17483630488f1a5ceb4058e30072afd1.ctex"]
 
 [params]
 
