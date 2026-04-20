@@ -4,6 +4,7 @@ class_name MainGameplay
 signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
 signal initiate_left_to_middle_transition()
+signal initiate_right_to_middle_transition()
 
 signal player_signal_points_changed()
 
@@ -229,6 +230,14 @@ func initiate_terrain_segment_transition():
 			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
 				initiate_left_to_middle_transition.emit()
 				#current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
+				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+		
+		Globals.TerrainSegmentStates.RIGHT:
+			var possible_transitions = [Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE]
+			var random_transition = possible_transitions.pick_random()
+			
+			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
+				initiate_right_to_middle_transition.emit()
 				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
 
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
