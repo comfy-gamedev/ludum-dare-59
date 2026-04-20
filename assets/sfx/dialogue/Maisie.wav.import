@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b28nblj81qcln"
-path="res://.godot/imported/Maisie.wav-427258a63efd261f5d5fbf4d8856ccb6.sample"
+path="res://.godot/imported/maisie.wav-cf9ff436af6cc20d6d4474c0046c2a44.sample"
 
 [deps]
 
-source_file="res://assets/sfx/dialogue/Maisie.wav"
-dest_files=["res://.godot/imported/Maisie.wav-427258a63efd261f5d5fbf4d8856ccb6.sample"]
+source_file="res://assets/sfx/dialogue/maisie.wav"
+dest_files=["res://.godot/imported/maisie.wav-cf9ff436af6cc20d6d4474c0046c2a44.sample"]
 
 [params]
 
