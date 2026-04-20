@@ -133,6 +133,7 @@ _data = {
 
 [node name="BasicDrone" type="Node2D" unique_id=1386753269]
 script = ExtResource("1_418kl")
+team = 1
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1273822516]
@@ -147,13 +148,13 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" unique_id=86220377]
 shape = SubResource("RectangleShape2D_418kl")
 
-[node name="BumpAttackAbility" type="Node2D" parent="." unique_id=572326048]
+[node name="AttackAbility" type="Node2D" parent="." unique_id=572326048]
 script = ExtResource("4_skmvx")
 metadata/_custom_type_script = "uid://cmwbh62ree1v1"
 
-[node name="Area2D" type="Area2D" parent="BumpAttackAbility" unique_id=1956301975]
+[node name="Area2D" type="Area2D" parent="AttackAbility" unique_id=1956301975]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BumpAttackAbility/Area2D" unique_id=226104170]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAbility/Area2D" unique_id=226104170]
 shape = SubResource("CircleShape2D_skmvx")
 debug_color = Color(0.9940278, 0, 0.23568305, 0.41960785)
 

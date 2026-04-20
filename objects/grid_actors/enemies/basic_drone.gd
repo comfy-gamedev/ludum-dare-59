@@ -7,17 +7,15 @@ var train_target = null
 func _ready() -> void:
 	float_animation_player.play("float")
 	
-	match randi_range(0, 2):
-		0:
-			train_target = $"../../Engine"
-		1:
-			train_target = $"../../FlatBed"
-		2:
-			train_target = $"../../Caboose"
+	train_target = [
+		$"../../Engine",
+		$"../../FlatBed",
+		$"../../Caboose",
+	].pick_random()
 
 func start_turn() -> void:
 	var order = EntityOrder.new()
-	order.ability = $BumpAttackAbility
+	order.ability = $AttackAbility
 	order.params = {
 		train_target = train_target
 	}
