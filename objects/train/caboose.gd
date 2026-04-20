@@ -119,5 +119,5 @@ func take_damage(damage: int):
 		initiate_death_sequence()
 
 func heal(heal_amount):
-	health += heal_amount
+	health = clampi(health + heal_amount, 0, max_health)
 	Globals.caboose_health_changed.emit(float(health) / float(max_health))
