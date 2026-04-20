@@ -22,6 +22,11 @@ var healable_tiles: Array[Vector2i] = [
 func _ready() -> void:
 	weapon_area.show()
 	weapon_sprite.hide()
+	attack_animation_player.animation_finished.connect(func(_anim: StringName):
+		weapon_area.show()
+		weapon_sprite.hide()
+		hide()
+	)
 
 func display_name() -> String:
 	return "Move"
@@ -83,6 +88,9 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	
 	position = Vector2(params.aoe_pos - params.target_pos) * entity.battle_grid.CELL_SIZE
 	
+	weapon_area.hide()
+	weapon_sprite.show()
+	show()
 	attack_animation_player.play(&"heal")
 	var tween = create_tween()
 	if params.aoe_pos == params.target_pos:
