@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://drcusvupvenw2"]
 
 [ext_resource type="Texture2D" uid="uid://dxhrsdyk60mdr" path="res://assets/textures/effects/death_explosion.png" id="1_fsd3f"]
+[ext_resource type="Script" uid="uid://gljbv2xmdk1u" path="res://objects/vfx/death_explosion/death_explosion.gd" id="2_xiyda"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiyda"]
 atlas = ExtResource("1_fsd3f")
@@ -120,12 +121,14 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 35.0
 }]
 
 [node name="DeathExplosion" type="AnimatedSprite2D" unique_id=1552130543]
 sprite_frames = SubResource("SpriteFrames_1t7rh")
-autoplay = "default"
 frame_progress = 0.31171903
+script = ExtResource("2_xiyda")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
