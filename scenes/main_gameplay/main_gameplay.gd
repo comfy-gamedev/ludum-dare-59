@@ -27,6 +27,7 @@ const UI_START_TURN_CLICKED = 1
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
+var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
@@ -287,44 +288,46 @@ func initiate_level():
 
 func init_new_wave():
 	for i in range(current_wave):
-		spawn_enemy_left()
-		spawn_enemy_right()
-		spawn_enemy_up()
+		#spawn_enemy_left()
+		#spawn_enemy_right()
+		#spawn_enemy_up()
+		spawn_random_enemy()
 
-func spawn_enemy_left():
-	var grid_x_pos = 0
+func spawn_random_enemy():
+	var enemy_scenes = [basic_drone_scene, slash_drone_scene]
+	var sides = ["left", "up", "right"]
+	var enemy_scene = enemy_scenes.pick_random()
+	var side = sides.pick_random()
 	
-	for i in range(10):
-		var grid_y_pos = randi_range(0, 12)
-		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
-		
-		if battle_grid.get_occupant(spawn_location) == null:
-			spawn_drone(spawn_location)
-			return
+	match side:
+		"left":
+			var grid_x_pos = 0
+			for i in range(10):
+				var grid_y_pos = randi_range(0, 12)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
+		"up":
+			var grid_y_pos = 0	
+			for i in range(10):
+				var grid_x_pos = randi_range(0, 15)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
+		"right":
+			var grid_x_pos = 15
+			for i in range(10):
+				var grid_y_pos = randi_range(0, 12)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
 
-func spawn_enemy_right():
-	var grid_x_pos = 15
-	
-	for i in range(10):
-		var grid_y_pos = randi_range(0, 12)
-		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
-		
-		if battle_grid.get_occupant(spawn_location) == null:
-			spawn_drone(spawn_location)
-			return
-
-func spawn_enemy_up():
-	var grid_y_pos = 0
-	
-	for i in range(10):
-		var grid_x_pos = randi_range(0, 15)
-		var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
-		
-		if battle_grid.get_occupant(spawn_location) == null:
-			spawn_drone(spawn_location)
-			return
-
-func spawn_drone(grid_pos: Vector2i):
-	var new_drone = basic_drone_scene.instantiate()
-	new_drone.grid_position = grid_pos
-	battle_grid.add_child(new_drone)
+func spawn_enemy(grid_pos: Vector2i, enemy_scene: PackedScene):
+	var new_enemy = enemy_scene.instantiate()
+	new_enemy.grid_position = grid_pos
+	battle_grid.add_child(new_enemy)
