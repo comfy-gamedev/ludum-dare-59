@@ -25,8 +25,6 @@ var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
 var preview_line: Line2D
 
 @onready var plan_line: Line2D = $PlanLine
-@onready var weapon_area = $AttackAbility/WeaponArea
-@onready var weapon_collision = $AttackAbility/WeaponArea/Area2D
 @onready var sprite = $Sprite2D
 @onready var float_animation_player: AnimationPlayer = $FloatAnimationPlayer
 

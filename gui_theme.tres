@@ -71,12 +71,13 @@ corner_radius_bottom_left = 2
 
 [resource]
 default_font = ExtResource("1_c2e4w")
-default_font_size = 16
+default_font_size = 20
 Button/styles/focus = ExtResource("1_au0ug")
 Button/styles/hover = ExtResource("1_au0ug")
 Button/styles/hover_pressed = ExtResource("2_3qfsx")
 Button/styles/normal = ExtResource("3_x1ps5")
 Button/styles/pressed = ExtResource("4_ikxhj")
+Control/fonts/font = ExtResource("1_c2e4w")
 FlatButton/styles/disabled = SubResource("StyleBoxEmpty_au0ug")
 FlatButton/styles/hover = SubResource("StyleBoxEmpty_au0ug")
 FlatButton/styles/normal = SubResource("StyleBoxEmpty_au0ug")
