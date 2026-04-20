@@ -27,7 +27,7 @@ var preview_line: Line2D
 @onready var plan_line: Line2D = $PlanLine
 @onready var weapon_area = $WeaponArea
 @onready var weapon_collision = $WeaponArea/Area2D
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite = $Sprite2D
 @onready var float_animation_player: AnimationPlayer = $FloatAnimationPlayer
 
 func _ready() -> void:
@@ -103,7 +103,10 @@ func take_damage(amount: int) -> void:
 func create_preview_visuals() -> Node2D:
 	var preview = Node2D.new()
 	preview.script = preload("uid://ba7rss64n18kc")
-	var preview_sprite: Sprite2D = sprite.duplicate()
+	var preview_sprite = sprite.duplicate()
+	preview_sprite.position.y = self.position.y 
+	preview_sprite.position.y -= 16
+	preview_sprite.speed_scale = 0
 	preview_sprite.modulate = Color8(255, 255, 255, 100)
 	preview.add_child(preview_sprite)
 	get_parent().add_child(preview)
