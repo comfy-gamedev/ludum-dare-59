@@ -45,6 +45,7 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	return order
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	entity.clear_plan_visuals()
 	await entity.set_grid_position(params.target_pos)
 	
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
