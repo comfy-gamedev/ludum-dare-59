@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="1_mktmg"]
 [ext_resource type="Script" uid="uid://ddop3ju6jscaj" path="res://scenes/main_gameplay/entity_abilities/move_attack_ability.gd" id="2_bqrvl"]
 [ext_resource type="Texture2D" uid="uid://d281igqqv7uuk" path="res://assets/textures/units/sword_unit/sword_unit_1.png" id="2_gbo81"]
+[ext_resource type="Texture2D" uid="uid://cxorggv065jy0" path="res://assets/textures/characters/sloane_small.png" id="2_mv08r"]
 [ext_resource type="Texture2D" uid="uid://bkn5vhfwpmshi" path="res://assets/textures/units/sword_unit/sword_unit_2.png" id="3_nqd8c"]
 [ext_resource type="Texture2D" uid="uid://bx6g2uvf7xivl" path="res://assets/textures/effects/sword_slash.png" id="5_nqd8c"]
-[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="6_5md71"]
+[ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="6_5md71"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5md71"]
 atlas = ExtResource("2_gbo81")
@@ -240,6 +241,7 @@ _data = {
 
 [node name="SwordMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_mktmg")
+mugshot = ExtResource("2_mv08r")
 facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 

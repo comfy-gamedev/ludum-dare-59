@@ -16,6 +16,7 @@ enum EntityState {
 @export var health: int = 3
 @export var move_speed: int = 3
 @export var team: BattleGrid.Team = BattleGrid.Team.PLAYER
+@export var mugshot: Texture2D
 
 var abilities: Array[EntityAbility]
 var orders: Array

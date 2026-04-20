@@ -23,8 +23,10 @@ const UI_START_TURN_CLICKED = 1
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
+@onready var selection_panel: Panel = $CanvasLayer/SelectionPanel
 
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
+var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
@@ -98,6 +100,7 @@ func turn_input() -> void:
 						_selected_actor.clear_orders()
 					
 					_selected_actor.on_selected()
+					selection_panel.set_selected_entity(_selected_actor)
 					
 					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
@@ -107,6 +110,10 @@ func turn_input() -> void:
 					var cmd = await command_menu.command_chosen
 					match cmd[0]:
 						CommandMenu.Command.NONE:
+							_selected_actor.on_deselected()
+							selection_panel.set_selected_entity(null)
+							selection_box.hide()
+							
 							turn_input()
 							return
 						CommandMenu.Command.ABILITY:
@@ -127,6 +134,7 @@ func turn_input() -> void:
 								await ability.on_cancel(_selected_actor)
 							
 							_selected_actor.on_deselected()
+							selection_panel.set_selected_entity(null)
 							selection_box.hide()
 							
 							turn_input()
@@ -169,15 +177,16 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent.team == team:
-				await ent.execute_turn_async()
+			if is_instance_valid(ent):
+				if ent.team == team:
+					await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
 	for terr in terrain_tiles:
 		await terr.perform_turn()
 	
 	reset_turn_state()
-	spawn_clouds()
+	#spawn_clouds()
 	turn_end.emit()
 
 func reset_turn_state() -> void:
@@ -189,13 +198,14 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 
 func _on_parallax_background_segment_transition_complete():
 	right_panel.turn_button.disabled = false
+	right_panel.turn_button.text = "GO"
 	print("Terrain segment transition complete!")
 	#on_train_death()
 
 func spawn_clouds(num = 2, radii = 4):
 	for i in num:
 		var center = randi_range(0, (battle_grid.GRID_DIM.x - 2) * (battle_grid.GRID_DIM.y - 2))
-		var center_coord := Vector2i(1 + (center / (battle_grid.GRID_DIM.x - 2)), 1 + (center % (battle_grid.GRID_DIM.x - 2)))
+		var center_coord := Vector2i(1 + (center / (battle_grid.GRID_DIM.x - 2)), 1 + (center % (battle_grid.GRID_DIM.y - 2)))
 		var current_coord := center_coord
 		var dirs = [Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, 1)]
 		
@@ -250,12 +260,15 @@ func initiate_terrain_segment_transition():
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
 	current_terrain_segment_state = new_terrain_segment_state
 	right_panel.turn_button.disabled = true
+	right_panel.turn_button.text = "WAIT"
 	print("Init new terrain segment transition")
 
 func _on_turn_end():
 	turn_counter += 1
 	if turn_counter % 3 == 0:
 		current_wave += 1
+		spawn_clouds(1, 3)
+		init_new_wave()
 		
 	initiate_terrain_segment_transition()
 	print("turn: %s" % turn_counter)
@@ -280,9 +293,50 @@ func initiate_level():
 	support_mech.grid_position = Vector2i(9, 9)
 	gunner_mech.grid_position = Vector2i(6, 9)
 	#print(battle_grid.get_node("SwordMech"))
-	spawn_drones()
+	#spawn_drones()
 
-func spawn_drones():
-	var new_drone = basic_drone_scene.instantiate()
-	new_drone.grid_position = Vector2i(0, 0)
-	battle_grid.add_child(new_drone)
+func init_new_wave():
+	for i in range(current_wave):
+		#spawn_enemy_left()
+		#spawn_enemy_right()
+		#spawn_enemy_up()
+		spawn_random_enemy()
+
+func spawn_random_enemy():
+	var enemy_scenes = [basic_drone_scene, slash_drone_scene]
+	var sides = ["left", "up", "right"]
+	var enemy_scene = enemy_scenes.pick_random()
+	var side = sides.pick_random()
+	
+	match side:
+		"left":
+			var grid_x_pos = 0
+			for i in range(10):
+				var grid_y_pos = randi_range(0, 12)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
+		"up":
+			var grid_y_pos = 0	
+			for i in range(10):
+				var grid_x_pos = randi_range(0, 15)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
+		"right":
+			var grid_x_pos = 15
+			for i in range(10):
+				var grid_y_pos = randi_range(0, 12)
+				var spawn_location = Vector2i(grid_x_pos, grid_y_pos)
+				if battle_grid.get_occupant(spawn_location) == null:
+					spawn_enemy(spawn_location, enemy_scene)
+					return
+
+func spawn_enemy(grid_pos: Vector2i, enemy_scene: PackedScene):
+	var new_enemy = enemy_scene.instantiate()
+	new_enemy.grid_position = grid_pos
+	battle_grid.add_child(new_enemy)

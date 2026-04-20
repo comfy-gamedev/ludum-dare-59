@@ -1,7 +1,5 @@
 extends Control
 
-@export var conversation: Conversation
-
 func show_step(step: ConversationStep) -> void:
 	var left_rect = $VBoxContainer/HBoxContainer/RectLeft
 	var left_tex = $VBoxContainer/HBoxContainer/RectLeft/PortraitLeft
@@ -39,11 +37,11 @@ func show_conversation(conv: Conversation) -> void:
 	var left_tex = $VBoxContainer/HBoxContainer/RectLeft/PortraitLeft
 	var right_tex = $VBoxContainer/HBoxContainer/RectRight/PortraitRight
 	
-	if conversation.left_texture != null:
-		left_tex.texture = conversation.left_texture
+	if conv.left_texture != null:
+		left_tex.texture = conv.left_texture
 	
-	if conversation.right_texture != null:
-		right_tex.texture = conversation.right_texture
+	if conv.right_texture != null:
+		right_tex.texture = conv.right_texture
 	
 	for step in conv.steps:
 		await show_step(step)

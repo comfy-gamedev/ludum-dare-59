@@ -1,7 +1,5 @@
 extends Control
 
-@export var conversation: Conversation
-
 const UNFOCUSED_WIDTH = 300
 const FOCUSED_WIDTH = 310
 const UNFOCUSED_LIGHTNESS = 0.5
@@ -93,7 +91,7 @@ func slide_right_out() -> Signal:
 		"position:x", RIGHT_OFFSCREEN_X, SLIDE_DURATION)
 	return tween.finished
 	
-func show_step(step: ConversationStep,stay_focused: bool) -> void:
+func show_step(step: ConversationStep, stay_focused: bool) -> void:
 	var left = $VBoxContainer/Container/PortraitLeft
 	var right = $VBoxContainer/Container/PortraitRight
 	var label = %Label
@@ -189,8 +187,7 @@ func show_conversation(conv: Conversation) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var conv = preload("res://ui/intro_conversation.tres")
-	await show_conversation(conv)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

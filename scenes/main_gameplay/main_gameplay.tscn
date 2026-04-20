@@ -11,9 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://2pikq8vp3ng5" path="res://scenes/main_gameplay/mechs/shield_mech.tscn" id="10_sbvst"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
+[ext_resource type="PackedScene" path="res://objects/grid_actors/enemies/slash_drone.tscn" id="11_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
 [ext_resource type="PackedScene" uid="uid://cvjjdv61uicgl" path="res://objects/grid_actors/enemies/ranger_drone.tscn" id="14_sbvst"]
+[ext_resource type="PackedScene" uid="uid://x8sq25taewiu" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -48,6 +50,9 @@ grid_position = Vector2i(0, 12)
 [node name="ShieldMech" parent="BattleGrid" unique_id=909610497 instance=ExtResource("10_sbvst")]
 grid_position = Vector2i(2, 4)
 
+[node name="SlashDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("11_wjmgw")]
+grid_position = Vector2i(10, 2)
+
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]
 grid_position = Vector2i(4, 4)
 
@@ -63,6 +68,11 @@ width = 2.0
 default_color = Color(0, 1, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1295181322]
+
+[node name="SelectionPanel" parent="CanvasLayer" unique_id=1758050327 instance=ExtResource("14_km80p")]
+visible = false
+offset_top = 400.0
+offset_bottom = 480.0
 
 [node name="RightPanel" parent="CanvasLayer" unique_id=1215067547 node_paths=PackedStringArray("main_gameplay") instance=ExtResource("13_sbvst")]
 main_gameplay = NodePath("../..")

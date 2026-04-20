@@ -65,6 +65,8 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
 	
+	var ent_weapon_area: Node2D = entity.get_node("AttackAbility/WeaponArea")
+	if ent_weapon_area: ent_weapon_area.hide()
 	attack_animation_player.play(&"sword_slash")
 	var tween = create_tween()
 	tween.tween_property(entity.sprite, "offset", params.target_dir.normalized() * 3, 0.04)

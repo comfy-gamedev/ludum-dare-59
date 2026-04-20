@@ -21,8 +21,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed:
-			if not get_viewport_rect().has_point(event.global_position):
+			if visible and not get_global_rect().has_point(event.global_position):
 				command_chosen.emit(Command.NONE, null)
+				hide()
 				get_viewport().set_input_as_handled()
 
 
