@@ -1,18 +1,16 @@
 extends EntityAbility
-class_name AttackAbility
+class_name ShieldAbility
 
 @export var damage: int = 1
 @onready var attack_area = $WeaponArea/Area2D
 @onready var weapon_area = $WeaponArea
-@onready var weapon_sprite = $WeaponSprite2D
 @onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer
 
 func _ready() -> void:
 	weapon_area.show()
-	weapon_sprite.hide()
 
 func display_name() -> String:
-	return "MoveSlash"
+	return "MoveGuard"
 
 func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	entity.state = EntityBody.EntityState.PLANNING_MOVE
@@ -64,7 +62,8 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
 	
-	attack_animation_player.play(&"sword_slash")
+	attack_animation_player.play(&"shoot")
+	
 	var tween = create_tween()
 	tween.tween_property(entity.sprite, "offset", params.target_dir.normalized() * 3, 0.04)
 	tween.tween_property(entity.sprite, "offset", Vector2.ZERO, 0.16)

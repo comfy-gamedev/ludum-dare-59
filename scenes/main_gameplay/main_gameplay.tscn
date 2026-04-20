@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
 [ext_resource type="PackedScene" uid="uid://dddt02sg5yi8v" path="res://scenes/main_gameplay/mechs/support_mech.tscn" id="8_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
+[ext_resource type="PackedScene" uid="uid://2pikq8vp3ng5" path="res://scenes/main_gameplay/mechs/shield_mech.tscn" id="10_sbvst"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
@@ -42,6 +43,9 @@ grid_position = Vector2i(3, 1)
 [node name="GunnerMech" parent="BattleGrid" unique_id=681036710 instance=ExtResource("9_wjmgw")]
 position = Vector2(34.529594, 22.307968)
 grid_position = Vector2i(5, 5)
+
+[node name="ShieldMech" parent="BattleGrid" unique_id=909610497 instance=ExtResource("10_sbvst")]
+grid_position = Vector2i(2, 4)
 
 [node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
 position = Vector2(151.08636, 129.7958)

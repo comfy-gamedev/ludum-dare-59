@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://2pikq8vp3ng5"]
+
+[ext_resource type="Script" uid="uid://cbvn0mrra1aot" path="res://scenes/main_gameplay/entity_body.gd" id="1_0dhgq"]
+[ext_resource type="Texture2D" uid="uid://dlvcoek48oqy2" path="res://assets/textures/units/shield_unit/shield_unit_1.png" id="2_0dhgq"]
+[ext_resource type="Texture2D" uid="uid://c5tbysvhwu2p3" path="res://assets/textures/units/shield_unit/shield_unit_2.png" id="3_de80e"]
+[ext_resource type="Script" uid="uid://bnx31susfecbu" path="res://scenes/main_gameplay/entity_abilities/move_shield_ability.gd" id="4_0dhgq"]
+[ext_resource type="Texture2D" uid="uid://cpfagosky4qv" path="res://assets/textures/effects/shield.png" id="5_ytfvd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0dhgq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_de80e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m5msg"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_ifkxf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponArea:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_uxy1q"]
+resource_name = "shoot"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponArea:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnjpg"]
+_data = {
+&"RESET": SubResource("Animation_ifkxf"),
+&"shoot": SubResource("Animation_uxy1q")
+}
+
+[sub_resource type="Animation" id="Animation_m5msg"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_bqrvl"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 0, 0, 1),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 3, -0.2, 0, 0.2, 0, -3, -0.2, 0, 0.2, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 1.5, 2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mktmg"]
+_data = {
+&"RESET": SubResource("Animation_m5msg"),
+&"float": SubResource("Animation_bqrvl")
+}
+
+[node name="ShieldMech" type="Node2D" unique_id=1038994791]
+script = ExtResource("1_0dhgq")
+move_speed = 2
+facing_vector = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://cbvn0mrra1aot"
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1348261928]
+sprite_frames = SubResource("SpriteFrames_l2n4m")
+autoplay = "default"
+
+[node name="PlanLine" type="Line2D" parent="." unique_id=1485000665]
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="SelfArea2D" type="Area2D" parent="." unique_id=1621842412]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" unique_id=1772352252]
+shape = SubResource("CircleShape2D_m5msg")
+
+[node name="ShieldAbility" type="Node2D" parent="." unique_id=1196202711]
+script = ExtResource("4_0dhgq")
+metadata/_custom_type_script = "uid://bnx31susfecbu"
+
+[node name="WeaponArea" type="Node2D" parent="ShieldAbility" unique_id=1856779226]
+visible = false
+rotation = -1.5707964
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="ShieldAbility/WeaponArea" unique_id=542913248]
+position = Vector2(-1.4901161e-06, 34)
+rotation = 1.5707964
+texture = ExtResource("5_ytfvd")
+
+[node name="Area2D" type="Area2D" parent="ShieldAbility/WeaponArea" unique_id=989688549]
+collision_layer = 2
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ShieldAbility/WeaponArea/Area2D" unique_id=2063845099]
+position = Vector2(0.33333084, 68)
+polygon = PackedVector2Array(19.666668, -35, -0.3333325, -30, -20.333332, -35, -0.33333206, -40)
+
+[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="ShieldAbility" unique_id=2030881047]
+libraries/ = SubResource("AnimationLibrary_dnjpg")
+
+[node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=420817617]
+libraries/ = SubResource("AnimationLibrary_mktmg")
