@@ -35,8 +35,8 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	weapon_sprite.show()
 	attack_area.show()
 	tween = create_tween()
-	#tween.tween_property(weapon_sprite, "position", (entity.grid_position - target) * 32 * 2, 1.0)
-	tween.tween_property(weapon_sprite, "position", Vector2(target * 32), 1.0)
+	tween.tween_property(weapon_sprite, "position", Vector2((target - entity.grid_position) * 32 * 2), 1.0)
+	#tween.tween_property(weapon_sprite, "position", Vector2(target * 32), 1.0)
 	await tween.finished
 	
 	attacking = true
@@ -56,7 +56,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		return
 	
 	var coord = area.get_parent().grid_pos
-	var occupant = battle_grid.get_occupant(coord)
+	var occupant = battle_grid.get_occupant(coord, true, false)
 	if occupant:
 		occupant.take_damage(damage)
 		tween.custom_step(100000)

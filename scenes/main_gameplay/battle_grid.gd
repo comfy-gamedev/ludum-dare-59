@@ -7,6 +7,8 @@ const CLICK_SECONDARY = MOUSE_BUTTON_RIGHT
 signal cell_clicked(grid_pos: Vector2i, click_button: int)
 signal mouse_over_cell_changed(grid_pos: Vector2i)
 
+signal crossing(entity_a: EntityBody, entity_b: EntityBody)
+
 const GRID_DIM = Vector2i(16, 13)
 const CELL_SIZE = Vector2(32, 32)
 
@@ -22,6 +24,9 @@ var movement_center_point: Vector2i
 var movement_radius: int
 var last_mouse_move_grid_pos: Vector2i
 var highlighting_cells: Array[Vector2i]
+
+var crossings: Dictionary[Array, bool]
+var crossings_enabled: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -82,8 +87,15 @@ func clear_highlights() -> void:
 	highlighting_cells.clear()
 	queue_redraw()
 
-func get_bodies() -> Array[GridBody]:
-	return _grid_bodies.duplicate()
+func get_bodies(bodies_only = false) -> Array[GridBody]:
+	if bodies_only:
+		var a: Array[GridBody]
+		for body in _grid_bodies:
+			if body is not EntityBody:
+				a.append(body)
+		return a
+	else:
+		return _grid_bodies.duplicate()
 
 func get_entities() -> Array[EntityBody]:
 	var a: Array[EntityBody]
@@ -101,10 +113,17 @@ func get_cell_center(pos: Vector2i) -> Vector2:
 func get_cell_rect(pos: Vector2i) -> Rect2:
 	return Rect2(Vector2(pos) * CELL_SIZE, CELL_SIZE)
 
-func get_occupant(pos: Vector2i) -> GridBody:
-	for b in _grid_bodies:
+func get_occupant(pos: Vector2i, include_train: bool = true, entities_only: bool = true):
+	var pool = get_entities() if entities_only else get_bodies()
+	for b in pool:
 		if b.grid_position == pos:
 			return b
+	if include_train:
+		for train in Globals.train_sections:
+			if train.health > 0:
+				if train.get_tiles().has(pos):
+					return train
+			
 	return null
 
 func get_terrain(pos: Vector2i) -> Array[GridTerrain]:
@@ -118,3 +137,21 @@ func is_in_bounds(coord: Vector2i) -> bool:
 	if coord.x >= 0 && coord.x <= GRID_DIM.x && coord.y >= 0 && coord.x <= GRID_DIM.y:
 		return true
 	return false
+
+
+func do_crossing(a: EntityBody, b: EntityBody) -> void:
+	if not crossings_enabled:
+		return
+	var ids = [a.get_instance_id(), b.get_instance_id()]
+	ids.sort()
+	if ids not in crossings:
+		crossings[ids] = true
+		crossing.emit(a, b)
+
+func enable_crossings() -> void:
+	crossings.clear()
+	crossings_enabled = true
+
+func disable_crossings() -> void:
+	crossings.clear()
+	crossings_enabled = false

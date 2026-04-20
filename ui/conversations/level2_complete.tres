@@ -34,4 +34,3 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 script = ExtResource("1_06ua0")
 left_character = ExtResource("1_ddh4j")
 steps = Array[ExtResource("2_spk0a")]([SubResource("Resource_c47wc"), SubResource("Resource_3coni"), SubResource("Resource_6cg5g"), SubResource("Resource_mbjfb")])
-metadata/_custom_type_script = "uid://bprhkt5tix3qd"

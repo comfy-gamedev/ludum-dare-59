@@ -1,0 +1,269 @@
+[gd_scene format=3 uid="uid://fjjf145uwdef"]
+
+[ext_resource type="Script" uid="uid://chp8yx6yb2qv8" path="res://scenes/main_gameplay/crossing_panel.gd" id="1_iop5q"]
+[ext_resource type="Texture2D" uid="uid://d281igqqv7uuk" path="res://assets/textures/units/sword_unit/sword_unit_1.png" id="2_rmrk3"]
+[ext_resource type="PackedScene" uid="uid://c6bakqsm7sbaq" path="res://objects/vfx/explosion_vfx.tscn" id="3_j0nv4"]
+[ext_resource type="Texture2D" uid="uid://cjjuto5n28s0" path="res://assets/textures/units/drone_enemy/drone_enemy_1.png" id="3_mkv1r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iop5q"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_iop5q"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.2.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D noise;
+
+void fragment() {
+	vec4 c = texture(noise, UV * vec2(0.1 ,1) + vec2(TIME, 0));
+	c.rgb = step(1.0 - 2.0 * abs(UV.y - 0.5), c.rgb);
+	COLOR = c;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_iop5q"]
+offsets = PackedFloat32Array(0.5212121, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_72mto"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rmrk3"]
+noise = SubResource("FastNoiseLite_72mto")
+color_ramp = SubResource("Gradient_iop5q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72mto"]
+shader = SubResource("Shader_iop5q")
+shader_parameter/noise = SubResource("NoiseTexture2D_rmrk3")
+
+[sub_resource type="Animation" id="Animation_mkv1r"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Sprite2D:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(44, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/Sprite2D:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(228, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/Sprite2D2:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(472, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/Sprite2D2:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(199, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_j0nv4"]
+resource_name = "close"
+length = 0.8
+step = 0.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.06666667, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.79999995)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1e-05, -0.06666667, 0.166665, 0, 0),
+"times": PackedFloat32Array(0.4, 0.79999995)
+}
+
+[sub_resource type="Animation" id="Animation_rmrk3"]
+resource_name = "go"
+length = 0.7
+step = 0.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1, -0.16666667, -0.166665, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Sprite2D:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(44, 0, 0, 0.099999994, 0, 460, -0.099999994, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.6)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/Sprite2D:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(228, 0, 0, 0.099999994, 0, 202, -0.099999994, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.6)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/Sprite2D2:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(472, 0, 0, 0.099999994, 0, 60, -0.099999994, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.6)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/Sprite2D2:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(199, 0, 0, 0.099999994, 0, 233, -0.099999994, 0, 0, 0),
+"times": PackedFloat32Array(0.4, 0.6)
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mkv1r"]
+_data = {
+&"RESET": SubResource("Animation_mkv1r"),
+&"close": SubResource("Animation_j0nv4"),
+&"go": SubResource("Animation_rmrk3")
+}
+
+[node name="CrossingPanel" type="Panel" unique_id=1862481143]
+process_mode = 3
+offset_right = 512.0
+offset_bottom = 416.0
+script = ExtResource("1_iop5q")
+
+[node name="Control" type="Panel" parent="." unique_id=1911663778]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1e-05)
+pivot_offset = Vector2(253, 212)
+theme_override_styles/panel = SubResource("StyleBoxFlat_iop5q")
+
+[node name="Polygon2D" type="Polygon2D" parent="Control" unique_id=823867379]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_72mto")
+position = Vector2(-189, 137)
+texture = SubResource("NoiseTexture2D_rmrk3")
+polygon = PackedVector2Array(133, -15, 827, -40, 860, 144, 87, 204)
+uv = PackedVector2Array(0, 0, 506.521, 4.3239365, 507.85205, 508.77298, -1.9210205, 511.43497)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=111488175]
+position = Vector2(44, 228)
+scale = Vector2(2, 2)
+texture = ExtResource("2_rmrk3")
+
+[node name="ExplosionVFX" parent="Control/Sprite2D" unique_id=606268721 instance=ExtResource("3_j0nv4")]
+unique_name_in_owner = true
+emitting = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Control" unique_id=965919232]
+position = Vector2(472, 199)
+scale = Vector2(2, 2)
+texture = ExtResource("3_mkv1r")
+
+[node name="ExplosionVFX2" parent="Control/Sprite2D2" unique_id=500371244 instance=ExtResource("3_j0nv4")]
+unique_name_in_owner = true
+emitting = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1180568172]
+libraries/ = SubResource("AnimationLibrary_mkv1r")

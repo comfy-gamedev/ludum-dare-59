@@ -5,6 +5,7 @@ extends EntityBody
 var train_target = null
 
 func _ready() -> void:
+	mugshot = load("res://assets/textures/characters/shooter_small.png")
 	float_animation_player.play("float")
 	
 	match randi_range(0, 2):

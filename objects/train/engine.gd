@@ -19,6 +19,9 @@ var shimmy_intensity: float = 0.25
 var _shimmy_timer: float = 0.0
 var original_sprite_pos: Vector2
 
+var max_health = 10
+var health = max_health
+
 const TARGET_RIGHT_X_POS = 384.0
 const TARGET_LEFT_X_POS = 128.0
 const TARGET_MIDDLE_X_POS = 256.0
@@ -166,3 +169,11 @@ func _on_main_gameplay_initiate_train_death():
 	#rotation_degrees += Globals.TRAIN_ROTATION
 	moving_down = true
 	update_train_pos = true
+
+func take_damage(damage: int):
+	health -= damage
+	if health <= 0:
+		initiate_death_sequence()
+
+func heal(heal_amount):
+	health += heal_amount

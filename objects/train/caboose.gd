@@ -11,6 +11,9 @@ var shimmy_intensity: float = 0.25
 var _shimmy_timer: float = 0.0
 var original_sprite_pos: Vector2
 
+var max_health = 10
+var health = max_health
+
 var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_explosion.tscn")
 
 func _ready():
@@ -108,3 +111,11 @@ func _on_explosion_added_timer_timeout():
 
 func _on_main_gameplay_initiate_train_death():
 	initiate_death_sequence()
+
+func take_damage(damage: int):
+	health -= damage
+	if health <= 0:
+		initiate_death_sequence()
+
+func heal(heal_amount):
+	health += heal_amount
