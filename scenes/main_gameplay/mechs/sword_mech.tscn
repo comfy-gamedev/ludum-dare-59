@@ -51,6 +51,8 @@ metadata/_custom_type_script = "uid://cbvn0mrra1aot"
 texture = ExtResource("2_gbo81")
 
 [node name="PlanLine" type="Line2D" parent="." unique_id=1485000665]
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="SelfArea2D" type="Area2D" parent="." unique_id=1621842412]
 collision_layer = 8

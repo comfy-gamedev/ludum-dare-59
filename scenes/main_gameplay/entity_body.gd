@@ -50,7 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				preview_line.add_point(Vector2(turn_end_grid_pos - grid_position) * battle_grid.CELL_SIZE)
 			else:
 				preview_line.add_point(Vector2.ZERO)
-			preview_line.add_point(local_mouse_grid_pos * battle_grid.CELL_SIZE)
+			preview_line.add_point(local_mouse_grid_pos * battle_grid.CELL_SIZE - battle_grid.CELL_SIZE/2)
 		elif preview_line:
 			preview_line.clear_points()
 
