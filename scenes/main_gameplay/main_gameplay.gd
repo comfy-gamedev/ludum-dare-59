@@ -49,7 +49,7 @@ func _ready() -> void:
 	#initiate_middle_to_right_transition.emit()
 	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
-	#initiate_train_death.emit()
+	#on_train_death()
 	
 	reset_turn_state()
 	
@@ -231,6 +231,8 @@ func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegme
 func _on_turn_end():
 	initiate_terrain_segment_transition()
 
+func on_train_death():
+	initiate_train_death.emit()
 
 func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})

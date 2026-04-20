@@ -27,7 +27,6 @@ const TARGET_DEATH_Y_POS = 2000.0
 
 func _ready() -> void:
 	original_sprite_pos = engine_sprite.position
-	#initiate_death_sequence()
 
 func _process(delta):
 	process_shimmy(delta)
@@ -162,6 +161,7 @@ func _on_explosion_added_timer_timeout():
 func _on_main_gameplay_initiate_train_death():
 	#await initiate_train_move
 	#await get_tree().create_timer(0.34).timeout
+	initiate_death_sequence()
 	target_pos = Vector2(position.x, TARGET_DEATH_Y_POS)
 	#rotation_degrees += Globals.TRAIN_ROTATION
 	moving_down = true

@@ -108,3 +108,7 @@ func _on_explosion_added_timer_timeout():
 	death_explosion.position.y += randf_range(-20, 20)
 	#death_explosion.play("default")
 	$DeathExplosions.add_child(death_explosion)
+
+
+func _on_main_gameplay_initiate_train_death():
+	initiate_death_sequence()
