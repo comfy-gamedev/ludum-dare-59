@@ -302,9 +302,34 @@ func set_segment_queue(segment_signal: Signal, new_segment):
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
 		print("mountains LEFT coming in one turn")
+		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
 		print("mountains RIGHT coming in one turn")
-	
+		queue_mountain_smoke_left()
+
+func queue_mountain_smoke_left():
+	var tiles = []
+	for r in range(6):
+		for c in range(13):
+			tiles.append(Vector2i(r, c))
+			
+	for i in tiles:
+		var new_warning_tile = _warning_scene.instantiate()
+		new_warning_tile.grid_position = i
+		battle_grid.add_child(new_warning_tile)
+
+func queue_mountain_smoke_right():
+	var tiles = []
+	const starting_row = 10
+	for r in range(6):
+		for c in range(13):
+			tiles.append(Vector2i(r + starting_row, c))
+			
+	for i in tiles:
+		var new_warning_tile = _warning_scene.instantiate()
+		new_warning_tile.grid_position = i
+		battle_grid.add_child(new_warning_tile)
+
 func initiate_terrain_segment_transition():
 	scene_tranition_queue.emit()
 	set_current_terrain_segment(incoming_segment)

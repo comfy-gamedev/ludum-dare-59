@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bljoff2vhc7kh"]
 
-[ext_resource type="Script" uid="uid://4iep42jsdt5s" path="res://objects/grid_terrain/moving_shadow_node.gd" id="1_wl4wh"]
+[ext_resource type="Script" path="res://objects/grid_terrain/moving_shadow_node.gd" id="1_wl4wh"]
 [ext_resource type="PackedScene" uid="uid://y4jcsry4hcp6" path="res://objects/grid_terrain/warning.tscn" id="2_nhpqx"]
 [ext_resource type="Texture2D" uid="uid://gpvb4k5ekfe2" path="res://assets/textures/terrains/warning_tile.png" id="2_wl4wh"]
 
@@ -12,7 +12,6 @@ script = ExtResource("1_wl4wh")
 team = 1
 lifetime = 10
 transformation_target = ExtResource("2_nhpqx")
-metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1917585030]
 offset_left = -16.0
