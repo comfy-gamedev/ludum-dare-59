@@ -49,107 +49,144 @@ func show_conversation(conv: Conversation) -> void:
 		await show_step(step)
 		await get_tree().create_timer(1.0).timeout
 
-var commander: CharacterDialogue
+func create_character_dialogue_step(character: Character, dialogue: Dialogue) -> ConversationStep:
+	var c = characters[character]
+	if not c.dialogues.has(dialogue):
+		return
+	var ds = c.dialogues[dialogue]
+	if ds.size() == 0:
+		return
+	var d = ds.pick_random()
+	
+	var step = ConversationStep.new()
+	step.side = ConversationStep.TextureSide.LEFT
+	step.texture = c.texture
+	step.message = d
+	step.time = 1.0
+	return step
+
+func show_character_dialogue(character: Character, dialogue: Dialogue) -> void:
+	var step = create_character_dialogue_step(character, dialogue)
+	if step == null:
+		return
+	var conv = Conversation.new()
+	conv.steps.push_back(step)
+	await show_conversation(conv)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().create_timer(2.0).timeout
-	while true:
-		await show_conversation(conversation)
-	await get_tree().create_timer(5.0).timeout
-
+	for character in Character.values():
+		for dialogue in Dialogue.values():
+			await show_character_dialogue(character, dialogue)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+var characters: Dictionary[Character, CharacterDialogue] = {
+		Character.COMMANDER: create_commander(),
+		Character.MARKSMAN: create_marksman(),
+		Character.SWORDSMAN: create_swordsman(),
+		Character.DEFENDER: create_defender(),
+		Character.HEALER: create_healer()
+	}
 
+enum Character {
+	COMMANDER,
+	MARKSMAN,
+	SWORDSMAN,
+	DEFENDER,
+	HEALER
+}
+enum Dialogue {
+	NORMAL_ATTACK,
+	SPECIAL_ABILITY,
+	KILL_STREAK,
+	DAMAGE_TAKEN,
+	KILLED,
+	TRAIN_DAMAGED,
+	ENTERING_BLACKOUT,
+	IN_BLACKOUT,
+	EXITTING_BLACKOUT,
+	PROGRESS,
+	SPECIAL_EVENT
+}
 
 class CharacterDialogue:
 	var texture: Texture2D
-	var normal_attack: Array[String] = []
-	var special_ability: Array[String] = []
-	var kill_streak: Array[String] = []
-	var damage_taken: Array[String] = []
-	var killed: Array[String] = []
-	var train_damaged: Array[String] = []
-	var entering_blackout: Array[String] = []
-	var in_blackout: Array[String] = []
-	var exitting_blackout: Array[String] = []
-	var progress: Array[String] = []
-	var special_event: Array[String] = []
+	var dialogues: Dictionary = {}
 
 func create_commander() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.texture = preload("res://assets/textures/characters/constance_small.png")
-	cd.killed = ["We're going off the rails!"]
-	cd.train_damaged = ["Need some help here!"]
-	cd.entering_blackout = ["Losing signal for a sec."]
-	cd.exitting_blackout = ["We're back! What happened?"]
-	cd.progress = ["Full speed ahead!"]
-	cd.special_event = ["Something's happening, stay alert."]
+	cd.dialogues[Dialogue.KILLED] = ["We're going off the rails!"]
+	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["Need some help here!"]
+	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["Losing signal for a sec."]
+	cd.dialogues[Dialogue.EXITTING_BLACKOUT] = ["We're back! What happened?"]
+	cd.dialogues[Dialogue.PROGRESS] = ["Full speed ahead!"]
+	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["Something's happening, stay alert."]
 	return cd
 
 func create_marksman() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.texture = preload("res://assets/textures/characters/charlie_small.png")
-	cd.normal_attack = ["Taking aim.", "Firing!"]
-	cd.special_ability = ["Firing my laser!"]
-	cd.kill_streak = ["Another one bites the dust!"]
-	cd.damage_taken = ["Gotta be more careful."]
-	cd.killed = ["I'm going down!"]
-	cd.train_damaged = ["Dodge!!!"]
-	cd.entering_blackout = ["Going dark."]
-	cd.in_blackout = ["Can't see a thing in here."]
-	cd.exitting_blackout = ["I'm back."]
-	cd.progress = ["Setting a new record!"]
-	cd.special_event = ["I see something ahead."]
+	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Taking aim.", "Firing!"]
+	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["Firing my laser!"]
+	cd.dialogues[Dialogue.KILL_STREAK] = ["Another one bites the dust!"]
+	cd.dialogues[Dialogue.DAMAGE_TAKEN] = ["Gotta be more careful."]
+	cd.dialogues[Dialogue.KILLED] = ["I'm going down!"]
+	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["Dodge!!!"]
+	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["Going dark."]
+	cd.dialogues[Dialogue.IN_BLACKOUT] = ["Can't see a thing in here."]
+	cd.dialogues[Dialogue.EXITTING_BLACKOUT] = ["I'm back."]
+	cd.dialogues[Dialogue.PROGRESS] = ["Setting a new record!"]
+	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["I see something ahead."]
 	return cd
 
 func create_swordsman() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.texture = preload("res://assets/textures/characters/sloane_small.png")
-	cd.normal_attack = ["Eat steel!", "Hiyah!"]
-	cd.special_ability = ["I'll cut 'em down!", "I'm here to Bill and I'm here to Kill, and I'm all out of Bills!"]
-	cd.kill_streak = ["Livin' on the edge!"]
-	cd.damage_taken = ["Argggg!", "F-Word! That hurt!"]
-	cd.killed = ["Hehhh... Not fast enough..."]
-	cd.train_damaged = ["That must've hurt."]
-	cd.entering_blackout = ["Not gonna be much help in here."]
-	cd.in_blackout = ["Can't see nothing!"]
-	cd.exitting_blackout = ["I CAN SEE!!!", "Not getting away from me now!"]
-	cd.progress = ["Hackin' my way down town!"]
-	cd.special_event = ["Looks like something's happenin' boss."]
+	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Eat steel!", "Hiyah!"]
+	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["I'll cut 'em down!", "I'm here to Bill and I'm here to Kill, and I'm all out of Bills!"]
+	cd.dialogues[Dialogue.KILL_STREAK] = ["Livin' on the edge!"]
+	cd.dialogues[Dialogue.DAMAGE_TAKEN] = ["Argggg!", "F-Word! That hurt!"]
+	cd.dialogues[Dialogue.KILLED] = ["Hehhh... Not fast enough..."]
+	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["That must've hurt."]
+	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["Not gonna be much help in here."]
+	cd.dialogues[Dialogue.IN_BLACKOUT] = ["Can't see nothing!"]
+	cd.dialogues[Dialogue.EXITTING_BLACKOUT] = ["I CAN SEE!!!", "Not getting away from me now!"]
+	cd.dialogues[Dialogue.PROGRESS] = ["Hackin' my way down town!"]
+	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["Looks like something's happenin' boss."]
 	return cd
 	
 func create_defender() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.texture = preload("res://assets/textures/characters/demi_small.png")
-	cd.normal_attack = ["Take that!"]
-	cd.special_ability = ["Outta my way!", "Stay behind me!"]
-	cd.kill_streak = ["How did that happen?"]
-	cd.damage_taken = ["Tanking damage."]
-	cd.killed = ["I'm tired boss."]
-	cd.train_damaged = ["Sorry, that one got by me!"]
-	cd.entering_blackout = ["Gonna be hard to block in here!", "Watch your flank!"]
-	cd.in_blackout = ["Where is everybody???"]
-	cd.exitting_blackout = ["I can see 'em now!"]
-	cd.progress = ["Pushin' through!"]
-	cd.special_event = ["Looks like more is coming."]
+	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Take that!"]
+	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["Outta my way!", "Stay behind me!"]
+	cd.dialogues[Dialogue.KILL_STREAK] = ["How did that happen?"]
+	cd.dialogues[Dialogue.DAMAGE_TAKEN] = ["Tanking damage."]
+	cd.dialogues[Dialogue.KILLED] = ["I'm tired boss."]
+	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["Sorry, that one got by me!"]
+	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["Gonna be hard to block in here!", "Watch your flank!"]
+	cd.dialogues[Dialogue.IN_BLACKOUT] = ["Where is everybody???"]
+	cd.dialogues[Dialogue.EXITTING_BLACKOUT] = ["I can see 'em now!"]
+	cd.dialogues[Dialogue.PROGRESS] = ["Pushin' through!"]
+	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["Looks like more is coming."]
 	return cd
 
 func create_healer() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.texture = preload("res://assets/textures/characters/piper_small.png")
-	cd.normal_attack = ["Oops! Sorry!"]
-	cd.special_ability = ["I got you."]
-	cd.kill_streak = ["Dang it Jim, I'm a healer not a fighter!"]
-	cd.damage_taken = ["Help!"]
-	cd.killed = ["Ahhhhhhh!!!"]
-	cd.train_damaged = ["I'll be right there!"]
-	cd.entering_blackout = ["It's gonna be hard to heal in here."]
-	cd.in_blackout = ["Can't help in here."]
-	cd.exitting_blackout = ["Anybody hurt?"]
-	cd.progress = ["I'm keeping up!"]
-	cd.special_event = ["What's happening now???"]
+	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Oops! Sorry!"]
+	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["I got you."]
+	cd.dialogues[Dialogue.KILL_STREAK] = ["Dang it Jim, I'm a healer not a fighter!"]
+	cd.dialogues[Dialogue.DAMAGE_TAKEN] = ["Help!"]
+	cd.dialogues[Dialogue.KILLED] = ["Ahhhhhhh!!!"]
+	cd.dialogues[Dialogue.TRAIN_DAMAGED] = ["I'll be right there!"]
+	cd.dialogues[Dialogue.ENTERING_BLACKOUT] = ["It's gonna be hard to heal in here."]
+	cd.dialogues[Dialogue.IN_BLACKOUT] = ["Can't help in here."]
+	cd.dialogues[Dialogue.EXITTING_BLACKOUT] = ["Anybody hurt?"]
+	cd.dialogues[Dialogue.PROGRESS] = ["I'm keeping up!"]
+	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["What's happening now???"]
 	return cd
