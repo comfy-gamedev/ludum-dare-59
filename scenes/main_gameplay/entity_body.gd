@@ -89,7 +89,6 @@ func clear_orders() -> void:
 	turn_end_grid_pos = grid_position
 	_update_plan_visuals()
 
-
 func cell_in_range(cell_pos: Vector2i) -> bool:
 	var of_cell := grid_position
 	if turn_done: of_cell = turn_end_grid_pos

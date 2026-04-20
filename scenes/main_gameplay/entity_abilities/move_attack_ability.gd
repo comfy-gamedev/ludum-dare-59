@@ -3,6 +3,13 @@ class_name AttackAbility
 
 @export var damage: int = 1
 @onready var attack_area = $WeaponArea/Area2D
+@onready var weapon_area = $WeaponArea
+@onready var weapon_sprite = $WeaponSprite2D
+@onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer
+
+func _ready() -> void:
+	weapon_area.show()
+	weapon_sprite.hide()
 
 func display_name() -> String:
 	return "Move"
@@ -56,6 +63,12 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	await entity.set_grid_position(params.target_pos)
 	
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
+	
+	attack_animation_player.play(&"sword_slash")
+	var tween = create_tween()
+	tween.tween_property(entity.sprite, "offset", params.target_dir.normalized() * 3, 0.04)
+	tween.tween_property(entity.sprite, "offset", Vector2.ZERO, 0.16)
+	await tween.finished
 	
 	for tile_area in get_node("WeaponArea/Area2D").get_overlapping_areas():
 		var coord = tile_area.get_parent().grid_pos
