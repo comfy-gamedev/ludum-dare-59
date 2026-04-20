@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c2rglukeb1nrr" path="res://scenes/main_gameplay/entity_abilities/move_shoot_ability.gd" id="4_uxy1q"]
 [ext_resource type="Texture2D" uid="uid://dljspoi6s78ov" path="res://assets/textures/effects/sword_slash_frame_0.tres" id="5_whu7e"]
 [ext_resource type="Texture2D" uid="uid://c4kalmy71iapl" path="res://assets/textures/effects/sword_slash_frame_1.tres" id="6_hh01w"]
+[ext_resource type="SpriteFrames" uid="uid://e7vvok8m2bhn" path="res://assets/textures/effects/heal.tres" id="7_ifkxf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
 animations = [{
@@ -193,6 +194,67 @@ _data = {
 &"float": SubResource("Animation_bqrvl")
 }
 
+[sub_resource type="Animation" id="Animation_86wbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_komya"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ifkxf"]
+_data = {
+&"RESET": SubResource("Animation_86wbg"),
+&"hurt": SubResource("Animation_komya")
+}
+
 [node name="GunnerMech" type="Node2D" unique_id=1038994791]
 script = ExtResource("1_uxy1q")
 move_speed = 2
@@ -247,3 +309,9 @@ libraries/ = SubResource("AnimationLibrary_dnjpg")
 
 [node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=420817617]
 libraries/ = SubResource("AnimationLibrary_mktmg")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1895609656]
+libraries/ = SubResource("AnimationLibrary_ifkxf")
+
+[node name="HealingEffectSprite2D" type="AnimatedSprite2D" parent="." unique_id=462226720]
+sprite_frames = ExtResource("7_ifkxf")

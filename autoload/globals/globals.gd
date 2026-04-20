@@ -12,12 +12,16 @@ signal changed(prop_name: StringName)
 
 ## Train constants.
 const TRAIN_X_SPEED = 95
+const TRAIN_Y_SPEED = 50
 const TRAIN_ROTATION = 8.0
 const TRAIN_CAR_DELAY = 0.08
 const TRAIN_TURN_DELAY = 0.35
 
 enum TrainDirections { LEFT, RIGHT, UP, DOWN }
 enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
+
+var current_level = 0
+var current_wave = 0
 
 ## Example variable.
 var player_health: int = 0:

@@ -5,6 +5,8 @@ signal initiate_middle_to_right_transition()
 signal initiate_middle_to_left_transition()
 signal initiate_left_to_middle_transition()
 signal initiate_right_to_middle_transition()
+signal initiate_train_intro()
+signal initiate_train_death()
 
 signal player_signal_points_changed()
 
@@ -21,6 +23,8 @@ const UI_START_TURN_CLICKED = 1
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
+
+var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
@@ -47,6 +51,8 @@ func _ready() -> void:
 	#initiate_middle_to_right_transition.emit()
 	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
+	#on_train_death()
+	initiate_level()
 	
 	reset_turn_state()
 	
@@ -161,6 +167,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 func _on_parallax_background_segment_transition_complete():
 	right_panel.turn_button.disabled = false
 	print("Terrain segment transition complete!")
+	#on_train_death()
 
 func spawn_clouds(num = 2, radii = 4):
 	for i in num:
@@ -225,6 +232,27 @@ func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegme
 func _on_turn_end():
 	initiate_terrain_segment_transition()
 
+func on_train_death():
+	right_panel.turn_button.disabled = true
+	initiate_train_death.emit()
 
 func _on_right_panel_go_button_pressed() -> void:
 	_ui_input.emit(UI_START_TURN_CLICKED, {})
+
+func initiate_level():
+	# do difficult based on level
+	var sword_mech = battle_grid.get_node("SwordMech")
+	var shield_mech = battle_grid.get_node("ShieldMech")
+	var support_mech = battle_grid.get_node("SupportMech")
+	var gunner_mech = battle_grid.get_node("GunnerMech")
+	sword_mech.grid_position = Vector2i(9, 6)
+	shield_mech.grid_position = Vector2i(6, 6)
+	support_mech.grid_position = Vector2i(9, 9)
+	gunner_mech.grid_position = Vector2i(6, 9)
+	#print(battle_grid.get_node("SwordMech"))
+	spawn_drones()
+
+func spawn_drones():
+	var new_drone = basic_drone_scene.instantiate()
+	new_drone.grid_position = Vector2i(0, 0)
+	battle_grid.add_child(new_drone)

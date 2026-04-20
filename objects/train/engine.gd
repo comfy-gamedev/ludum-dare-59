@@ -9,6 +9,8 @@ var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_exp
 
 var moving_right = false
 var moving_left = false
+var moving_down = false
+var moving_up = false
 var update_train_pos = false
 var target_pos = Vector2(0, 0)
 
@@ -21,9 +23,10 @@ const TARGET_RIGHT_X_POS = 384.0
 const TARGET_LEFT_X_POS = 128.0
 const TARGET_MIDDLE_X_POS = 256.0
 
+const TARGET_DEATH_Y_POS = 2000.0
+
 func _ready() -> void:
 	original_sprite_pos = engine_sprite.position
-	#initiate_death_sequence()
 
 func _process(delta):
 	process_shimmy(delta)
@@ -53,6 +56,18 @@ func process_movement(delta):
 		else:
 			rotation_degrees = 0
 			moving_left = false
+	
+	if moving_down:
+		if update_train_pos:
+			update_train_position.emit(target_pos, Globals.TrainDirections.DOWN)
+			update_train_pos = false
+		
+		if position.y <= target_pos.y:
+			position.y += Globals.TRAIN_Y_SPEED * delta
+			#current_pos = position
+		else:
+			#rotation_degrees = 0
+			moving_down = false
 
 func process_shimmy(delta):
 	if _shimmy_timer > 0.0:
@@ -78,7 +93,7 @@ func _on_shimmy_timer_timeout():
 func _on_main_gameplay_initiate_middle_to_right_transition():
 	#await get_tree().create_timer(1.5).timeout
 	await initiate_train_move
-	await get_tree().create_timer(0.34).timeout
+	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_RIGHT_X_POS, position.y)
 	rotation_degrees += Globals.TRAIN_ROTATION
 	moving_right = true
@@ -141,3 +156,13 @@ func _on_explosion_added_timer_timeout():
 	death_explosion.position.y += randf_range(-20, 20)
 	#death_explosion.play("default")
 	$DeathExplosions.add_child(death_explosion)
+
+
+func _on_main_gameplay_initiate_train_death():
+	#await initiate_train_move
+	#await get_tree().create_timer(0.34).timeout
+	initiate_death_sequence()
+	target_pos = Vector2(position.x, TARGET_DEATH_Y_POS)
+	#rotation_degrees += Globals.TRAIN_ROTATION
+	moving_down = true
+	update_train_pos = true

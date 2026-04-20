@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bf40163gvlnxp" path="res://objects/parallax_background/parallax_background.tscn" id="4_sms7d"]
 [ext_resource type="PackedScene" uid="uid://dxru0sv5rymac" path="res://scenes/main_gameplay/mechs/sword_mech.tscn" id="5_2ufyh"]
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
-[ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
 [ext_resource type="PackedScene" uid="uid://dddt02sg5yi8v" path="res://scenes/main_gameplay/mechs/support_mech.tscn" id="8_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://j1jtuf42mdh2" path="res://scenes/main_gameplay/mechs/gunner_mech.tscn" id="9_wjmgw"]
 [ext_resource type="PackedScene" uid="uid://2pikq8vp3ng5" path="res://scenes/main_gameplay/mechs/shield_mech.tscn" id="10_sbvst"]
@@ -37,23 +36,17 @@ script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
 health = 1
+grid_position = Vector2i(15, 2)
 
 [node name="SupportMech" parent="BattleGrid" unique_id=183001927 instance=ExtResource("8_wjmgw")]
-grid_position = Vector2i(3, 1)
+grid_position = Vector2i(15, 12)
 
 [node name="GunnerMech" parent="BattleGrid" unique_id=681036710 instance=ExtResource("9_wjmgw")]
 position = Vector2(34.529594, 22.307968)
-grid_position = Vector2i(5, 5)
+grid_position = Vector2i(0, 12)
 
 [node name="ShieldMech" parent="BattleGrid" unique_id=909610497 instance=ExtResource("10_sbvst")]
-grid_position = Vector2i(2, 4)
-
-[node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
-position = Vector2(151.08636, 129.7958)
-max_health = 3
-health = 3
-team = 0
-grid_position = Vector2i(13, 4)
+grid_position = Vector2i(0, 2)
 
 [node name="MovingShadowNode" parent="BattleGrid" unique_id=1346576297 instance=ExtResource("11_sbvst")]
 grid_position = Vector2i(4, 4)
@@ -89,6 +82,9 @@ battle_grid = NodePath("../../BattleGrid")
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_right_to_middle_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_right_to_middle_transition"]
 [connection signal="initiate_right_to_middle_transition" from="." to="Engine" method="_on_main_gameplay_initiate_right_to_middle_transition"]
+[connection signal="initiate_train_death" from="." to="Engine" method="_on_main_gameplay_initiate_train_death"]
+[connection signal="initiate_train_death" from="." to="FlatBed" method="_on_main_gameplay_initiate_train_death"]
+[connection signal="initiate_train_death" from="." to="Caboose" method="_on_main_gameplay_initiate_train_death"]
 [connection signal="turn_end" from="." to="." method="_on_turn_end"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
