@@ -71,6 +71,7 @@ default_color = Color(0, 1, 1, 1)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1295181322]
 
 [node name="SelectionPanel" parent="CanvasLayer" unique_id=1758050327 instance=ExtResource("14_km80p")]
+visible = false
 offset_top = 400.0
 offset_bottom = 480.0
 

@@ -23,6 +23,7 @@ const UI_START_TURN_CLICKED = 1
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
 @onready var right_panel: Panel = $CanvasLayer/RightPanel
+@onready var selection_panel: Panel = $CanvasLayer/SelectionPanel
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 
@@ -101,6 +102,7 @@ func turn_input() -> void:
 						_selected_actor.clear_orders()
 					
 					_selected_actor.on_selected()
+					selection_panel.set_selected_entity(_selected_actor)
 					
 					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
@@ -110,6 +112,10 @@ func turn_input() -> void:
 					var cmd = await command_menu.command_chosen
 					match cmd[0]:
 						CommandMenu.Command.NONE:
+							_selected_actor.on_deselected()
+							selection_panel.set_selected_entity(null)
+							selection_box.hide()
+							
 							turn_input()
 							return
 						CommandMenu.Command.ABILITY:
@@ -130,6 +136,7 @@ func turn_input() -> void:
 								await ability.on_cancel(_selected_actor)
 							
 							_selected_actor.on_deselected()
+							selection_panel.set_selected_entity(null)
 							selection_box.hide()
 							
 							turn_input()
