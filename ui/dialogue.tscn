@@ -72,6 +72,7 @@ stretch_mode = 4
 flip_h = true
 
 [node name="ColorRect" type="PanelContainer" parent="VBoxContainer" unique_id=1297954432]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme = ExtResource("1_fm7tp")
