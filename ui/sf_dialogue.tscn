@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://dsk3cajibanyf" path="res://ui/dialogue_theme.tres" id="2_5vkbq"]
 
 [node name="SfDialogue" type="Control" unique_id=1134654972]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +31,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="RectLeft" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=286034345]
-visible = false
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
@@ -41,7 +42,6 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="RectCenter" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1687925721]
-visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -54,7 +54,7 @@ asdf"
 fit_content = true
 
 [node name="RectRight" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1067265168]
-visible = false
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
