@@ -76,6 +76,7 @@ polygon = PackedVector2Array(16, 16, 40, 24, 32, 32, 0, 40, -32, 32, -40, 24, -1
 [node name="Area2D" type="Area2D" parent="AttackAbility/WeaponArea" unique_id=989688549]
 collision_layer = 2
 collision_mask = 4
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackAbility/WeaponArea/Area2D" unique_id=2063845099]
 polygon = PackedVector2Array(24, 24, 32, 32, -32, 32, -24, 24)

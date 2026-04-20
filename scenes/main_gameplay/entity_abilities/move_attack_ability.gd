@@ -2,12 +2,14 @@ extends EntityAbility
 class_name AttackAbility
 
 @export var damage: int = 1
+@onready var attack_area = $WeaponArea/Area2D
 
 func display_name() -> String:
 	return "Move"
 
 func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	entity.state = EntityBody.EntityState.PLANNING_MOVE
+	attack_area.monitorable = true
 	
 	var move_clicked = await battle_grid.cell_clicked
 	var move_grid_pos = move_clicked[0]
@@ -42,6 +44,7 @@ func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	order.ability = self
 	order.params = { target_pos = move_grid_pos, target_dir = target_dir }
 	
+	attack_area.monitorable = false
 	return order
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
