@@ -1,6 +1,28 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cy6gwsvlnrel7"]
+[gd_resource type="Theme" format=3 uid="uid://cy6gwsvlnrel7"]
 
+[ext_resource type="StyleBox" uid="uid://cqjyebs2rncuk" path="res://assets/stylebox/button_hover.tres" id="1_au0ug"]
 [ext_resource type="FontFile" uid="uid://ba2sqadr7at8k" path="res://assets/fonts/Beholden-Regular.ttf" id="1_c2e4w"]
+[ext_resource type="StyleBox" uid="uid://xib2gjtfxbb4" path="res://assets/stylebox/button_hover_press.tres" id="2_3qfsx"]
+[ext_resource type="StyleBox" uid="uid://b51ycsdsfarv6" path="res://assets/stylebox/button_normal.tres" id="3_x1ps5"]
+[ext_resource type="StyleBox" uid="uid://7tb0ukdl7ilk" path="res://assets/stylebox/button_press_w_lines.tres" id="4_ikxhj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_au0ug"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qfsx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.51000005)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js7gm"]
 content_margin_left = 20.0
@@ -48,8 +70,17 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [resource]
-Control/font_sizes/font_size = 38
-Control/fonts/font = ExtResource("1_c2e4w")
+default_font = ExtResource("1_c2e4w")
+default_font_size = 16
+Button/styles/focus = ExtResource("1_au0ug")
+Button/styles/hover = ExtResource("1_au0ug")
+Button/styles/hover_pressed = ExtResource("2_3qfsx")
+Button/styles/normal = ExtResource("3_x1ps5")
+Button/styles/pressed = ExtResource("4_ikxhj")
+FlatButton/styles/disabled = SubResource("StyleBoxEmpty_au0ug")
+FlatButton/styles/hover = SubResource("StyleBoxEmpty_au0ug")
+FlatButton/styles/normal = SubResource("StyleBoxEmpty_au0ug")
+FlatButton/styles/pressed = SubResource("StyleBoxFlat_3qfsx")
 MainMenuButton/base_type = &"Button"
 MainMenuButton/styles/disabled = SubResource("StyleBoxEmpty_js7gm")
 MainMenuButton/styles/focus = SubResource("StyleBoxFlat_ejf61")

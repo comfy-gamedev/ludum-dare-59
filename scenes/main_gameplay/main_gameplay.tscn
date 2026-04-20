@@ -9,10 +9,9 @@
 [ext_resource type="Script" uid="uid://by0ftck60x6kp" path="res://scenes/main_gameplay/battle_grid.gd" id="7_2ufyh"]
 [ext_resource type="PackedScene" uid="uid://cnmq3hnxqotm3" path="res://objects/grid_actors/enemies/basic_drone.tscn" id="8_1svbp"]
 [ext_resource type="PackedScene" uid="uid://dddt02sg5yi8v" path="res://scenes/main_gameplay/mechs/support_mech.tscn" id="8_wjmgw"]
-[ext_resource type="Script" uid="uid://il6hjqsfqal7" path="res://scenes/main_gameplay/signal_points_container.gd" id="10_ieocc"]
-[ext_resource type="Texture2D" uid="uid://bbecl65o8oslo" path="res://assets/textures/particles/circle.png" id="10_w3spe"]
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
+[ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")
@@ -58,56 +57,8 @@ default_color = Color(0, 1, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1295181322]
 
-[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=843687152]
-offset_left = 512.0
-offset_right = 640.0
-offset_bottom = 480.0
-
-[node name="SignalPointsContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=1178605826 node_paths=PackedStringArray("main_gameplay")]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 204.0
-offset_right = 92.0
-offset_bottom = 332.0
-script = ExtResource("10_ieocc")
-main_gameplay = NodePath("../../..")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel/SignalPointsContainer" unique_id=1949746867]
-layout_mode = 2
-texture = ExtResource("10_w3spe")
-expand_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Panel/SignalPointsContainer" unique_id=63217393]
-layout_mode = 2
-texture = ExtResource("10_w3spe")
-expand_mode = 4
-
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Panel/SignalPointsContainer" unique_id=228787653]
-layout_mode = 2
-texture = ExtResource("10_w3spe")
-expand_mode = 4
-
-[node name="TurnButton" type="Button" parent="CanvasLayer/Panel" unique_id=1863349209]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -104.0
-offset_top = -31.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "START TURN"
-
-[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=2089071544]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 163.0
-offset_right = 85.0
-offset_bottom = 186.0
-text = "SP:"
+[node name="RightPanel" parent="CanvasLayer" unique_id=1215067547 node_paths=PackedStringArray("main_gameplay") instance=ExtResource("13_sbvst")]
+main_gameplay = NodePath("../..")
 
 [node name="CommandMenu" parent="CanvasLayer" unique_id=615705035 node_paths=PackedStringArray("battle_grid") instance=ExtResource("12_j67kx")]
 unique_name_in_owner = true
@@ -123,7 +74,6 @@ battle_grid = NodePath("../../BattleGrid")
 [connection signal="initiate_middle_to_right_transition" from="." to="Engine" method="_on_main_gameplay_initiate_middle_to_right_transition"]
 [connection signal="initiate_right_to_middle_transition" from="." to="ParallaxBackground" method="_on_main_gameplay_initiate_right_to_middle_transition"]
 [connection signal="initiate_right_to_middle_transition" from="." to="Engine" method="_on_main_gameplay_initiate_right_to_middle_transition"]
-[connection signal="player_signal_points_changed" from="." to="CanvasLayer/Panel/SignalPointsContainer" method="_on_main_gameplay_player_signal_points_changed"]
 [connection signal="turn_end" from="." to="." method="_on_turn_end"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="." method="_on_parallax_background_segment_transition_complete"]
 [connection signal="segment_transition_complete" from="ParallaxBackground" to="Engine" method="_on_parallax_background_segment_transition_complete"]
@@ -131,4 +81,4 @@ battle_grid = NodePath("../../BattleGrid")
 [connection signal="update_train_position" from="Engine" to="FlatBed" method="_on_engine_update_train_position"]
 [connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
-[connection signal="pressed" from="CanvasLayer/Panel/TurnButton" to="." method="_on_turn_button_pressed"]
+[connection signal="go_button_pressed" from="CanvasLayer/RightPanel" to="." method="_on_right_panel_go_button_pressed"]

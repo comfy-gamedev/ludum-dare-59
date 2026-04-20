@@ -15,10 +15,10 @@ const UI_GRID_CLICKED = 0
 const UI_START_TURN_CLICKED = 1
 
 @onready var battle_grid: BattleGrid = $BattleGrid
-@onready var turn_button: Button = %TurnButton
 @onready var selection_box: Line2D = %SelectionBox
 @onready var box_parent = $IndicatorBoxesParent
 @onready var command_menu: CommandMenu = %CommandMenu
+@onready var right_panel: Panel = $CanvasLayer/RightPanel
 
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
@@ -156,12 +156,8 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 	_ui_input.emit(UI_GRID_CLICKED, {grid_pos = grid_pos, click_button = click_button})
 
 
-func _on_turn_button_pressed() -> void:
-	_ui_input.emit(UI_START_TURN_CLICKED, {})
-
-
 func _on_parallax_background_segment_transition_complete():
-	turn_button.disabled = false
+	right_panel.turn_button.disabled = false
 	print("Terrain segment transition complete!")
 
 func spawn_clouds(num = 2, radii = 4):
@@ -221,8 +217,12 @@ func initiate_terrain_segment_transition():
 
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
 	current_terrain_segment_state = new_terrain_segment_state
-	turn_button.disabled = true
+	right_panel.turn_button.disabled = true
 	print("Init new terrain segment transition")
 
 func _on_turn_end():
 	initiate_terrain_segment_transition()
+
+
+func _on_right_panel_go_button_pressed() -> void:
+	_ui_input.emit(UI_START_TURN_CLICKED, {})
