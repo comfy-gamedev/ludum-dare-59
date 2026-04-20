@@ -114,8 +114,10 @@ func _on_main_gameplay_initiate_train_death():
 
 func take_damage(damage: int):
 	health -= damage
+	Globals.caboose_health_changed.emit(float(health) / float(max_health))
 	if health <= 0:
 		initiate_death_sequence()
 
 func heal(heal_amount):
 	health += heal_amount
+	Globals.caboose_health_changed.emit(float(health) / float(max_health))

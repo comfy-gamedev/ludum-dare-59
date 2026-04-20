@@ -4,6 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://birmltd504f6x" path="res://assets/stylebox/ui_panel.tres" id="1_sm2do"]
 [ext_resource type="Script" uid="uid://bfrtr0a0fpprb" path="res://scenes/main_gameplay/ui_right_panel.gd" id="2_sm2do"]
 [ext_resource type="Texture2D" uid="uid://cim71rkoagb13" path="res://assets/textures/sp_tokens.png" id="3_xxpeq"]
+[ext_resource type="Texture2D" uid="uid://csbqy2xub1kqe" path="res://assets/textures/ui/train_box_indicator.png" id="5_65o03"]
 [ext_resource type="Texture2D" uid="uid://c1bg15r5u2v6x" path="res://assets/textures/ui/train_health_bar_under.png" id="5_gt350"]
 [ext_resource type="Texture2D" uid="uid://d1l0i5minjoh8" path="res://assets/textures/ui/plaque_box.png" id="6_65o03"]
 [ext_resource type="FontFile" uid="uid://dv4y6a2mw7r2y" path="res://assets/fonts/Silver_nodescent.ttf" id="7_bac8q"]
@@ -47,9 +48,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.0
+offset_left = -56.0
 offset_top = -66.5
-offset_right = 8.0
+offset_right = -4.0
 offset_bottom = 66.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -109,28 +110,29 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_y1iwt")
 stretch_mode = 3
 
-[node name="TrainHealthBarBack" type="NinePatchRect" parent="." unique_id=1854958356]
+[node name="TrainHealthContainer" type="Control" parent="." unique_id=1298247258]
 z_index = 1
-layout_mode = 0
-offset_left = 94.0
-offset_top = 12.0
-offset_right = 104.0
-offset_bottom = 217.0
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 scale = Vector2(2, 2)
-texture = ExtResource("5_gt350")
-patch_margin_left = 2
-patch_margin_top = 3
-patch_margin_right = 2
-patch_margin_bottom = 4
-axis_stretch_vertical = 1
 
-[node name="LabelContainer" type="NinePatchRect" parent="TrainHealthBarBack" unique_id=33398039]
+[node name="BoxIndicator" type="TextureRect" parent="TrainHealthContainer" unique_id=402980322]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 7.0
+offset_right = 58.0
+offset_bottom = 24.0
+texture = ExtResource("5_65o03")
+stretch_mode = 2
+
+[node name="LabelContainer" type="NinePatchRect" parent="TrainHealthContainer" unique_id=33398039]
 z_index = -1
 layout_mode = 0
-offset_left = -49.0
-offset_top = 3.0
-offset_right = 2.0
-offset_bottom = 20.0
+offset_left = -4.0
+offset_top = 7.0
+offset_right = 35.0
+offset_bottom = 38.0
 texture = ExtResource("6_65o03")
 patch_margin_left = 2
 patch_margin_top = 2
@@ -139,23 +141,92 @@ patch_margin_bottom = 2
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Label" type="Label" parent="TrainHealthBarBack/LabelContainer" unique_id=2037893036]
+[node name="Label" type="Label" parent="TrainHealthContainer/LabelContainer" unique_id=2037893036]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 1.0
-offset_right = 48.0
-offset_bottom = 13.0
+offset_right = 34.0
+offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("7_bac8q")
 theme_override_font_sizes/font_size = 19
-text = "Train HP"
+text = "Train
+Health"
 horizontal_alignment = 2
 
-[node name="TrainHealthBar" type="NinePatchRect" parent="TrainHealthBarBack" unique_id=421563133]
+[node name="CabooseHealthBarBack" type="NinePatchRect" parent="TrainHealthContainer" unique_id=556295949]
+z_index = 1
+layout_mode = 0
+offset_left = 49.0
+offset_top = 22.0
+offset_right = 58.0
+offset_bottom = 211.0
+texture = ExtResource("5_gt350")
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_vertical = 1
+
+[node name="CabooseHealthBar" type="NinePatchRect" parent="TrainHealthContainer/CabooseHealthBarBack" unique_id=980700817]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
-offset_right = 9.0
-offset_bottom = 204.0
+offset_right = 8.0
+offset_bottom = 188.0
+texture = ExtResource("8_twail")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_vertical = 1
+
+[node name="FlatbeadHealthBarBack" type="NinePatchRect" parent="TrainHealthContainer" unique_id=1338052693]
+z_index = 1
+layout_mode = 0
+offset_left = 41.0
+offset_top = 22.0
+offset_right = 50.0
+offset_bottom = 211.0
+texture = ExtResource("5_gt350")
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_vertical = 1
+
+[node name="FlatbeadHealthBar" type="NinePatchRect" parent="TrainHealthContainer/FlatbeadHealthBarBack" unique_id=959918408]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 8.0
+offset_bottom = 188.0
+texture = ExtResource("8_twail")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_vertical = 1
+
+[node name="EngineHealthBarBack" type="NinePatchRect" parent="TrainHealthContainer" unique_id=1854958356]
+z_index = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 42.0
+offset_bottom = 211.0
+texture = ExtResource("5_gt350")
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+axis_stretch_vertical = 1
+
+[node name="EngineHealthBar" type="NinePatchRect" parent="TrainHealthContainer/EngineHealthBarBack" unique_id=421563133]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 8.0
+offset_bottom = 188.0
 texture = ExtResource("8_twail")
 patch_margin_left = 3
 patch_margin_top = 3
