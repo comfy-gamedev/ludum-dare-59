@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cuopd3etqmnph" path="res://objects/grid_actors/enemies/basic_drone.gd" id="1_418kl"]
 [ext_resource type="Texture2D" uid="uid://cjjuto5n28s0" path="res://assets/textures/units/drone_enemy/drone_enemy_1.png" id="2_j4r36"]
 [ext_resource type="Texture2D" uid="uid://bofyjwx60mbmd" path="res://assets/textures/units/drone_enemy/drone_enemy_2.png" id="3_skmvx"]
+[ext_resource type="Script" uid="uid://cmwbh62ree1v1" path="res://scenes/main_gameplay/entity_abilities/bump_attack_ability.gd" id="4_skmvx"]
+[ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="5_533ud"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_533ud"]
 atlas = ExtResource("2_j4r36")
@@ -29,6 +31,106 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_418kl"]
 size = Vector2(10, 10)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_skmvx"]
+radius = 2.0
+
+[sub_resource type="Animation" id="Animation_m5msg"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_bqrvl"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 0, 0, 1),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 3, -0.2, 0, 0.2, 0, -3, -0.2, 0, 0.2, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 1.5, 2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvx"]
+_data = {
+&"RESET": SubResource("Animation_m5msg"),
+&"float": SubResource("Animation_bqrvl")
+}
+
+[sub_resource type="Animation" id="Animation_86wbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_komya"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_533ud"]
+_data = {
+&"RESET": SubResource("Animation_86wbg"),
+&"hurt": SubResource("Animation_komya")
+}
+
 [node name="BasicDrone" type="Node2D" unique_id=1386753269]
 script = ExtResource("1_418kl")
 metadata/_custom_type_script = "uid://ddqasa1qyuqjd"
@@ -44,3 +146,24 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelfArea2D" unique_id=86220377]
 shape = SubResource("RectangleShape2D_418kl")
+
+[node name="BumpAttackAbility" type="Node2D" parent="." unique_id=572326048]
+script = ExtResource("4_skmvx")
+metadata/_custom_type_script = "uid://cmwbh62ree1v1"
+
+[node name="Area2D" type="Area2D" parent="BumpAttackAbility" unique_id=1956301975]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BumpAttackAbility/Area2D" unique_id=226104170]
+shape = SubResource("CircleShape2D_skmvx")
+debug_color = Color(0.9940278, 0, 0.23568305, 0.41960785)
+
+[node name="PlanLine" type="Line2D" parent="." unique_id=1339711029]
+
+[node name="FloatAnimationPlayer" type="AnimationPlayer" parent="." unique_id=248386815]
+libraries/ = SubResource("AnimationLibrary_skmvx")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1613487596]
+libraries/ = SubResource("AnimationLibrary_533ud")
+
+[node name="HealingEffectSprite2D" type="AnimatedSprite2D" parent="." unique_id=1645757724]
+sprite_frames = ExtResource("5_533ud")

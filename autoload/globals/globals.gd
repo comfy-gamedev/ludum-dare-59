@@ -20,8 +20,6 @@ const TRAIN_TURN_DELAY = 0.35
 enum TrainDirections { LEFT, RIGHT, UP, DOWN }
 enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
 
-var current_level = 0
-
 ## Example variable.
 var player_health: int = 0:
 	set(v):
