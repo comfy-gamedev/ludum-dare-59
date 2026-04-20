@@ -1,5 +1,5 @@
 extends Node2D
-signal update_flatbed_position(target_pos: Vector2)
+signal update_flatbed_position(target_pos: Vector2, train_direction: Globals.TrainDirections)
 
 @onready var flatbed_sprite = %Sprite2D
 @onready var tile_area = $Area2D
@@ -25,19 +25,22 @@ func _process(delta):
 	process_follow_movement(delta)
 
 func process_follow_movement(delta):
-	if new_pos != null:
-		if update_flatbed_pos:
-			update_flatbed_position.emit(new_pos)
-			update_flatbed_pos = false
-		
-		#update_train_position.emit(new_pos)
-		
+	if new_pos != null:		
 		if moving_direction == "RIGHT":
+			if update_flatbed_pos:
+				update_flatbed_pos = false
+				update_flatbed_position.emit(new_pos, Globals.TrainDirections.RIGHT)
+				
 			if new_pos.x > position.x:
 				position.x += Globals.TRAIN_X_SPEED * delta
+				
 			else:
 				reset_angle()
 		elif moving_direction == "LEFT":
+			if update_flatbed_pos:
+				update_flatbed_pos = false
+				update_flatbed_position.emit(new_pos, Globals.TrainDirections.LEFT)
+			
 			if new_pos.x < position.x:
 				position.x -= Globals.TRAIN_X_SPEED * delta
 			else:
@@ -59,17 +62,18 @@ func process_shimmy(delta):
 	else:
 		flatbed_sprite.position = original_sprite_pos
 
-func _on_engine_update_train_position(target_pos: Vector2):
+func _on_engine_update_train_position(target_pos: Vector2, train_direction: Globals.TrainDirections):
 	await get_tree().create_timer(Globals.TRAIN_CAR_DELAY).timeout
 	#update_flatbed_position.emit()
 	update_flatbed_pos = true
 	
-	if target_pos.x > position.x:
-		moving_direction = "RIGHT"
-		rotation_degrees += Globals.TRAIN_ROTATION
-	else:
-		moving_direction = "LEFT"
-		rotation_degrees -= Globals.TRAIN_ROTATION
+	match train_direction:
+		Globals.TrainDirections.RIGHT:
+			moving_direction = "RIGHT"
+			rotation_degrees += Globals.TRAIN_ROTATION
+		Globals.TrainDirections.LEFT:
+			moving_direction = "LEFT"
+			rotation_degrees -= Globals.TRAIN_ROTATION
 	
 	new_pos = target_pos
 

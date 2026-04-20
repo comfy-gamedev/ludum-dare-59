@@ -1,5 +1,5 @@
 extends Node2D
-signal update_train_position(target_pos: Vector2)
+signal update_train_position(target_pos: Vector2, train_direction: Globals.TrainDirections)
 signal initiate_train_move
 
 var death_explosion_scene = preload("res://objects/vfx/death_explosion/death_explosion.tscn")
@@ -32,7 +32,7 @@ func _process(delta):
 func process_movement(delta):
 	if moving_right:
 		if update_train_pos:
-			update_train_position.emit(target_pos)
+			update_train_position.emit(target_pos, Globals.TrainDirections.RIGHT)
 			update_train_pos = false
 		
 		if position.x <= target_pos.x:
@@ -44,7 +44,7 @@ func process_movement(delta):
 	
 	if moving_left:
 		if update_train_pos:
-			update_train_position.emit(target_pos)
+			update_train_position.emit(target_pos, Globals.TrainDirections.LEFT)
 			update_train_pos = false
 		
 		if position.x >= target_pos.x:
