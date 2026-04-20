@@ -116,3 +116,5 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_y1iwt")
 stretch_mode = 3
+
+[connection signal="pressed" from="TurnButton" to="." method="_on_turn_button_pressed"]

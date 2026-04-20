@@ -90,3 +90,4 @@ battle_grid = NodePath("../../BattleGrid")
 [connection signal="update_train_position" from="Engine" to="FlatBed" method="_on_engine_update_train_position"]
 [connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
+[connection signal="go_button_pressed" from="CanvasLayer/RightPanel" to="." method="_on_right_panel_go_button_pressed"]
