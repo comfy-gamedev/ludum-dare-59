@@ -37,16 +37,17 @@ script = ExtResource("7_2ufyh")
 
 [node name="SwordMech" parent="BattleGrid" unique_id=1038994791 instance=ExtResource("5_2ufyh")]
 health = 1
+grid_position = Vector2i(15, 2)
 
 [node name="SupportMech" parent="BattleGrid" unique_id=183001927 instance=ExtResource("8_wjmgw")]
-grid_position = Vector2i(3, 1)
+grid_position = Vector2i(15, 12)
 
 [node name="GunnerMech" parent="BattleGrid" unique_id=681036710 instance=ExtResource("9_wjmgw")]
 position = Vector2(34.529594, 22.307968)
-grid_position = Vector2i(5, 5)
+grid_position = Vector2i(0, 12)
 
 [node name="ShieldMech" parent="BattleGrid" unique_id=909610497 instance=ExtResource("10_sbvst")]
-grid_position = Vector2i(2, 4)
+grid_position = Vector2i(0, 2)
 
 [node name="BasicDrone" parent="BattleGrid" unique_id=1386753269 instance=ExtResource("8_1svbp")]
 position = Vector2(151.08636, 129.7958)

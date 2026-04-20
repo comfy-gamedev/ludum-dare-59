@@ -50,6 +50,7 @@ func _ready() -> void:
 	#initiate_middle_to_left_transition.emit()
 	#initiate_left_to_middle_transition.emit()
 	#on_train_death()
+	initiate_level()
 	
 	reset_turn_state()
 	
@@ -244,3 +245,15 @@ func set_shader_values(delta: float):
 	var noise_param = shadow.material.get_shader_parameter("noise")
 	noise_param.noise.offset += Vector3(delta * SPEED, 0, delta * SPEED)
 	shadow.material.set_shader_parameter("noise", noise_param)
+
+func initiate_level():
+	# do difficult based on level
+	var sword_mech = battle_grid.get_node("SwordMech")
+	var shield_mech = battle_grid.get_node("ShieldMech")
+	var support_mech = battle_grid.get_node("SupportMech")
+	var gunner_mech = battle_grid.get_node("GunnerMech")
+	sword_mech.grid_position = Vector2i(9, 6)
+	shield_mech.grid_position = Vector2i(6, 6)
+	support_mech.grid_position = Vector2i(9, 9)
+	gunner_mech.grid_position = Vector2i(6, 9)
+	#print(battle_grid.get_node("SwordMech"))
