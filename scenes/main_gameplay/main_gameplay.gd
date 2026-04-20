@@ -100,10 +100,17 @@ func turn_input() -> void:
 						is_future_order = true
 						occupant = ent
 			
-			if occupant is EntityBody and !tile_terrains.any(func(x): return x.signal_blocking):
+			if not occupant is EntityBody or tile_terrains.any(func(x): return x.signal_blocking):
+				if _selected_actor:
+					_selected_actor.on_deselected()
+					selection_panel.set_selected_entity(null)
+					selection_box.hide()
+			else:
 				if click_button == BattleGrid.CLICK_PRIMARY:
 					_selected_actor = occupant
-					if _selected_actor.turn_done and not is_future_order:
+					var is_player_unit = _selected_actor.team == BattleGrid.Team.PLAYER
+					
+					if is_player_unit and _selected_actor.turn_done and not is_future_order:
 						# TODO: only orders places this turn should be refundable
 						player_signal_points += 1 + _selected_actor.future_orders.size()
 						_selected_actor.clear_orders()
@@ -113,6 +120,10 @@ func turn_input() -> void:
 					
 					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
+					
+					if not is_player_unit:
+						turn_input()
+						return
 					
 					command_menu.popup(_selected_actor, grid_pos)
 					
@@ -208,6 +219,7 @@ func perform_turn() -> void:
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
+	_selected_actor = null
 
 func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void:
 	_ui_input.emit(UI_GRID_CLICKED, {grid_pos = grid_pos, click_button = click_button})
