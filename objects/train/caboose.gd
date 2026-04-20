@@ -68,16 +68,18 @@ func initiate_shimmy():
 func _on_shimmy_timer_timeout():
 	initiate_shimmy()
 
-
-func _on_flat_bed_update_flatbed_position(target_pos):
+func _on_flat_bed_update_flatbed_position(target_pos: Vector2, train_direction: Globals.TrainDirections):
 	await get_tree().create_timer(Globals.TRAIN_CAR_DELAY).timeout
+	#update_flatbed_position.emit()
+	#update_flatbed_pos = true
 	
-	if target_pos.x > position.x:
-		moving_direction = "RIGHT"
-		rotation_degrees += Globals.TRAIN_ROTATION
-	else:
-		moving_direction = "LEFT"
-		rotation_degrees -= Globals.TRAIN_ROTATION
+	match train_direction:
+		Globals.TrainDirections.RIGHT:
+			moving_direction = "RIGHT"
+			rotation_degrees += Globals.TRAIN_ROTATION
+		Globals.TrainDirections.LEFT:
+			moving_direction = "LEFT"
+			rotation_degrees -= Globals.TRAIN_ROTATION
 	
 	new_pos = target_pos
 

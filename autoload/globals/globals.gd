@@ -16,6 +16,7 @@ const TRAIN_ROTATION = 8.0
 const TRAIN_CAR_DELAY = 0.08
 const TRAIN_TURN_DELAY = 0.35
 
+enum TrainDirections { LEFT, RIGHT, UP, DOWN }
 enum TerrainSegmentStates { MIDDLE, LEFT, RIGHT, TUNNEL }
 
 ## Example variable.
