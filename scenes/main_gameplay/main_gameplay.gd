@@ -155,11 +155,12 @@ func turn_input() -> void:
 	return
 
 func perform_turn() -> void:
-	var entities: Array[EntityBody] = battle_grid.get_entities()
+	var entities: Array[GridBody] = battle_grid.get_bodies()
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
 			if ent.team == team:
-				ent.clear_plan_visuals()
+				if ent == EntityBody:
+					ent.clear_plan_visuals()
 				await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
