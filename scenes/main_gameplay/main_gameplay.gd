@@ -50,6 +50,8 @@ var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
 var turn_counter = 0
 var current_level = 0
 var current_wave = 0
+var scene_tranition_queue: Signal
+var incoming_segment = Globals.TerrainSegmentStates.NONE
 
 func _ready() -> void:
 	selection_box.hide()
@@ -254,19 +256,21 @@ func spawn_clouds(num = 2, radii = 4):
 					if current_coord.x == center_coord.x || current_coord.y == center_coord.y:
 						break
 
-func initiate_terrain_segment_transition():
+func queue_terrain_segment_transition():
 	match current_terrain_segment_state:
 		Globals.TerrainSegmentStates.MIDDLE:
 			var possible_transitions = [Globals.TerrainSegmentStates.LEFT, Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE] # and tunnel eventually
 			var random_transition = possible_transitions.pick_random()
 			
 			if random_transition == Globals.TerrainSegmentStates.LEFT:
-				initiate_middle_to_left_transition.emit()
-				set_current_terrain_segment(Globals.TerrainSegmentStates.LEFT)
+				#initiate_middle_to_left_transition.emit()
+				#set_current_terrain_segment(Globals.TerrainSegmentStates.LEFT)
+				set_segment_queue(initiate_middle_to_left_transition, Globals.TerrainSegmentStates.LEFT)
 				#current_terrain_segment_state = Globals.TerrainSegmentStates.LEFT
 			elif random_transition == Globals.TerrainSegmentStates.RIGHT:
-				initiate_middle_to_right_transition.emit()
-				set_current_terrain_segment(Globals.TerrainSegmentStates.RIGHT)
+				#initiate_middle_to_right_transition.emit()
+				#set_current_terrain_segment(Globals.TerrainSegmentStates.RIGHT)
+				set_segment_queue(initiate_middle_to_right_transition, Globals.TerrainSegmentStates.RIGHT)
 				#current_terrain_segment_state = Globals.TerrainSegmentStates.RIGHT
 		
 		Globals.TerrainSegmentStates.LEFT:
@@ -274,19 +278,40 @@ func initiate_terrain_segment_transition():
 			var random_transition = possible_transitions.pick_random()
 			
 			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
-				initiate_left_to_middle_transition.emit()
+				#initiate_left_to_middle_transition.emit()
 				#current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
-				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+				#set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+				set_segment_queue(initiate_left_to_middle_transition, Globals.TerrainSegmentStates.MIDDLE)
 		
 		Globals.TerrainSegmentStates.RIGHT:
 			var possible_transitions = [Globals.TerrainSegmentStates.RIGHT, Globals.TerrainSegmentStates.MIDDLE]
 			var random_transition = possible_transitions.pick_random()
 			
 			if random_transition == Globals.TerrainSegmentStates.MIDDLE:
-				initiate_right_to_middle_transition.emit()
-				set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+				set_segment_queue(initiate_right_to_middle_transition, Globals.TerrainSegmentStates.MIDDLE)
+				#initiate_right_to_middle_transition.emit()
+				#set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
+
+func set_segment_queue(segment_signal: Signal, new_segment):
+	scene_tranition_queue = segment_signal
+	incoming_segment = new_segment
+
+	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
+		print("mountains LEFT coming in one turn")
+	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
+		print("mountains RIGHT coming in one turn")
+	
+func initiate_terrain_segment_transition():
+	scene_tranition_queue.emit()
+	set_current_terrain_segment(incoming_segment)
+	incoming_segment = Globals.TerrainSegmentStates.NONE
+
+#func queue_segment_transition():
+	#match Globals.TerrainSegmentStates:
+		#match 
 
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
+	incoming_segment = Globals.TerrainSegmentStates.NONE
 	current_terrain_segment_state = new_terrain_segment_state
 	right_panel.turn_button.disabled = true
 	right_panel.turn_button.text = "WAIT"
@@ -298,8 +323,12 @@ func _on_turn_end():
 		current_wave += 1
 		spawn_clouds(1, 3)
 		init_new_wave()
-		
-	initiate_terrain_segment_transition()
+	
+	if incoming_segment != Globals.TerrainSegmentStates.NONE:
+		print("transition")
+		initiate_terrain_segment_transition()
+	else:
+		queue_terrain_segment_transition()
 	print("turn: %s" % turn_counter)
 	print("wave: %s" % current_wave)
 	print("level: %s" % current_level)
