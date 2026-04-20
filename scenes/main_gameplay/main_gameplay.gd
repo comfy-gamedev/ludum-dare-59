@@ -179,8 +179,9 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent.team == team:
-				await ent.execute_turn_async()
+			if is_instance_valid(ent):
+				if ent.team == team:
+					await ent.execute_turn_async()
 	
 	var terrain_tiles = battle_grid.get_terrains()
 	for terr in terrain_tiles:
@@ -199,6 +200,7 @@ func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void
 
 func _on_parallax_background_segment_transition_complete():
 	right_panel.turn_button.disabled = false
+	right_panel.turn_button.text = "GO"
 	print("Terrain segment transition complete!")
 	#on_train_death()
 
@@ -260,6 +262,7 @@ func initiate_terrain_segment_transition():
 func set_current_terrain_segment(new_terrain_segment_state: Globals.TerrainSegmentStates):
 	current_terrain_segment_state = new_terrain_segment_state
 	right_panel.turn_button.disabled = true
+	right_panel.turn_button.text = "WAIT"
 	print("Init new terrain segment transition")
 
 func _on_turn_end():
