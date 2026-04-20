@@ -39,7 +39,7 @@ func show_step(step: ConversationStep) -> void:
 			MusicMan.sfx(sfx, null, 1, randf_range(0.99, 1.1))
 		var visible_ratio = float(i) / step.message.length()
 		label.visible_ratio = visible_ratio
-		await get_tree().create_timer(0.0335).timeout
+		await get_tree().create_timer(0.033).timeout
 	
 	if step.time != 0:
 		await get_tree().create_timer(step.time).timeout
@@ -51,6 +51,8 @@ func show_step(step: ConversationStep) -> void:
 	center_rect.visible = false
 
 func show_conversation(conv: Conversation) -> void:
+	$".".visible = true
+	
 	var left_tex = $VBoxContainer/HBoxContainer/RectLeft/PortraitLeft
 	var right_tex = $VBoxContainer/HBoxContainer/RectRight/PortraitRight
 	
@@ -65,6 +67,8 @@ func show_conversation(conv: Conversation) -> void:
 	for step in conv.steps:
 		await show_step(step)
 		await get_tree().create_timer(1.0).timeout
+		
+	$".".visible = false
 
 func create_character_dialogue_step(character: CharacterEnum, dialogue: Dialogue) -> ConversationStep:
 	var c = characters[character]
@@ -92,9 +96,9 @@ func show_character_dialogue(character: CharacterEnum, dialogue: Dialogue) -> vo
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for character in CharacterEnum.values():
-		for dialogue in Dialogue.values():
-			await show_character_dialogue(character, dialogue)
+	$".".visible = false
+	%RectLeft.visible = false
+	%RectRight.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
