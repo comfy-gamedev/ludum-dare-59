@@ -84,7 +84,7 @@ func _on_main_gameplay_initiate_middle_to_right_transition():
 func _on_main_gameplay_initiate_middle_to_left_transition():
 	#await get_tree().create_timer(0.75).timeout
 	await initiate_train_move
-	await get_tree().create_timer(0.34).timeout
+	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_LEFT_X_POS, position.y)
 	moving_left = true
 	update_train_pos = true
@@ -93,7 +93,7 @@ func _on_main_gameplay_initiate_middle_to_left_transition():
 func _on_main_gameplay_initiate_left_to_middle_transition():
 	#await get_tree().create_timer(1.5).timeout
 	await initiate_train_move
-	await get_tree().create_timer(0.34).timeout
+	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
 	moving_right = true
 	update_train_pos = true
@@ -101,7 +101,7 @@ func _on_main_gameplay_initiate_left_to_middle_transition():
 
 func _on_main_gameplay_initiate_right_to_middle_transition():
 	await initiate_train_move
-	await get_tree().create_timer(0.34).timeout
+	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
 	rotation_degrees -= Globals.TRAIN_ROTATION
 	moving_left = true
