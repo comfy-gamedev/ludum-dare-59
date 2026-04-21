@@ -103,6 +103,7 @@ func get_tiles():
 	return areas.map(func(x): return x.get_parent().grid_pos)
 
 func initiate_death_sequence():
+	Globals.train_sections[2].take_damage(1000)
 	$ExplosionAddedTimer.start()
 
 func _on_explosion_added_timer_timeout():
