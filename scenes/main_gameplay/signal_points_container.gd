@@ -9,5 +9,5 @@ func _ready() -> void:
 
 
 func _on_main_gameplay_player_signal_points_changed() -> void:
-	for i in 3:
+	for i in 5:
 		get_child(i).get_child(0).visible = i < main_gameplay.player_signal_points

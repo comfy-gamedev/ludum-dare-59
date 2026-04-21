@@ -234,6 +234,8 @@ func perform_turn() -> void:
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
+	player_signal_points += 1 if Globals.train_sections[1].health > 0 else 0
+	player_signal_points += 1 if Globals.train_sections[2].health > 0 else 0
 	_selected_actor = null
 
 func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void:
