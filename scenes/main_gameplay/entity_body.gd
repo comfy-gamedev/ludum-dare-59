@@ -178,6 +178,7 @@ func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
 	if team == BattleGrid.Team.PLAYER:
 		MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
+	clear_plan_visuals()
 	queue_free()
 
 func _update_plan_visuals() -> void:

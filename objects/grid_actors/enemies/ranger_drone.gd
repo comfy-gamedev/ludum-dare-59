@@ -27,4 +27,5 @@ func start_turn() -> void:
 
 func _on_death() -> void:
 	print("ALAMO")
+	clear_plan_visuals()
 	queue_free()
