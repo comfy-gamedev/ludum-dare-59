@@ -29,7 +29,7 @@ func _ready() -> void:
 	)
 
 func display_name() -> String:
-	return "Move"
+	return "MoveHeal"
 
 func input_async(entity: EntityBody, battle_grid: BattleGrid) -> EntityOrder:
 	entity.state = EntityBody.EntityState.PLANNING_MOVE
