@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bcowlymi066c8"]
+
+[ext_resource type="Script" uid="uid://bbyjybmoxq6vf" path="res://scenes/how_to_play/how_to_play.gd" id="1_k248e"]
+
+[node name="HowToPlay" type="PanelContainer" unique_id=1231151831]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k248e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=589083281]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer" unique_id=601268406]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CenterContainer" unique_id=1878757174]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CenterContainer/MarginContainer" unique_id=800534644]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+stretch_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1086007260]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer" unique_id=1832424634]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1114238438]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1523285214]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Previous"
+
+[node name="RightButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1355378637]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Next"
+
+[node name="BackButton" type="Button" parent="VBoxContainer" unique_id=312716746]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RightButton" to="." method="_on_right_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
