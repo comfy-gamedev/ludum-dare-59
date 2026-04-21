@@ -45,6 +45,8 @@ var shield_mech_scene = preload("res://scenes/main_gameplay/mechs/shield_mech.ts
 var support_mech_scene = preload("res://scenes/main_gameplay/mechs/support_mech.tscn")
 var sword_mech_scene = preload("res://scenes/main_gameplay/mechs/sword_mech.tscn")
 
+var moving_cloud_scene = preload("res://objects/grid_terrain/moving_shadow_node.tscn")
+
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
@@ -375,6 +377,10 @@ func _on_turn_end():
 func _spawn_turn_stuff():
 	if Globals.level > 0:
 		spawn_clouds(2 + (Globals.level / 3), min(2 + Globals.level, 4))
+	if Globals.level > 1 && turn_counter % 2 == 0:
+		var moving_cloud = moving_cloud_scene.instantiate()
+		moving_cloud.grid_position = Vector2i(0, randi_range(1, 11))
+		battle_grid.add_child(moving_cloud)
 	if turn_counter % 3 == 0:
 		current_wave += 1
 		init_new_wave()
