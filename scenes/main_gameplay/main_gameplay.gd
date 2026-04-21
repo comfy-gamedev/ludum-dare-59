@@ -31,6 +31,8 @@ static var current: MainGameplay
 @onready var sf_dialogue: SFDialogue = %SfDialogue
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
+var mountains_left = preload("res://ui/conversations/sf_mountains_left.tres")
+var mountains_right = preload("res://ui/conversations/sf_mountains_right.tres")
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 @onready var crossing_panel: CrossingPanel = $CanvasLayer/CrossingPanel
@@ -306,10 +308,12 @@ func set_segment_queue(segment_signal: Signal, new_segment):
 	incoming_segment = new_segment
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
-		print("mountains LEFT coming in one turn")
+		#print("mountains LEFT coming in one turn")
+		sf_dialogue.show_conversation(mountains_right)
 		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
-		print("mountains RIGHT coming in one turn")
+		#print("mountains RIGHT coming in one turn")
+		sf_dialogue.show_conversation(mountains_left)
 		queue_mountain_smoke_left()
 
 func queue_mountain_smoke_left():
