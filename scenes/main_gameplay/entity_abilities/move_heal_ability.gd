@@ -87,12 +87,16 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	await entity.set_grid_position(params.target_pos)
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	MainGameplay.current.sf_dialogue.show_character_dialogue(entity.character, SFDialogue.Dialogue.NORMAL_ATTACK)
+	
 	position = Vector2(params.aoe_pos - params.target_pos) * entity.battle_grid.CELL_SIZE
 	
 	weapon_area.hide()
 	weapon_sprite.show()
 	show()
 	attack_animation_player.play(&"heal")
+	MusicMan.sfx(preload("res://assets/sfx/healEffect.wav")).volume_db = linear_to_db(0.8)
+	
 	var tween = create_tween()
 	if params.aoe_pos == params.target_pos:
 		tween.tween_property(entity.sprite, "offset", Vector2.LEFT, 0.1)
@@ -101,6 +105,7 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 	else:
 		tween.tween_property(entity.sprite, "offset", Vector2(params.aoe_pos - params.target_pos).normalized() * 3, 0.04)
 		tween.tween_property(entity.sprite, "offset", Vector2.ZERO, 0.16)
+	
 	await tween.finished
 	
 	for tile_area in attack_area.get_overlapping_areas():

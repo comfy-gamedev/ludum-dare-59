@@ -6,6 +6,7 @@ extends Control
 
 
 func _ready() -> void:
+	MusicMan.music(preload("res://assets/music/EnemySignal.ogg"))
 	start_game_button.grab_focus()
 
 

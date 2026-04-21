@@ -63,11 +63,14 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	await entity.set_grid_position(params.target_pos)
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	MainGameplay.current.sf_dialogue.show_character_dialogue(entity.character, SFDialogue.Dialogue.NORMAL_ATTACK)
+	
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
 	
 	var ent_weapon_area: Node2D = entity.get_node("AttackAbility/WeaponArea")
 	if ent_weapon_area: ent_weapon_area.hide()
 	attack_animation_player.play(&"sword_slash")
+	MusicMan.sfx(preload("res://assets/sfx/shotAttack.wav"))
 	var tween = create_tween()
 	tween.tween_property(entity.sprite, "offset", params.target_dir.normalized() * 3, 0.04)
 	tween.tween_property(entity.sprite, "offset", Vector2.ZERO, 0.16)

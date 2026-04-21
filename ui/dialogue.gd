@@ -1,5 +1,7 @@
 extends Control
 
+signal dialogue_finished()
+
 const UNFOCUSED_WIDTH = 300
 const FOCUSED_WIDTH = 310
 const UNFOCUSED_LIGHTNESS = 0.5
@@ -210,16 +212,16 @@ func show_conversation(conv: Conversation) -> void:
 	label.text = ""
 	label.visible_ratio = 0.0
 	$".".visible = false
+	
+	dialogue_finished.emit()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$".".visible = false
 	#show_conversation(preload("res://ui/conversations/level1_intro.tres"))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 var skip_dialogue: bool = false
+
 func _on_skip_button_pressed() -> void:
 	skip_dialogue = true
+	%NextButton.pressed.emit()

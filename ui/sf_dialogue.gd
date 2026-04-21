@@ -157,7 +157,7 @@ const DIALOGUE_CHANCES = {
 	Dialogue.NORMAL_ATTACK: 0.1,
 	Dialogue.SPECIAL_ABILITY: 0.5,
 	Dialogue.KILL_STREAK: 0.5,
-	Dialogue.DAMAGE_TAKEN: 0.5,
+	Dialogue.DAMAGE_TAKEN: 0.3,
 	Dialogue.KILLED: 1.0,
 	Dialogue.TRAIN_DAMAGED: 0.5,
 	Dialogue.ENTERING_BLACKOUT: 0.5,
@@ -213,7 +213,7 @@ func create_swordsman() -> CharacterDialogue:
 	cd.dialogues[Dialogue.PROGRESS] = ["Hackin' my way down town!"]
 	cd.dialogues[Dialogue.SPECIAL_EVENT] = ["Looks like something's happenin' boss."]
 	return cd
-	
+
 func create_defender() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.character = preload("res://ui/characters/diana_sf.tres")

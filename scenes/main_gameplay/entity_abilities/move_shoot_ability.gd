@@ -63,6 +63,8 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	await entity.set_grid_position(params.target_pos)
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	MainGameplay.current.sf_dialogue.show_character_dialogue(entity.character, SFDialogue.Dialogue.NORMAL_ATTACK)
+	
 	rotation = atan2(params.target_dir.y, params.target_dir.x)
 	
 	attack_animation_player.play(&"shoot")
