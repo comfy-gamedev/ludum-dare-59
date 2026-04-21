@@ -175,10 +175,10 @@ func take_damage(damage: int):
 	health -= damage
 	Globals.engine_health_changed.emit(float(health) / float(max_health))
 	if health <= 0:
-		initiate_death_sequence()
+		get_parent().initiate_train_death.emit()
 
 func heal(heal_amount):
-	health += heal_amount
+	health = clampi(health + heal_amount, 0, max_health)
 	Globals.engine_health_changed.emit(float(health) / float(max_health))
 
 func _on_death_timer_timeout() -> void:

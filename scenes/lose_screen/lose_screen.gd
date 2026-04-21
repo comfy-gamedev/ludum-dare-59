@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Label2.text = "You made it to level: " + Globals.level
+	$Label2.text = "You made it to level: %d" % Globals.level
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
