@@ -371,6 +371,11 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
+		if Globals.level == 1:
+			await dialogue.show_conversation(level_1_outro_conversation)
+		elif Globals.level == 2:
+			await dialogue.show_conversation(level_2_outro_conversation)
+			
 		initiate_level()
 		return
 	_spawn_turn_stuff()
@@ -405,9 +410,9 @@ func initiate_level():
 	current_wave = 0
 	
 	if Globals.level == 0:
-		dialogue.show_conversation(level_1_intro_conversation)
+		await dialogue.show_conversation(level_1_intro_conversation)
 	if Globals.level == 1:
-		dialogue.show_conversation(level_2_intro_conversation)
+		await dialogue.show_conversation(level_2_intro_conversation)
 		
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
