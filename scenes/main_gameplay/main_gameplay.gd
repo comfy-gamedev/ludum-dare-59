@@ -371,6 +371,11 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
+		if Globals.level > 3:
+			$CanvasLayer/WinCard.show()
+			$CanvasLayer/BlankBanner.show()
+			$CanvasLayer/HBoxContainer.show()
+			return
 		initiate_level()
 		return
 	_spawn_turn_stuff()
@@ -491,3 +496,11 @@ func _on_battle_grid_crossing(entity_a: EntityBody, entity_b: EntityBody) -> voi
 	else:
 		entity_a.take_damage(1)
 	get_tree().paused = false
+
+
+func _on_retry_button_pressed() -> void:
+	SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
+
+
+func _on_main_menu_button_pressed() -> void:
+	SceneGirl.change_scene("res://scenes/main_menu/main_menu.tscn")
