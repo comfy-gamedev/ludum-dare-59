@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://csnxgenb33rkx" path="res://assets/textures/terrains/mountains.png" id="5_cywh3"]
 [ext_resource type="Texture2D" uid="uid://dalla8cs44505" path="res://assets/textures/terrains/railway_tileset.png" id="5_dwcip"]
 [ext_resource type="Texture2D" uid="uid://bdlnlnt2nmpbu" path="res://assets/textures/terrains/grass_tileset.png" id="6_dgqpy"]
+[ext_resource type="Texture2D" uid="uid://d2xlfewqlgjla" path="res://assets/textures/terrains/decals.png" id="7_dgqpy"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0wsrb"]
 tile_data = PackedInt32Array(0, 262145, 2, 65536, 262145, 3, 131072, 393217, 0, 196608, 393217, 1)
@@ -330,6 +331,20 @@ texture_region_size = Vector2i(32, 32)
 7:3/0 = 0
 0:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tn0ic"]
+texture = ExtResource("7_dgqpy")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwcip"]
 texture = ExtResource("5_dwcip")
 texture_region_size = Vector2i(32, 32)
@@ -392,6 +407,7 @@ sources/3 = SubResource("TileSetAtlasSource_eklmf")
 sources/8 = SubResource("TileSetAtlasSource_dwcip")
 sources/4 = SubResource("TileSetAtlasSource_c3xs5")
 sources/5 = SubResource("TileSetAtlasSource_x1nu5")
+sources/6 = SubResource("TileSetAtlasSource_tn0ic")
 pattern_0 = SubResource("TileMapPattern_0wsrb")
 pattern_1 = SubResource("TileMapPattern_dwcip")
 pattern_2 = SubResource("TileMapPattern_a0jta")

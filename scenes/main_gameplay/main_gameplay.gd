@@ -31,6 +31,9 @@ static var current: MainGameplay
 @onready var sf_dialogue: SFDialogue = %SfDialogue
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
+var level_1_outro_conversation = preload("res://ui/conversations/level1_complete.tres")
+var level_2_intro_conversation = preload("res://ui/conversations/level2_intro.tres")
+var level_2_outro_conversation = preload("res://ui/conversations/level2_complete.tres")
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 @onready var crossing_panel: CrossingPanel = $CanvasLayer/CrossingPanel
@@ -62,6 +65,8 @@ var incoming_segment = Globals.TerrainSegmentStates.NONE
 
 func _ready() -> void:
 	current = self
+	
+	MusicMan.music(preload("res://assets/music/transmissionTheory.ogg"))
 	
 	selection_box.hide()
 	
@@ -171,7 +176,8 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
-							print("unimplemented")
+							await perform_next_turn_for(_selected_actor)
+							
 							turn_input()
 							return
 		UI_START_TURN_CLICKED:
@@ -182,6 +188,16 @@ func turn_input() -> void:
 	
 	turn_input()
 	return
+
+func perform_next_turn_for(ent: EntityBody) -> void:
+	ent.clear_plan_visuals()
+	ent.start_turn()
+	
+	await ent.execute_turn_movement_async()
+	
+	if is_instance_valid(ent):
+		await ent.execute_turn_async()
+	
 
 func perform_turn() -> void:
 	var entities: Array[EntityBody] = battle_grid.get_entities()
@@ -372,6 +388,11 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
+		if Globals.level == 1:
+			await dialogue.show_conversation(level_1_outro_conversation)
+		elif Globals.level == 2:
+			await dialogue.show_conversation(level_2_outro_conversation)
+			
 		initiate_level()
 		return
 	_spawn_turn_stuff()
@@ -404,7 +425,12 @@ func _on_right_panel_go_button_pressed() -> void:
 func initiate_level():
 	turn_counter = 0
 	current_wave = 0
-	dialogue.show_conversation(level_1_intro_conversation)
+	
+	if Globals.level == 0:
+		await dialogue.show_conversation(level_1_intro_conversation)
+	if Globals.level == 1:
+		await dialogue.show_conversation(level_2_intro_conversation)
+		
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
 	if not sword_mech:

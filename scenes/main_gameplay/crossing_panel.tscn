@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d281igqqv7uuk" path="res://assets/textures/units/sword_unit/sword_unit_1.png" id="2_rmrk3"]
 [ext_resource type="PackedScene" uid="uid://c6bakqsm7sbaq" path="res://objects/vfx/explosion_vfx.tscn" id="3_j0nv4"]
 [ext_resource type="Texture2D" uid="uid://cjjuto5n28s0" path="res://assets/textures/units/drone_enemy/drone_enemy_1.png" id="3_mkv1r"]
+[ext_resource type="AudioStream" uid="uid://dwbbesecwkgq1" path="res://assets/sfx/whoosh.wav" id="5_j0nv4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iop5q"]
 bg_color = Color(1, 1, 1, 1)
@@ -213,6 +214,21 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(),
 "values": []
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_j0nv4")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/7/use_blend = false
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mkv1r"]
 _data = {
@@ -260,6 +276,7 @@ emitting = false
 position = Vector2(472, 199)
 scale = Vector2(2, 2)
 texture = ExtResource("3_mkv1r")
+flip_h = true
 
 [node name="ExplosionVFX2" parent="Control/Sprite2D2" unique_id=500371244 instance=ExtResource("3_j0nv4")]
 unique_name_in_owner = true
@@ -267,3 +284,5 @@ emitting = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1180568172]
 libraries/ = SubResource("AnimationLibrary_mkv1r")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1892425648]
