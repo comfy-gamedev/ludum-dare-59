@@ -36,7 +36,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer/Title" unique_id=365371185]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
-text = "The Game"
+text = "Trainsmission"
 
 [node name="MenuButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1340836629]
 layout_mode = 2

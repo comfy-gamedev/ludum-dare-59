@@ -2,17 +2,17 @@ extends Control
 
 signal dialogue_finished()
 
-const UNFOCUSED_WIDTH = 300
-const FOCUSED_WIDTH = 310
+const UNFOCUSED_WIDTH = 240
+const FOCUSED_WIDTH = 250
 const UNFOCUSED_LIGHTNESS = 0.5
 const FOCUSED_LIGHTNESS = 1.0
 const FOCUS_DURATION = 0.25
 const SLIDE_DURATION = 0.5
 
-const LEFT_OFFSCREEN_X = -300
+const LEFT_OFFSCREEN_X = -240
 const LEFT_ONSCREEN_X = 0
 const RIGHT_OFFSCREEN_X = 640
-const RIGHT_ONSCREEN_X =  340
+const RIGHT_ONSCREEN_X =  270
 
 func tween_shader_uniform(tween: Tween, textureRect: TextureRect, new_value: float):
 	tween.tween_method(
