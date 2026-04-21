@@ -203,7 +203,7 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if ent.team == team:
+			if is_instance_valid(ent) and ent.health > 0 and ent.team == team:
 				(func ():
 					await ent.execute_turn_movement_async()
 					turn_move_dones[ent] = true
@@ -217,7 +217,7 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if is_instance_valid(ent):
+			if is_instance_valid(ent) and ent.health > 0:
 				if ent.team == team:
 					await ent.execute_turn_async()
 	
