@@ -154,3 +154,7 @@ func _setting_changed(setting_name: StringName) -> void:
 		&"audio_sfx_volume":
 			bong_001.bus = "SFX"
 			bong_001.play()
+
+
+func _on_button_pressed() -> void:
+	SceneGirl.change_scene("res://scenes/main_menu/main_menu.tscn")
