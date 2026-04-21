@@ -214,7 +214,7 @@ func show_conversation(conv: Conversation) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$".".visible = false
-	show_conversation(preload("res://ui/conversations/level1_intro.tres"))
+	#show_conversation(preload("res://ui/conversations/level1_intro.tres"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
