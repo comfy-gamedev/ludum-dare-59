@@ -363,6 +363,13 @@ func _on_turn_end():
 		Globals.level += 1
 		SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
 		return
+	
+	if not battle_grid.has_node("SwordMech"
+	) and not battle_grid.has_node("ShieldMech"
+	) and not battle_grid.has_node("SupportMech"
+	) and not battle_grid.has_node("GunnerMech"):
+		SceneGirl.change_scene("res://scenes/lose_screen/lose_screen.tscn")
+	
 	_spawn_turn_stuff()
 	
 	if incoming_segment != Globals.TerrainSegmentStates.NONE:
