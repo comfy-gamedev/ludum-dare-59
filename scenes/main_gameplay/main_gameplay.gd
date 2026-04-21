@@ -355,7 +355,7 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
-		initiate_level()
+		SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
 		return
 	_spawn_turn_stuff()
 	
