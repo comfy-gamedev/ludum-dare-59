@@ -132,7 +132,7 @@ func turn_input() -> void:
 					selection_box.position = battle_grid.get_cell_center(grid_pos)
 					selection_box.show()
 					
-					if not is_player_unit:
+					if not is_player_unit or player_signal_points <= 0:
 						turn_input()
 						return
 					
