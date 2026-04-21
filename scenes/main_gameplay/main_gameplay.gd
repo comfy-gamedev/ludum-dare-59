@@ -38,6 +38,11 @@ var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tr
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
 
+var gunner_mech_scene = preload("res://scenes/main_gameplay/mechs/gunner_mech.tscn")
+var shield_mech_scene = preload("res://scenes/main_gameplay/mechs/shield_mech.tscn")
+var support_mech_scene = preload("res://scenes/main_gameplay/mechs/support_mech.tscn")
+var sword_mech_scene = preload("res://scenes/main_gameplay/mechs/sword_mech.tscn")
+
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
@@ -385,9 +390,21 @@ func initiate_level():
 	dialogue.show_conversation(level_1_intro_conversation)
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
+	if not sword_mech:
+		sword_mech = sword_mech_scene.instantiate()
+		battle_grid.add_child(sword_mech)
 	var shield_mech = battle_grid.get_node("ShieldMech")
+	if not shield_mech:
+		shield_mech = shield_mech_scene.instantiate()
+		battle_grid.add_child(shield_mech)
 	var support_mech = battle_grid.get_node("SupportMech")
+	if not support_mech:
+		support_mech = support_mech_scene.instantiate()
+		battle_grid.add_child(support_mech)
 	var gunner_mech = battle_grid.get_node("GunnerMech")
+	if not gunner_mech:
+		gunner_mech = gunner_mech_scene.instantiate()
+		battle_grid.add_child(gunner_mech)
 	sword_mech.grid_position = Vector2i(9, 6)
 	shield_mech.grid_position = Vector2i(6, 6)
 	support_mech.grid_position = Vector2i(9, 9)
