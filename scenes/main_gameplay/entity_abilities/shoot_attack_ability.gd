@@ -24,6 +24,8 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	pass
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	MainGameplay.current.sf_dialogue.show_character_dialogue(entity.character, SFDialogue.Dialogue.NORMAL_ATTACK)
+	
 	battle_grid = entity.battle_grid
 	var train_target = params.train_target
 	

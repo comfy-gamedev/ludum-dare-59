@@ -110,36 +110,6 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_y1iwt")
 stretch_mode = 3
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/SignalPointsContainer" unique_id=62965350]
-layout_mode = 2
-texture = SubResource("AtlasTexture_lg2ml")
-stretch_mode = 3
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SignalPointsContainer/TextureRect4" unique_id=2123265821]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_y1iwt")
-stretch_mode = 3
-
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/SignalPointsContainer" unique_id=1503686287]
-layout_mode = 2
-texture = SubResource("AtlasTexture_lg2ml")
-stretch_mode = 3
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SignalPointsContainer/TextureRect5" unique_id=1838123944]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_y1iwt")
-stretch_mode = 3
-
 [node name="TrainHealthContainer" type="Control" parent="." unique_id=1298247258]
 z_index = 1
 anchors_preset = 0

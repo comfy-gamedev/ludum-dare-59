@@ -34,8 +34,6 @@ var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tr
 var level_1_outro_conversation = preload("res://ui/conversations/level1_complete.tres")
 var level_2_intro_conversation = preload("res://ui/conversations/level2_intro.tres")
 var level_2_outro_conversation = preload("res://ui/conversations/level2_complete.tres")
-var mountains_left = preload("res://ui/conversations/sf_mountains_left.tres")
-var mountains_right = preload("res://ui/conversations/sf_mountains_right.tres")
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 @onready var crossing_panel: CrossingPanel = $CanvasLayer/CrossingPanel
@@ -48,8 +46,6 @@ var shield_mech_scene = preload("res://scenes/main_gameplay/mechs/shield_mech.ts
 var support_mech_scene = preload("res://scenes/main_gameplay/mechs/support_mech.tscn")
 var sword_mech_scene = preload("res://scenes/main_gameplay/mechs/sword_mech.tscn")
 
-var moving_cloud_scene = preload("res://objects/grid_terrain/moving_shadow_node.tscn")
-
 var current_terrain_segment_state = Globals.TerrainSegmentStates.MIDDLE
 
 var player_signal_points: int:
@@ -60,7 +56,6 @@ var player_signal_points: int:
 var _selected_actor: EntityBody
 var _box_scene = preload("res://objects/ui/indicator.tscn")
 var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
-var _warning_short_scene = preload("res://objects/grid_terrain/warningShort.tscn")
 
 var turn_counter = 0
 var turn_goal = 20
@@ -70,6 +65,8 @@ var incoming_segment = Globals.TerrainSegmentStates.NONE
 
 func _ready() -> void:
 	current = self
+	
+	MusicMan.music(preload("res://assets/music/transmissionTheory.ogg"))
 	
 	selection_box.hide()
 	
@@ -179,7 +176,8 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
-							print("unimplemented")
+							await perform_next_turn_for(_selected_actor)
+							
 							turn_input()
 							return
 		UI_START_TURN_CLICKED:
@@ -190,6 +188,16 @@ func turn_input() -> void:
 	
 	turn_input()
 	return
+
+func perform_next_turn_for(ent: EntityBody) -> void:
+	ent.clear_plan_visuals()
+	ent.start_turn()
+	
+	await ent.execute_turn_movement_async()
+	
+	if is_instance_valid(ent):
+		await ent.execute_turn_async()
+	
 
 func perform_turn() -> void:
 	var entities: Array[EntityBody] = battle_grid.get_entities()
@@ -206,7 +214,7 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if is_instance_valid(ent) and ent.health > 0 and ent.team == team:
+			if ent.team == team:
 				(func ():
 					await ent.execute_turn_movement_async()
 					turn_move_dones[ent] = true
@@ -220,7 +228,7 @@ func perform_turn() -> void:
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if is_instance_valid(ent) and ent.health > 0:
+			if is_instance_valid(ent):
 				if ent.team == team:
 					await ent.execute_turn_async()
 	
@@ -238,8 +246,6 @@ func perform_turn() -> void:
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
-	player_signal_points += 1 if Globals.train_sections[1].health > 0 else 0
-	player_signal_points += 1 if Globals.train_sections[2].health > 0 else 0
 	_selected_actor = null
 
 func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void:
@@ -316,12 +322,10 @@ func set_segment_queue(segment_signal: Signal, new_segment):
 	incoming_segment = new_segment
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
-		#print("mountains LEFT coming in one turn")
-		sf_dialogue.show_conversation(mountains_right)
+		print("mountains LEFT coming in one turn")
 		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
-		#print("mountains RIGHT coming in one turn")
-		sf_dialogue.show_conversation(mountains_left)
+		print("mountains RIGHT coming in one turn")
 		queue_mountain_smoke_left()
 
 func queue_mountain_smoke_left():
@@ -331,7 +335,7 @@ func queue_mountain_smoke_left():
 			tiles.append(Vector2i(r, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_short_scene.instantiate()
+		var new_warning_tile = _warning_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -343,7 +347,7 @@ func queue_mountain_smoke_right():
 			tiles.append(Vector2i(r + starting_row, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_short_scene.instantiate()
+		var new_warning_tile = _warning_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -367,15 +371,8 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
-		SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
+		initiate_level()
 		return
-	
-	if not battle_grid.has_node("SwordMech"
-	) and not battle_grid.has_node("ShieldMech"
-	) and not battle_grid.has_node("SupportMech"
-	) and not battle_grid.has_node("GunnerMech"):
-		SceneGirl.change_scene("res://scenes/lose_screen/lose_screen.tscn")
-	
 	_spawn_turn_stuff()
 	
 	if incoming_segment != Globals.TerrainSegmentStates.NONE:
@@ -383,12 +380,6 @@ func _on_turn_end():
 		initiate_terrain_segment_transition()
 	else:
 		queue_terrain_segment_transition()
-	
-	if current_terrain_segment_state == Globals.TerrainSegmentStates.LEFT and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
-		queue_mountain_smoke_right()
-	if current_terrain_segment_state == Globals.TerrainSegmentStates.RIGHT  and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
-		queue_mountain_smoke_left()
-	
 	print("turn: %s" % turn_counter)
 	print("wave: %s" % current_wave)
 	print("level: %s" % Globals.level)
@@ -396,10 +387,6 @@ func _on_turn_end():
 func _spawn_turn_stuff():
 	if Globals.level > 0:
 		spawn_clouds(2 + (Globals.level / 3), min(2 + Globals.level, 4))
-	if Globals.level > 1 && turn_counter % 2 == 0:
-		var moving_cloud = moving_cloud_scene.instantiate()
-		moving_cloud.grid_position = Vector2i(0, randi_range(1, 11))
-		battle_grid.add_child(moving_cloud)
 	if turn_counter % 3 == 0:
 		current_wave += 1
 		init_new_wave()

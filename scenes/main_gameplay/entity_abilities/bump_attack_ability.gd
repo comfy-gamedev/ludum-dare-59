@@ -18,6 +18,8 @@ func execute_movement_async(entity: EntityBody, params: Dictionary) -> void:
 	pass
 
 func execute_async(entity: EntityBody, params: Dictionary) -> void:
+	MainGameplay.current.sf_dialogue.show_character_dialogue(entity.character, SFDialogue.Dialogue.NORMAL_ATTACK)
+	
 	var train_target = params.train_target
 	
 	var target = train_target.get_tiles().reduce(func(x, a):

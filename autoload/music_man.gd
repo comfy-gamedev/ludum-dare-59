@@ -20,6 +20,7 @@ var _player_music_back_volume_linear: float:
 	set(v): _player_music_back.volume_db = linear_to_db(v)
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_player_music_front = AudioStreamPlayer.new()
 	_player_music_front.name = "Music1"
 	_player_music_front.bus = &"Music"
@@ -88,7 +89,7 @@ func music(stream: AudioStream, xfade: float = 1.0) -> void:
 ## [param stream]: the sound effect stream to play.
 ## [param who]: key for [param max_polyphony].
 ## [param max_polyphony]: maximum simultaneous playbacks for the [param stream] and [param who].
-func sfx(stream: AudioStream, who = null, max_polyphony: int = 1, pitch_scale: float = 1.0) -> void:
+func sfx(stream: AudioStream, who = null, max_polyphony: int = 1, pitch_scale: float = 1.0) -> AudioStreamPlayer:
 	assert(stream != null)
 	assert(max_polyphony >= 0)
 	
@@ -119,3 +120,5 @@ func sfx(stream: AudioStream, who = null, max_polyphony: int = 1, pitch_scale: f
 	
 	audio_stream_player.pitch_scale = pitch_scale
 	audio_stream_player.play()
+	
+	return audio_stream_player

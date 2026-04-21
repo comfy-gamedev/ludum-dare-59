@@ -130,10 +130,13 @@ func cell_in_range(cell_pos: Vector2i) -> bool:
 	return of_cell.distance_to(cell_pos) <= move_speed
 
 func take_damage(amount: int) -> void:
+	if amount == 0:
+		return
 	health = clampi(health - amount, 0, max_health)
 	if health <= 0:
 		_on_death()
 	elif effect_animation_player:
+		MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.DAMAGE_TAKEN)
 		effect_animation_player.play("hurt")
 
 func heal(amount: int) -> void:
@@ -176,8 +179,7 @@ func _set_state(value: EntityState) -> void:
 
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
-	if team == BattleGrid.Team.PLAYER:
-		MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
+	MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
 	clear_plan_visuals()
 	queue_free()
 
