@@ -13,10 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://bljoff2vhc7kh" path="res://objects/grid_terrain/moving_shadow_node.tscn" id="11_sbvst"]
 [ext_resource type="PackedScene" uid="uid://h8b2pry10dfj" path="res://scenes/main_gameplay/command_menu.tscn" id="12_j67kx"]
 [ext_resource type="PackedScene" uid="uid://c8ugt5wb3drlt" path="res://scenes/main_gameplay/ui_right_panel.tscn" id="13_sbvst"]
-[ext_resource type="PackedScene" uid="uid://x8sq25taewiu" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
+[ext_resource type="PackedScene" path="res://scenes/main_gameplay/ui_selection_panel.tscn" id="14_km80p"]
 [ext_resource type="PackedScene" uid="uid://vtwovuplg2ld" path="res://ui/dialogue.tscn" id="14_om7j4"]
 [ext_resource type="PackedScene" uid="uid://5rd2ee201n80" path="res://ui/sf_dialogue.tscn" id="15_jclp5"]
-[ext_resource type="PackedScene" uid="uid://fjjf145uwdef" path="res://scenes/main_gameplay/crossing_panel.tscn" id="16_km80p"]
+[ext_resource type="PackedScene" path="res://scenes/main_gameplay/crossing_panel.tscn" id="16_km80p"]
 
 [node name="MainGameplay" type="Node2D" unique_id=1881313214]
 script = ExtResource("1_wt4mr")

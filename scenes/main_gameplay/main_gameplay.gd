@@ -57,6 +57,7 @@ var player_signal_points: int:
 var _selected_actor: EntityBody
 var _box_scene = preload("res://objects/ui/indicator.tscn")
 var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
+var _warning_short_scene = preload("res://objects/grid_terrain/warningShort.tscn")
 
 var turn_counter = 0
 var turn_goal = 20
@@ -325,7 +326,7 @@ func queue_mountain_smoke_left():
 			tiles.append(Vector2i(r, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_scene.instantiate()
+		var new_warning_tile = _warning_short_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -337,7 +338,7 @@ func queue_mountain_smoke_right():
 			tiles.append(Vector2i(r + starting_row, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_scene.instantiate()
+		var new_warning_tile = _warning_short_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -377,6 +378,12 @@ func _on_turn_end():
 		initiate_terrain_segment_transition()
 	else:
 		queue_terrain_segment_transition()
+	
+	if current_terrain_segment_state == Globals.TerrainSegmentStates.LEFT and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
+		queue_mountain_smoke_right()
+	if current_terrain_segment_state == Globals.TerrainSegmentStates.RIGHT  and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
+		queue_mountain_smoke_left()
+	
 	print("turn: %s" % turn_counter)
 	print("wave: %s" % current_wave)
 	print("level: %s" % Globals.level)
