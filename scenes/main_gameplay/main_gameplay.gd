@@ -31,6 +31,9 @@ static var current: MainGameplay
 @onready var sf_dialogue: SFDialogue = %SfDialogue
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
+var level_1_outro_conversation = preload("res://ui/conversations/level1_complete.tres")
+var level_2_intro_conversation = preload("res://ui/conversations/level2_intro.tres")
+var level_2_outro_conversation = preload("res://ui/conversations/level2_complete.tres")
 var mountains_left = preload("res://ui/conversations/sf_mountains_left.tres")
 var mountains_right = preload("res://ui/conversations/sf_mountains_right.tres")
 
@@ -413,7 +416,12 @@ func _on_right_panel_go_button_pressed() -> void:
 func initiate_level():
 	turn_counter = 0
 	current_wave = 0
-	dialogue.show_conversation(level_1_intro_conversation)
+	
+	if Globals.level == 0:
+		dialogue.show_conversation(level_1_intro_conversation)
+	if Globals.level == 1:
+		dialogue.show_conversation(level_2_intro_conversation)
+		
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
 	if not sword_mech:
