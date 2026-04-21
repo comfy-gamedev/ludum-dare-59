@@ -31,8 +31,6 @@ static var current: MainGameplay
 @onready var sf_dialogue: SFDialogue = %SfDialogue
 
 var level_1_intro_conversation = preload("res://ui/conversations/level1_intro.tres")
-var mountains_left = preload("res://ui/conversations/sf_mountains_left.tres")
-var mountains_right = preload("res://ui/conversations/sf_mountains_right.tres")
 
 @onready var shadow = $BattleGrid/Shadow/ColorRect
 @onready var crossing_panel: CrossingPanel = $CanvasLayer/CrossingPanel
@@ -303,17 +301,32 @@ func queue_terrain_segment_transition():
 				#initiate_right_to_middle_transition.emit()
 				#set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
 
+func create_mountains_conversation(side: String):
+	var step = ConversationStep.new()
+	step.side = ConversationStep.TextureSide.LEFT
+	step.character = preload("res://ui/characters/kailey_sf.tres")
+	step.message = [
+		"Mountains on the {0}! Gonna lose signal!",
+		"Mountains on the {0}! Losing signal!",
+		"Look out for the the mountains on the {0}! Signal dropping!",
+		"Heavy terrain on the {0}! Gonna lose contact!",
+		"Peaks to the {0}! Comm-loss imminent!"
+	].pick_random().format([side])
+	var conv = Conversation.new()
+	conv.steps.push_back(step)
+	return conv
+
 func set_segment_queue(segment_signal: Signal, new_segment):
 	scene_tranition_queue = segment_signal
 	incoming_segment = new_segment
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
 		#print("mountains LEFT coming in one turn")
-		sf_dialogue.show_conversation(mountains_right)
+		sf_dialogue.show_conversation(create_mountains_conversation("right"))
 		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
 		#print("mountains RIGHT coming in one turn")
-		sf_dialogue.show_conversation(mountains_left)
+		sf_dialogue.show_conversation(create_mountains_conversation("left"))
 		queue_mountain_smoke_left()
 
 func queue_mountain_smoke_left():
