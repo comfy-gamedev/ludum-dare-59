@@ -46,8 +46,3 @@ func start_turn() -> void:
 	}
 	
 	orders = [order]
-
-func _on_death() -> void:
-	print("BLAMO")
-	clear_plan_visuals()
-	queue_free()
