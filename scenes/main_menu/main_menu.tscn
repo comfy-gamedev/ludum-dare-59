@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dl3lrfam021ul"]
 
 [ext_resource type="Script" uid="uid://cr8n54gk2qp8l" path="res://scenes/main_menu/main_menu.gd" id="1_te6vx"]
+[ext_resource type="Texture2D" uid="uid://dsoxanoyrtxxp" path="res://assets/textures/screens/hart_til_you_smart.png" id="2_0ebjn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ts50w"]
 bg_color = Color(0.501961, 0.419608, 0.564706, 1)
@@ -13,6 +14,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ts50w")
 script = ExtResource("1_te6vx")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=374995832]
+layout_mode = 2
+texture = ExtResource("2_0ebjn")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=849517368]
 position = Vector2(321, 240)
