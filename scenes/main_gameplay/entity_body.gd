@@ -182,6 +182,13 @@ func _on_death() -> void:
 	MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
 	clear_plan_visuals()
 	queue_free()
+	
+	var vfx = preload("res://objects/vfx/explosion_vfx.tscn").instantiate()
+	vfx.emitting = true
+	get_parent().add_child(vfx)
+	vfx.global_position = self.global_position
+	get_tree().create_timer(0.5).timeout.connect(func():
+		vfx.queue_free())
 
 func _update_plan_visuals() -> void:
 	clear_plan_visuals()
