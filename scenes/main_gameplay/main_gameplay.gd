@@ -56,6 +56,7 @@ var player_signal_points: int:
 var _selected_actor: EntityBody
 var _box_scene = preload("res://objects/ui/indicator.tscn")
 var _warning_scene = preload("res://objects/grid_terrain/warning.tscn")
+var _warning_short_scene = preload("res://objects/grid_terrain/warningShort.tscn")
 
 var turn_counter = 0
 var turn_goal = 20
@@ -317,15 +318,32 @@ func queue_terrain_segment_transition():
 				#initiate_right_to_middle_transition.emit()
 				#set_current_terrain_segment(Globals.TerrainSegmentStates.MIDDLE)
 
+func create_mountains_conversation(side: String):
+	var step = ConversationStep.new()
+	step.side = ConversationStep.TextureSide.LEFT
+	step.character = preload("res://ui/characters/kailey_sf.tres")
+	step.message = [
+		"Mountains on the {0}! Gonna lose signal!",
+		"Mountains on the {0}! Losing signal!",
+		"Look out for the the mountains on the {0}! Signal dropping!",
+		"Heavy terrain on the {0}! Gonna lose contact!",
+		"Peaks to the {0}! Comm-loss imminent!"
+	].pick_random().format([side])
+	var conv = Conversation.new()
+	conv.steps.push_back(step)
+	return conv
+
 func set_segment_queue(segment_signal: Signal, new_segment):
 	scene_tranition_queue = segment_signal
 	incoming_segment = new_segment
 
 	if incoming_segment == Globals.TerrainSegmentStates.LEFT:
-		print("mountains LEFT coming in one turn")
+		#print("mountains LEFT coming in one turn")
+		sf_dialogue.show_conversation(create_mountains_conversation("right"))
 		queue_mountain_smoke_right()
 	elif incoming_segment == Globals.TerrainSegmentStates.RIGHT:
-		print("mountains RIGHT coming in one turn")
+		#print("mountains RIGHT coming in one turn")
+		sf_dialogue.show_conversation(create_mountains_conversation("left"))
 		queue_mountain_smoke_left()
 
 func queue_mountain_smoke_left():
@@ -335,7 +353,7 @@ func queue_mountain_smoke_left():
 			tiles.append(Vector2i(r, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_scene.instantiate()
+		var new_warning_tile = _warning_short_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -347,7 +365,7 @@ func queue_mountain_smoke_right():
 			tiles.append(Vector2i(r + starting_row, c))
 			
 	for i in tiles:
-		var new_warning_tile = _warning_scene.instantiate()
+		var new_warning_tile = _warning_short_scene.instantiate()
 		new_warning_tile.grid_position = i
 		battle_grid.add_child(new_warning_tile)
 
@@ -371,6 +389,11 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
+		if Globals.level == 1:
+			await dialogue.show_conversation(level_1_outro_conversation)
+		elif Globals.level == 2:
+			await dialogue.show_conversation(level_2_outro_conversation)
+			
 		initiate_level()
 		return
 	_spawn_turn_stuff()
@@ -383,6 +406,11 @@ func _on_turn_end():
 	print("turn: %s" % turn_counter)
 	print("wave: %s" % current_wave)
 	print("level: %s" % Globals.level)
+	
+	if current_terrain_segment_state == Globals.TerrainSegmentStates.LEFT and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
+		queue_mountain_smoke_right()
+	if current_terrain_segment_state == Globals.TerrainSegmentStates.RIGHT  and incoming_segment != Globals.TerrainSegmentStates.MIDDLE and incoming_segment == Globals.TerrainSegmentStates.NONE:
+		queue_mountain_smoke_left()
 
 func _spawn_turn_stuff():
 	if Globals.level > 0:
@@ -405,9 +433,9 @@ func initiate_level():
 	current_wave = 0
 	
 	if Globals.level == 0:
-		dialogue.show_conversation(level_1_intro_conversation)
+		await dialogue.show_conversation(level_1_intro_conversation)
 	if Globals.level == 1:
-		dialogue.show_conversation(level_2_intro_conversation)
+		await dialogue.show_conversation(level_2_intro_conversation)
 		
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
