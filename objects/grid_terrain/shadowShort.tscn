@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bvmpf60206psx"]
+
+[ext_resource type="Script" uid="uid://dqx4kbvbxuil5" path="res://scenes/main_gameplay/grid_terrain.gd" id="1_04ucl"]
+[ext_resource type="Material" uid="uid://dnyj3tyg2oc7o" path="res://assets/materials/shadow_material.tres" id="2_w23iw"]
+
+[node name="Shadow" type="Node2D" unique_id=165163691]
+script = ExtResource("1_04ucl")
+signal_blocking = true
+metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2024432123]
+material = ExtResource("2_w23iw")
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
