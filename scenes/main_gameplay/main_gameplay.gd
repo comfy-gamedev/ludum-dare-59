@@ -176,7 +176,8 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
-							print("unimplemented")
+							await perform_next_turn_for(_selected_actor)
+							
 							turn_input()
 							return
 		UI_START_TURN_CLICKED:
@@ -187,6 +188,16 @@ func turn_input() -> void:
 	
 	turn_input()
 	return
+
+func perform_next_turn_for(ent: EntityBody) -> void:
+	ent.clear_plan_visuals()
+	ent.start_turn()
+	
+	await ent.execute_turn_movement_async()
+	
+	if is_instance_valid(ent):
+		await ent.execute_turn_async()
+	
 
 func perform_turn() -> void:
 	var entities: Array[EntityBody] = battle_grid.get_entities()

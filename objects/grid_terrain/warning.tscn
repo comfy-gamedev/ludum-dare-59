@@ -10,11 +10,7 @@ transformation_target = ExtResource("2_45x6w")
 metadata/_custom_type_script = "uid://dqx4kbvbxuil5"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1575489262]
-<<<<<<< HEAD
 modulate = Color(1, 1, 1, 0.5058824)
-=======
-modulate = Color(1, 1, 1, 0.5019608)
->>>>>>> fad463e (Warning transparent)
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
