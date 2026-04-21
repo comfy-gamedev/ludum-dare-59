@@ -91,13 +91,20 @@ func _ready() -> void:
 	turn_input()
 
 func turn_input() -> void:
+	print("TURN INPUT")
+	
+	print("AWAITING: get_tree().process_frame")
 	await get_tree().process_frame
+	print("TURN INPUT: process_frame done")
 	
 	#turn_button.disabled = false
 	
+	print("AWAITING: _ui_input")
 	var ui_input = await _ui_input
 	var ui_event: int = ui_input[0]
 	var ui_params: Dictionary = ui_input[1]
+	
+	print("UI EVENT: _ui_input => ", {event = ui_event, params = ui_params})
 	
 	match ui_event:
 		UI_GRID_CLICKED:
@@ -144,7 +151,9 @@ func turn_input() -> void:
 					
 					command_menu.popup(_selected_actor, grid_pos)
 					
+					print("AWAITING: command_menu.command_chosen")
 					var cmd = await command_menu.command_chosen
+					print("COMMAND CHOSEN: command_chosen => ", cmd)
 					match cmd[0]:
 						CommandMenu.Command.NONE:
 							_selected_actor.on_deselected()
@@ -157,8 +166,10 @@ func turn_input() -> void:
 							var ability: EntityAbility = cmd[1]
 							assert(ability)
 							
+							print("AWAITING: ability.input_async: ", {ability = ability.get_path()})
 							@warning_ignore("redundant_await")
 							var order = await ability.input_async(_selected_actor, battle_grid)
+							print("ABILITY ORDER: ability.input_async => ", {order = order})
 							
 							if order:
 								player_signal_points -= 1
@@ -168,7 +179,7 @@ func turn_input() -> void:
 								_selected_actor.plan_order(order, turn_index)
 								_selected_actor.turn_done = true
 							else:
-								await ability.on_cancel(_selected_actor)
+								ability.on_cancel(_selected_actor)
 							
 							_selected_actor.on_deselected()
 							selection_panel.set_selected_entity(null)
@@ -177,13 +188,19 @@ func turn_input() -> void:
 							turn_input()
 							return
 						CommandMenu.Command.BURST:
+							print("AWAITING: BURST perform_next_turn_for: ", _selected_actor)
 							await perform_next_turn_for(_selected_actor)
+							print("BURST OVER")
 							
 							turn_input()
 							return
 		UI_START_TURN_CLICKED:
 			selection_box.hide()
+			
+			print("AWAITING: perform_turn")
 			await perform_turn()
+			print("PERFORMED TURN")
+			
 			turn_input()
 			return
 	
@@ -201,6 +218,8 @@ func perform_next_turn_for(ent: EntityBody) -> void:
 	
 
 func perform_turn() -> void:
+	print("    PERFORM TURN START")
+	
 	var entities: Array[EntityBody] = battle_grid.get_entities()
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
@@ -217,29 +236,44 @@ func perform_turn() -> void:
 		for ent in entities:
 			if ent.team == team:
 				(func ():
+					#print("    AWAIT: ent.execute_turn_movement_async: ", {ent = ent.get_path()})
 					await ent.execute_turn_movement_async()
+					#print("    DONE: ent.execute_turn_movement_async: ", {ent = ent.get_path()})
 					turn_move_dones[ent] = true
 					if turn_move_dones.size() == entities.size():
-						_turn_movement_done.emit()
+						_turn_movement_done.emit.call_deferred()
 				).call_deferred()
 	
+	#print("    AWAIT: _turn_movement_done")
 	await _turn_movement_done
+	print("    DONE: _turn_movement_done")
 	
 	battle_grid.disable_crossings()
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
-			if is_instance_valid(ent):
+			if is_instance_valid(ent) and not ent.is_queued_for_deletion():
 				if ent.team == team:
+					#print("    AWAIT: ent.execute_turn_async: ", {ent = ent.get_path()})
 					await ent.execute_turn_async()
+					#print("    DONE: ent.execute_turn_async: ", {ent = ent.get_path()})
+	
+	print("    ENTITY TURNS DONE")
 	
 	var terrain_tiles = battle_grid.get_terrains()
 	for terr in terrain_tiles:
+		#print("    AWAIT: terr.perform_turn: ", {terr = terr.get_path()})
+		@warning_ignore("redundant_await")
 		await terr.perform_turn()
+		#print("    DONE: terr.perform_turn: ", {terr = terr.get_path()})
+	
+	print("    TERRAIN TILES DONE")
 	
 	var bodies: Array[GridBody] = battle_grid.get_bodies(true)
 	for body in bodies:
 		body.execute_turn_async()
+	
+	print("    ALL TURNS DONE")
 	
 	reset_turn_state()
 	#spawn_clouds()
