@@ -136,10 +136,10 @@ text = "Main Menu"
 [node name="IndicatorBoxesParent" type="Node2D" parent="." unique_id=419664147]
 
 [node name="DialogueCanvasLayer" type="CanvasLayer" parent="." unique_id=2122191527]
-visible = false
 
 [node name="Dialogue" parent="DialogueCanvasLayer" unique_id=341286864 instance=ExtResource("14_om7j4")]
 unique_name_in_owner = true
+visible = false
 
 [node name="SfDialogue" parent="DialogueCanvasLayer" unique_id=1134654972 instance=ExtResource("15_jclp5")]
 unique_name_in_owner = true

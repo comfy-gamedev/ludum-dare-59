@@ -90,6 +90,11 @@ func _ready() -> void:
 	
 	turn_input()
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_P and event.pressed and event.alt_pressed:
+			_on_turn_end()
+
 func turn_input() -> void:
 	await get_tree().process_frame
 	
@@ -389,26 +394,25 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
+		if Globals.level > 3:
+			$CanvasLayer/WinCard.show()
+			$CanvasLayer/BlankBanner.show()
+			$CanvasLayer/HBoxContainer.show()
+			return
 		
 		if Globals.level == 1:
 			await dialogue.show_conversation(level_1_outro_conversation)
 		elif Globals.level == 2:
 			await dialogue.show_conversation(level_2_outro_conversation)
 		
-		if Globals.level > 3:
-			SceneGirl.change_scene("res://scenes/win_screen/win_screen.tscn")
-		
-		$CanvasLayer/WinCard.show()
-		await get_tree().create_timer(5).timeout
 		SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
+		return
 	
 	if not battle_grid.has_node("SwordMech"
 	) and not battle_grid.has_node("ShieldMech"
 	) and not battle_grid.has_node("SupportMech"
 	) and not battle_grid.has_node("GunnerMech"):
-		$CanvasLayer/Losecard.show()
-		$CanvasLayer/BlankBanner.show()
-		$CanvasLayer/HBoxContainer.show()
+		SceneGirl.change_scene("res://scenes/lose_screen/lose_screen.tscn")
 	
 	_spawn_turn_stuff()
 	
