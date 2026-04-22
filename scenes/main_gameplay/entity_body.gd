@@ -90,9 +90,14 @@ func execute_turn_movement_async() -> void:
 	_update_plan_visuals()
 
 func execute_turn_async() -> void:
+	print("    execute_turn_async(): ", {"self": self.get_path()})
 	while not orders.is_empty():
+		#print("    AWAIT: ability.execute_async: ", {ability = orders[0].ability.get_path(), params = orders[0].params})
 		await orders[0].ability.execute_async(self, orders[0].params)
+		#print("    DONE: ability.execute_async: ", {ability = orders[0].ability.get_path(), params = orders[0].params})
 		orders.remove_at(0)
+	
+	print("    execute_turn_async() DONE")
 	
 	if not future_orders.is_empty():
 		orders = future_orders.pop_front()
@@ -179,6 +184,10 @@ func _set_state(value: EntityState) -> void:
 
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
+	
+	if _tween and _tween.is_running():
+		await _tween.finished
+	
 	MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
 	clear_plan_visuals()
 	queue_free()

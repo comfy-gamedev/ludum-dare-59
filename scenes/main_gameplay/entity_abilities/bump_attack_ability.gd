@@ -39,7 +39,6 @@ func execute_async(entity: EntityBody, params: Dictionary) -> void:
 		entity.battle_grid.get_occupant(entity.grid_position + Vector2i(0, y_sign)).take_damage(damage)
 		#take_damage(damage)
 
-
 func update_preview(entity: EntityBody, params: Dictionary) -> void:
 	pass
 
