@@ -428,19 +428,19 @@ func _on_turn_end():
 	turn_counter += 1
 	if turn_counter > turn_goal:
 		Globals.level += 1
-		if Globals.level > 3:
-			$CanvasLayer/WinCard.show()
-			$CanvasLayer/BlankBanner.show()
-			$CanvasLayer/HBoxContainer.show()
+		if Globals.level >= 3:
+			SceneGirl.change_scene("res://scenes/win_screen/win_screen.tscn")
 			return
-		
-		if Globals.level == 1:
-			await dialogue.show_conversation(level_1_outro_conversation)
-		elif Globals.level == 2:
-			await dialogue.show_conversation(level_2_outro_conversation)
-		
-		SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
-		return
+		else:
+			if Globals.level == 1:
+				await dialogue.show_conversation(level_1_outro_conversation)
+			elif Globals.level == 2:
+				await dialogue.show_conversation(level_2_outro_conversation)
+				
+			$CanvasLayer/WinCard.show()
+			await get_tree().create_timer(5).timeout
+			SceneGirl.change_scene("res://scenes/main_gameplay/main_gameplay.tscn")
+			return
 	
 	if not battle_grid.has_node("SwordMech"
 	) and not battle_grid.has_node("ShieldMech"
