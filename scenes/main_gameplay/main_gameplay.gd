@@ -429,6 +429,7 @@ func _on_turn_end():
 	if turn_counter > turn_goal:
 		Globals.level += 1
 		if Globals.level >= 3:
+			await get_tree().create_timer(5).timeout
 			SceneGirl.change_scene("res://scenes/win_screen/win_screen.tscn")
 			return
 		else:
