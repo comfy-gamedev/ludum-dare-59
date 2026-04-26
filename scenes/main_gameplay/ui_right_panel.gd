@@ -28,5 +28,5 @@ func set_train_hp_bar(bar: NinePatchRect, progress: float) -> void:
 		return
 	
 	bar.show()
-	bar.size = Vector2(bar.size.x, health_bar_max_size * progress)
+	bar.size = Vector2(bar.size.x, new_bar_size_y)
 	bar.position = Vector2(1, 1 + health_bar_max_size * (1 - progress))
