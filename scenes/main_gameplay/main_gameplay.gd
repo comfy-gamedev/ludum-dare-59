@@ -484,6 +484,7 @@ func _on_right_panel_go_button_pressed() -> void:
 func initiate_level():
 	turn_counter = 0
 	current_wave = 0
+	MusicMan.sfx(preload("res://assets/sfx/trainChugLouder.wav"), null, 1, 0.8)
 	
 	if Globals.level == 0:
 		await dialogue.show_conversation(level_1_intro_conversation)

@@ -96,6 +96,7 @@ func _on_shimmy_timer_timeout():
 func _on_main_gameplay_initiate_middle_to_right_transition():
 	#await get_tree().create_timer(1.5).timeout
 	await initiate_train_move
+	MusicMan.sfx(preload("res://assets/sfx/trainChugLouder.wav"), null, 1, 0.8)
 	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_RIGHT_X_POS, position.y)
 	rotation_degrees += Globals.TRAIN_ROTATION
@@ -105,6 +106,7 @@ func _on_main_gameplay_initiate_middle_to_right_transition():
 func _on_main_gameplay_initiate_middle_to_left_transition():
 	#await get_tree().create_timer(0.75).timeout
 	await initiate_train_move
+	MusicMan.sfx(preload("res://assets/sfx/trainChugLouder.wav"), null, 1, 0.8)
 	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_LEFT_X_POS, position.y)
 	moving_left = true
@@ -114,6 +116,7 @@ func _on_main_gameplay_initiate_middle_to_left_transition():
 func _on_main_gameplay_initiate_left_to_middle_transition():
 	#await get_tree().create_timer(1.5).timeout
 	await initiate_train_move
+	MusicMan.sfx(preload("res://assets/sfx/trainChugLouder.wav"), null, 1, 0.8)
 	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
 	moving_right = true
@@ -122,6 +125,7 @@ func _on_main_gameplay_initiate_left_to_middle_transition():
 
 func _on_main_gameplay_initiate_right_to_middle_transition():
 	await initiate_train_move
+	MusicMan.sfx(preload("res://assets/sfx/trainChugLouder.wav"), null, 1, 0.8)
 	await get_tree().create_timer(Globals.TRAIN_TURN_DELAY).timeout
 	target_pos = Vector2(TARGET_MIDDLE_X_POS, position.y)
 	rotation_degrees -= Globals.TRAIN_ROTATION
