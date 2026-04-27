@@ -132,6 +132,7 @@ func turn_input() -> void:
 			if not occupant is EntityBody or tile_terrains.any(func(x): return x.signal_blocking):
 				if _selected_actor:
 					_selected_actor.on_deselected()
+					_selected_actor = null
 					selection_panel.set_selected_entity(null)
 					selection_box.hide()
 			else:
@@ -162,6 +163,7 @@ func turn_input() -> void:
 					match cmd[0]:
 						CommandMenu.Command.NONE:
 							_selected_actor.on_deselected()
+							_selected_actor = null
 							selection_panel.set_selected_entity(null)
 							selection_box.hide()
 							
@@ -187,6 +189,7 @@ func turn_input() -> void:
 								ability.on_cancel(_selected_actor)
 							
 							_selected_actor.on_deselected()
+							_selected_actor = null
 							selection_panel.set_selected_entity(null)
 							selection_box.hide()
 							
@@ -217,6 +220,8 @@ func perform_next_turn_for(ent: EntityBody) -> void:
 	ent.start_turn()
 	
 	await ent.execute_turn_movement_async()
+	
+	ent.show_selectable()
 	
 	if is_instance_valid(ent):
 		await ent.execute_turn_async()
@@ -283,6 +288,7 @@ func perform_turn() -> void:
 	reset_turn_state()
 	#spawn_clouds()
 	turn_end.emit()
+	Globals.turn_end.emit()
 
 func reset_turn_state() -> void:
 	player_signal_points = 3
@@ -290,6 +296,17 @@ func reset_turn_state() -> void:
 
 func _on_battle_grid_cell_clicked(grid_pos: Vector2i, click_button: int) -> void:
 	_ui_input.emit(UI_GRID_CLICKED, {grid_pos = grid_pos, click_button = click_button})
+
+
+func _on_battle_grid_mouse_over_cell_changed(grid_pos: Vector2i) -> void:
+	var tile_terrains = battle_grid.get_terrain(grid_pos)
+	var occupant = battle_grid.get_occupant(grid_pos)
+	
+	if not occupant:
+		if selection_panel.selected_entity != _selected_actor:
+			selection_panel.set_selected_entity(_selected_actor)
+	elif occupant is EntityBody:
+		selection_panel.set_selected_entity(occupant, tile_terrains.any(func(x): return x.signal_blocking))
 
 
 func _on_parallax_background_segment_transition_complete():

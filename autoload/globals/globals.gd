@@ -10,6 +10,7 @@ extends Node
 ## Emitted when any variable changes.
 signal changed(prop_name: StringName)
 
+signal turn_end()
 signal engine_health_changed(value: float)
 signal flatbead_health_changed(value: float)
 signal caboose_health_changed(value: float)

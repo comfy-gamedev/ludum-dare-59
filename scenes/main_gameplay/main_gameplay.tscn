@@ -163,6 +163,7 @@ unique_name_in_owner = true
 [connection signal="update_flatbed_position" from="FlatBed" to="Caboose" method="_on_flat_bed_update_flatbed_position"]
 [connection signal="cell_clicked" from="BattleGrid" to="." method="_on_battle_grid_cell_clicked"]
 [connection signal="crossing" from="BattleGrid" to="." method="_on_battle_grid_crossing"]
+[connection signal="mouse_over_cell_changed" from="BattleGrid" to="." method="_on_battle_grid_mouse_over_cell_changed"]
 [connection signal="go_button_pressed" from="CanvasLayer/RightPanel" to="." method="_on_right_panel_go_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/CenterContainer2/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/CenterContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

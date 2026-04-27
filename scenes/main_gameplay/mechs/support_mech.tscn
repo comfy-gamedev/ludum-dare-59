@@ -4,9 +4,47 @@
 [ext_resource type="Texture2D" uid="uid://bly2unqhm7yud" path="res://assets/textures/units/support_unit/support_unit_1.png" id="2_dnjpg"]
 [ext_resource type="Texture2D" uid="uid://c8fiadpcf1vcd" path="res://assets/textures/characters/heidi_sf.png" id="2_egu0e"]
 [ext_resource type="Texture2D" uid="uid://c2lsxpkngnjtu" path="res://assets/textures/units/support_unit/support_unit_2.png" id="3_xpefm"]
+[ext_resource type="Texture2D" uid="uid://qdra0fkgyyjr" path="res://assets/textures/effects/unit_selectable.png" id="4_eybwi"]
 [ext_resource type="Script" uid="uid://cvpb5kno4j73f" path="res://scenes/main_gameplay/entity_abilities/move_heal_ability.gd" id="4_tnvut"]
 [ext_resource type="Texture2D" uid="uid://b2pj2aokghfug" path="res://assets/textures/effects/heal_aoe.png" id="5_dnjpg"]
 [ext_resource type="SpriteFrames" uid="uid://bm2h2vrw6rr6b" path="res://assets/textures/effects/heal.tres" id="6_xpefm"]
+
+[sub_resource type="Animation" id="Animation_p0ja0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6jr7k"]
+resource_name = "selectable"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xe2ut"]
+_data = {
+&"RESET": SubResource("Animation_p0ja0"),
+&"selectable": SubResource("Animation_6jr7k")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2n4m"]
 animations = [{
@@ -215,6 +253,14 @@ crossing_sprite = ExtResource("2_dnjpg")
 character = 5
 facing_vector = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://cbvn0mrra1aot"
+
+[node name="SelectableSprite2D" type="Sprite2D" parent="." unique_id=851842313]
+visible = false
+modulate = Color(1, 1, 1, 0.5882353)
+texture = ExtResource("4_eybwi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SelectableSprite2D" unique_id=955743987]
+libraries/ = SubResource("AnimationLibrary_xe2ut")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1348261928]
 sprite_frames = SubResource("SpriteFrames_l2n4m")

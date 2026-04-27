@@ -12,6 +12,8 @@ enum EntityState {
 	PLANNING_AOE
 }
 
+const SELECTABLE_SPRITE_ROTATION_SPEED: float = 0.1
+
 @export var max_health: int = 3
 @export var health: int = 3
 @export var move_speed: int = 3
@@ -31,6 +33,8 @@ var state: EntityState = EntityState.DESELECTED: set = _set_state
 var turn_end_previews: Array[Node2D]
 var last_mouse_over_grid: Vector2i = Vector2i(-1, -1)
 var preview_line: Line2D
+var selectable_sprite: Sprite2D
+var selectable_animation_player: AnimationPlayer
 
 var crossing_area: Area2D
 
@@ -63,8 +67,20 @@ func _ready() -> void:
 	crossing_area.add_child(collision_shape)
 	add_child(crossing_area)
 	
+	selectable_sprite = find_child("SelectableSprite2D")
+	if selectable_sprite:
+		selectable_sprite.show()
+		selectable_animation_player = selectable_sprite.find_child("AnimationPlayer")
+		if selectable_animation_player:
+			selectable_animation_player.play("selectable")
+	
+	Globals.turn_end.connect(_on_turn_end)
 	moving.connect(func (is_moving):
 		collision_shape.disabled = not is_moving)
+
+func _process(delta: float) -> void:
+	if selectable_sprite:
+		selectable_sprite.rotate(2 * PI * SELECTABLE_SPRITE_ROTATION_SPEED * delta)
 
 func _on_grid_mouse_move(mouse_grid_pos: Vector2i) -> void:
 	if state == EntityState.PLANNING_MOVE and cell_in_range(mouse_grid_pos):
@@ -121,6 +137,7 @@ func plan_order(order: EntityOrder, turn_index: int = 0) -> void:
 	if turn_index >= future_orders.size() and "target_pos" in order.params:
 		turn_end_grid_pos = order.params.target_pos
 	
+	hide_selectable()
 	_update_plan_visuals()
 
 func clear_orders() -> void:
@@ -166,6 +183,8 @@ func clear_plan_visuals() -> void:
 	if plan_line:
 		plan_line.clear_points()
 		plan_line.add_point(Vector2.ZERO)
+	if preview_line:
+		preview_line.clear_points()
 	while not turn_end_previews.is_empty():
 		var back_preview = turn_end_previews.pop_back()
 		if is_instance_valid(back_preview):
@@ -209,11 +228,26 @@ func _update_plan_visuals() -> void:
 
 func on_selected():
 	_set_state(EntityState.PLANNING_MENU)
+	hide_selectable()
 
 func on_deselected():
 	_set_state(EntityState.DESELECTED)
+	if orders.is_empty():
+		show_selectable()
+
+func show_selectable() -> void:
+	if selectable_sprite:
+		selectable_sprite.show()
+
+func hide_selectable() -> void:
+	if selectable_sprite:
+		selectable_sprite.hide()
 
 func _on_crossing_area_entered(area: Area2D) -> void:
 	print("Boo!", area)
 	if area.get_parent().team != team:
 		battle_grid.do_crossing(self, area.get_parent())
+
+func _on_turn_end() -> void:
+	if orders.is_empty():
+		show_selectable()

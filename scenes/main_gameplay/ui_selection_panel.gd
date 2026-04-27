@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		else:
 			position = original_position
 
-func set_selected_entity(ent: EntityBody) -> void:
+func set_selected_entity(ent: EntityBody, signal_blocking: bool = false) -> void:
 	if not ent:
 		selected_entity = null
 		hide()
