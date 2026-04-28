@@ -81,7 +81,8 @@ func _ready() -> void:
 	
 	Globals.init_train($Engine, $FlatBed, $Caboose)
 	initiate_level()
-	show_level_start_dialog()
+	await show_level_start_dialog()
+	spawn_random_enemy() # spawn single enemy on level start.
 	reset_turn_state()
 	turn_input()
 
@@ -486,6 +487,7 @@ func _on_turn_end():
 func _spawn_turn_stuff():
 	if Globals.level > 0:
 		spawn_clouds(2 + (Globals.level / 3), min(2 + Globals.level, 4))
+	
 	if turn_counter % 3 == 0:
 		current_wave += 1
 		init_new_wave()
