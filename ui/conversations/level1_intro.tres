@@ -11,6 +11,7 @@
 [sub_resource type="Resource" id="Resource_0gmtb"]
 script = ExtResource("4_yn51q")
 side = 1
+character = ExtResource("2_8ubwr")
 message = "Uhhh... What are we doing again?"
 metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 
@@ -111,5 +112,4 @@ metadata/_custom_type_script = "uid://bh7au0lmg7bca"
 [resource]
 script = ExtResource("3_psatb")
 left_character = ExtResource("1_h278d")
-right_character = ExtResource("2_8ubwr")
 steps = Array[ExtResource("4_yn51q")]([SubResource("Resource_0gmtb"), SubResource("Resource_6qm1b"), SubResource("Resource_7i11d"), SubResource("Resource_pcu2o"), SubResource("Resource_vgi65"), SubResource("Resource_e1yoy"), SubResource("Resource_m25q7"), SubResource("Resource_b2cds"), SubResource("Resource_t5ll6"), SubResource("Resource_h1esn"), SubResource("Resource_65xoq"), SubResource("Resource_wncrj"), SubResource("Resource_m8480"), SubResource("Resource_m67gf"), SubResource("Resource_75nt3"), SubResource("Resource_isi4v"), SubResource("Resource_6gmtd")])

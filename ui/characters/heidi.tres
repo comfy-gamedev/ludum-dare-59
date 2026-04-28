@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Character" format=3 uid="uid://dvy11ai5qnrus"]
 
-[ext_resource type="Script" uid="uid://dvng4as2c634m" path="res://ui/character.gd" id="1_qdagv"]
-[ext_resource type="AudioStream" uid="uid://b28nblj81qcln" path="res://assets/sfx/dialogue/heidi.wav" id="2_2fkui"]
+[ext_resource type="Script" path="res://ui/character.gd" id="1_qdagv"]
+[ext_resource type="AudioStream" uid="uid://b28nblj81qcln" path="res://assets/sfx/dialogue/Heidi.wav" id="2_2fkui"]
 [ext_resource type="Texture2D" uid="uid://bao4notqjbux0" path="res://assets/textures/characters/heidi.png" id="3_awf4d"]
 
 [resource]
@@ -9,4 +9,3 @@ script = ExtResource("1_qdagv")
 name = "Heidi"
 texture = ExtResource("3_awf4d")
 talk_sfx = ExtResource("2_2fkui")
-metadata/_custom_type_script = "uid://dvng4as2c634m"
