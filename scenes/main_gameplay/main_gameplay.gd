@@ -79,16 +79,17 @@ func _ready() -> void:
 			current_box.grid_pos = Vector2i(i, j)
 			box_parent.add_child(current_box)
 	
-	#initiate_middle_to_right_transition.emit()
-	#initiate_middle_to_left_transition.emit()
-	#initiate_left_to_middle_transition.emit()
-	#on_train_death()
-	initiate_level()
 	Globals.init_train($Engine, $FlatBed, $Caboose)
-	
+	initiate_level()
+	show_level_start_dialog()
 	reset_turn_state()
-	
 	turn_input()
+
+func show_level_start_dialog():
+	if Globals.level == 0:
+		await dialogue.show_conversation(level_1_intro_conversation)
+	if Globals.level == 1:
+		await dialogue.show_conversation(level_2_intro_conversation)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -502,11 +503,6 @@ func initiate_level():
 	turn_counter = 0
 	current_wave = 0
 	MusicMan.sfx(preload("res://assets/sfx/trainChugFade.wav"))
-	
-	if Globals.level == 0:
-		await dialogue.show_conversation(level_1_intro_conversation)
-	if Globals.level == 1:
-		await dialogue.show_conversation(level_2_intro_conversation)
 		
 	# do difficult based on level
 	var sword_mech = battle_grid.get_node("SwordMech")
