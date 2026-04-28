@@ -233,7 +233,7 @@ func create_defender() -> CharacterDialogue:
 func create_healer() -> CharacterDialogue:
 	var cd = CharacterDialogue.new()
 	cd.character = preload("res://ui/characters/heidi_sf.tres")
-	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Oops! Sorry!"]
+	cd.dialogues[Dialogue.NORMAL_ATTACK] = ["Here, this should help!"] # ["Oops! Sorry!"]
 	cd.dialogues[Dialogue.SPECIAL_ABILITY] = ["I got you."]
 	cd.dialogues[Dialogue.KILL_STREAK] = ["Dang it Jim, I'm a healer not a fighter!"]
 	cd.dialogues[Dialogue.DAMAGE_TAKEN] = ["Help!"]
