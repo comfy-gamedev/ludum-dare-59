@@ -82,9 +82,13 @@ func _ready() -> void:
 	Globals.init_train($Engine, $FlatBed, $Caboose)
 	initiate_level()
 	await show_level_start_dialog()
-	spawn_random_enemy() # spawn single enemy on level start.
+	spawn_level_start_enemies()
 	reset_turn_state()
 	turn_input()
+
+func spawn_level_start_enemies():
+	for i in range(Globals.level + 1):
+		spawn_random_enemy()
 
 func show_level_start_dialog():
 	if Globals.level == 0:
