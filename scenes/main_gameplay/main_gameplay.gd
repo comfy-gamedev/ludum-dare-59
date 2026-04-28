@@ -40,6 +40,7 @@ var level_2_outro_conversation = preload("res://ui/conversations/level2_complete
 
 var basic_drone_scene = preload("res://objects/grid_actors/enemies/basic_drone.tscn")
 var slash_drone_scene = preload("res://objects/grid_actors/enemies/slash_drone.tscn")
+var ranger_drone_scene = preload("res://objects/grid_actors/enemies/ranger_drone.tscn")
 
 var gunner_mech_scene = preload("res://scenes/main_gameplay/mechs/gunner_mech.tscn")
 var shield_mech_scene = preload("res://scenes/main_gameplay/mechs/shield_mech.tscn")
@@ -542,7 +543,7 @@ func init_new_wave():
 		spawn_random_enemy()
 
 func spawn_random_enemy():
-	var enemy_scenes = [basic_drone_scene, slash_drone_scene]
+	var enemy_scenes = [basic_drone_scene, slash_drone_scene, ranger_drone_scene]
 	var sides = ["left", "up", "right"]
 	var enemy_scene = enemy_scenes.pick_random()
 	var side = sides.pick_random()
