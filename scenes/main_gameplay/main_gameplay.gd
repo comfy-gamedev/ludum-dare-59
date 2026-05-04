@@ -204,7 +204,7 @@ func turn_input() -> void:
 							return
 						CommandMenu.Command.BURST:
 							print("AWAITING: BURST perform_next_turn_for: ", _selected_actor)
-							await perform_next_turn_for(_selected_actor)
+							await perform_next_turn_for(_selected_actor) else null
 							print("BURST OVER")
 							
 							turn_input()
@@ -247,16 +247,17 @@ func perform_turn() -> void:
 	
 	battle_grid.enable_crossings()
 	
-	var turn_move_dones: Dictionary[EntityBody, bool]
+	var turn_move_dones: Dictionary[int, bool]
 	
 	for team in [BattleGrid.Team.PLAYER, BattleGrid.Team.ENEMY]:
 		for ent in entities:
 			if ent.team == team:
 				(func ():
 					#print("    AWAIT: ent.execute_turn_movement_async: ", {ent = ent.get_path()})
-					await ent.execute_turn_movement_async()
+					var oid = ent.get_instance_id()
+					await ent.execute_turn_movement_async() else null
 					#print("    DONE: ent.execute_turn_movement_async: ", {ent = ent.get_path()})
-					turn_move_dones[ent] = true
+					turn_move_dones[oid] = true
 					if turn_move_dones.size() == entities.size():
 						_turn_movement_done.emit.call_deferred()
 				).call_deferred()
@@ -272,7 +273,7 @@ func perform_turn() -> void:
 			if is_instance_valid(ent) and not ent.is_queued_for_deletion():
 				if ent.team == team:
 					#print("    AWAIT: ent.execute_turn_async: ", {ent = ent.get_path()})
-					await ent.execute_turn_async()
+					await ent.execute_turn_async() else null
 					#print("    DONE: ent.execute_turn_async: ", {ent = ent.get_path()})
 	
 	print("    ENTITY TURNS DONE")

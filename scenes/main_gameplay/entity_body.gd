@@ -204,9 +204,6 @@ func _set_state(value: EntityState) -> void:
 func _on_death() -> void:
 	print("Mr. Stark, I don't feel so good.")
 	
-	if _tween and _tween.is_running():
-		await _tween.finished
-	
 	MainGameplay.current.sf_dialogue.show_character_dialogue(character, SFDialogue.Dialogue.KILLED)
 	clear_plan_visuals()
 	queue_free()
